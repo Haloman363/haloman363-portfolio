@@ -1,0 +1,34 @@
+- generic [ref=e3]:
+  - generic:
+    - generic:
+      - img
+  - navigation [ref=e4]:
+    - list [ref=e5]:
+      - listitem [ref=e6]:
+        - button "Home" [ref=e7] [cursor=pointer]: Home
+      - listitem [ref=e9]:
+        - button "Work" [ref=e10] [cursor=pointer]
+      - listitem [ref=e11]:
+        - button "Links" [ref=e12] [cursor=pointer]
+  - main [ref=e17]:
+    - generic [ref=e18]:
+      - paragraph [ref=e19]: HALOMAN363
+      - heading "JAYMES BUNCE" [level=1] [ref=e20]:
+        - generic [ref=e21]: JAYMES
+        - generic [ref=e22]: BUNCE
+      - paragraph [ref=e23]: Hobbyist developer & maker
+      - paragraph [ref=e24]:
+        - text: Python · JavaScript · Hardware
+        - text: 3D printing · ESP32 · browser experiments
+      - generic [ref=e25]:
+        - link "GitHub ↗" [ref=e26] [cursor=pointer]:
+          - /url: https://github.com/Haloman363
+        - button "View Work →" [ref=e27] [cursor=pointer]
+      - generic [ref=e28]:
+        - generic [ref=e29]:
+          - generic [ref=e30]: "05"
+          - generic [ref=e31]: Repos
+        - generic [ref=e33]:
+          - generic [ref=e34]: "03"
+          - generic [ref=e35]: Languages
+      - paragraph [ref=e36]: ← → arrow keys or nav above to explore

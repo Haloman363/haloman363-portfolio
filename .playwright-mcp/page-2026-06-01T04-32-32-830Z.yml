@@ -1,0 +1,51 @@
+- generic [ref=e3]:
+  - generic:
+    - img:
+      - generic: LUMON INDUSTRIES
+      - generic: EMPLOYEE FILE — MACRODATA REFINEMENT
+    - img:
+      - generic: LUMON
+  - generic:
+    - img
+    - img
+  - navigation [ref=e4]:
+    - generic [ref=e5]:
+      - generic [ref=e6]: MDR
+      - generic [ref=e7]: Macrodata Refinement
+    - list [ref=e8]:
+      - listitem [ref=e9]:
+        - button "Overview" [ref=e10] [cursor=pointer]: Overview
+      - listitem [ref=e12]:
+        - button "Projects" [ref=e13] [cursor=pointer]
+      - listitem [ref=e14]:
+        - button "Directory" [ref=e15] [cursor=pointer]
+  - main [ref=e20]:
+    - generic [ref=e21]:
+      - generic [ref=e22]:
+        - generic [ref=e23]: EMPLOYEE FILE
+        - generic [ref=e24]: "ID: HLM-363"
+      - heading "JAYMES BUNCE" [level=1] [ref=e25]:
+        - generic [ref=e26]: JAYMES
+        - generic [ref=e27]: BUNCE
+      - paragraph [ref=e29]: Hobbyist Developer & Maker
+      - paragraph [ref=e30]:
+        - text: Python · JavaScript · Hardware · 3D Printing
+        - text: ESP32 · Browser Experiments
+      - generic [ref=e31]:
+        - generic [ref=e32]: NOTICE
+        - paragraph [ref=e33]: All projects listed herein are the sole intellectual property of the employee. Lumon Industries claims no jurisdiction over outie activities.
+      - generic [ref=e34]:
+        - link "GitHub ↗" [ref=e35] [cursor=pointer]:
+          - /url: https://github.com/Haloman363
+        - button "View Projects →" [ref=e36] [cursor=pointer]
+      - generic [ref=e37]:
+        - generic [ref=e38]:
+          - generic [ref=e39]: "05"
+          - generic [ref=e40]: Repos
+        - generic [ref=e42]:
+          - generic [ref=e43]: "03"
+          - generic [ref=e44]: Languages
+        - generic [ref=e46]:
+          - generic [ref=e47]: ∞
+          - generic [ref=e48]: Curiosity
+      - paragraph [ref=e49]: ← → arrow keys or nav above to explore

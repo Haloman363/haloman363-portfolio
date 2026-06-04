@@ -1,0 +1,55 @@
+- generic [ref=e3]:
+  - generic:
+    - img:
+      - generic: LUMON INDUSTRIES
+      - generic: EMPLOYEE FILE — MACRODATA REFINEMENT
+    - img:
+      - generic: LUMON
+  - generic:
+    - img
+    - img
+  - navigation [ref=e4]:
+    - generic [ref=e5]:
+      - generic [ref=e6]: MDR
+      - generic [ref=e7]: Macrodata Refinement
+    - list [ref=e8]:
+      - listitem [ref=e9]:
+        - button "Overview" [ref=e10] [cursor=pointer]
+      - listitem [ref=e12]:
+        - button "Projects" [active] [ref=e13] [cursor=pointer]: Projects
+      - listitem [ref=e14]:
+        - button "Directory" [ref=e15] [cursor=pointer]
+  - main [ref=e51]:
+    - generic [ref=e52]:
+      - generic [ref=e53]:
+        - generic [ref=e54]: "01"
+        - heading "Projects" [level=2] [ref=e55]
+      - generic [ref=e57]:
+        - link "Featured rune-claude RuneScape-themed Claude Code plugin with XP, quests, economy, and sounds Python ★ 1" [ref=e58] [cursor=pointer]:
+          - /url: https://github.com/Haloman363/rune-claude
+          - generic [ref=e59]: Featured
+          - heading "rune-claude" [level=3] [ref=e60]
+          - paragraph [ref=e61]: RuneScape-themed Claude Code plugin with XP, quests, economy, and sounds
+          - generic [ref=e62]:
+            - generic [ref=e63]: Python
+            - generic [ref=e65]: ★ 1
+        - link "artifacts Claude artifact PWA hub JavaScript" [ref=e66] [cursor=pointer]:
+          - /url: https://github.com/Haloman363/artifacts
+          - heading "artifacts" [level=3] [ref=e67]
+          - paragraph [ref=e68]: Claude artifact PWA hub
+          - generic [ref=e70]: JavaScript
+        - link "browser-strike No description JavaScript" [ref=e72] [cursor=pointer]:
+          - /url: https://github.com/Haloman363/browser-strike
+          - heading "browser-strike" [level=3] [ref=e73]
+          - paragraph [ref=e74]: No description
+          - generic [ref=e76]: JavaScript
+        - link "browser-zoo No description JavaScript" [ref=e78] [cursor=pointer]:
+          - /url: https://github.com/Haloman363/browser-zoo
+          - heading "browser-zoo" [level=3] [ref=e79]
+          - paragraph [ref=e80]: No description
+          - generic [ref=e82]: JavaScript
+        - link "ctt Used to store my CTT JSON files for ease of use for setting up PCs PowerShell" [ref=e84] [cursor=pointer]:
+          - /url: https://github.com/Haloman363/ctt
+          - heading "ctt" [level=3] [ref=e85]
+          - paragraph [ref=e86]: Used to store my CTT JSON files for ease of use for setting up PCs
+          - generic [ref=e88]: PowerShell

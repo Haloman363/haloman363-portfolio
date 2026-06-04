@@ -1,0 +1,75 @@
+- generic [ref=e3]:
+  - generic:
+    - img:
+      - generic: LUMON INDUSTRIES
+      - generic: EMPLOYEE FILE — MACRODATA REFINEMENT
+    - img:
+      - generic: LUMON
+  - generic:
+    - img
+    - img
+  - navigation [ref=e4]:
+    - generic [ref=e5]:
+      - generic [ref=e6]: MDR
+      - generic [ref=e7]: Macrodata Refinement
+    - list [ref=e8]:
+      - listitem [ref=e9]:
+        - button "Overview" [ref=e10] [cursor=pointer]
+      - listitem [ref=e12]:
+        - button "Projects" [ref=e13] [cursor=pointer]
+      - listitem [ref=e14]:
+        - button "Directory" [active] [ref=e15] [cursor=pointer]: Directory
+  - main [ref=e91]:
+    - generic [ref=e92]:
+      - generic [ref=e93]:
+        - generic [ref=e94]: "02"
+        - heading "Links" [level=2] [ref=e95]
+      - list [ref=e97]:
+        - listitem [ref=e98]:
+          - link "MakerWorld 3D printing models for designers and makers" [ref=e99] [cursor=pointer]:
+            - /url: https://makerworld.com/en/@Haloman363
+            - img [ref=e101]
+            - generic [ref=e103]:
+              - generic [ref=e104]: MakerWorld
+              - generic [ref=e105]: 3D printing models for designers and makers
+            - generic [ref=e106]: ↗
+        - listitem [ref=e107]:
+          - link "LinkedIn Professional profile · jaymes-bunce" [ref=e108] [cursor=pointer]:
+            - /url: https://www.linkedin.com/in/jaymes-bunce
+            - img [ref=e110]
+            - generic [ref=e112]:
+              - generic [ref=e113]: LinkedIn
+              - generic [ref=e114]: Professional profile · jaymes-bunce
+            - generic [ref=e115]: ↗
+        - listitem [ref=e116]:
+          - link "Venmo @JaymesBunce" [ref=e117] [cursor=pointer]:
+            - /url: https://account.venmo.com/u/JaymesBunce
+            - img [ref=e119]
+            - generic [ref=e121]:
+              - generic [ref=e122]: Venmo
+              - generic [ref=e123]: "@JaymesBunce"
+            - generic [ref=e124]: ↗
+        - listitem [ref=e125]:
+          - link "Ally Bank $100 welcome bonus referral" [ref=e126] [cursor=pointer]:
+            - /url: https://ally.com/referral?code=7C9J9N9V9B
+            - img [ref=e128]
+            - generic [ref=e131]:
+              - generic [ref=e132]: Ally Bank
+              - generic [ref=e133]: $100 welcome bonus referral
+            - generic [ref=e134]: ↗
+        - listitem [ref=e135]:
+          - link "Discover Cashback card referral" [ref=e136] [cursor=pointer]:
+            - /url: https://refer.discover.com/s/jaymesbunce6
+            - img [ref=e138]
+            - generic [ref=e140]:
+              - generic [ref=e141]: Discover
+              - generic [ref=e142]: Cashback card referral
+            - generic [ref=e143]: ↗
+        - listitem [ref=e144]:
+          - link "Capital One Card referral with bonus benefits" [ref=e145] [cursor=pointer]:
+            - /url: https://i.capitalone.com/GCvRtodqH
+            - img [ref=e147]
+            - generic [ref=e149]:
+              - generic [ref=e150]: Capital One
+              - generic [ref=e151]: Card referral with bonus benefits
+            - generic [ref=e152]: ↗
