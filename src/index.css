@@ -23,3 +23,9 @@ body {
     cursor: auto;
   }
 }
+
+@media (hover: none) {
+  button, a, [role="button"] {
+    cursor: auto;
+  }
+}
