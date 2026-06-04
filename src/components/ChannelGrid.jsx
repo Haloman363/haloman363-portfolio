@@ -47,11 +47,15 @@ export default function ChannelGrid({ onSelect, onHover }) {
   const [slots, setSlots] = useState(() => buildSlots(NAMED_CHANNELS, []))
 
   useEffect(() => {
+    const controller = new AbortController()
     async function loadRepos() {
       try {
         const res = await fetch(
           `https://api.github.com/users/${GITHUB_USER}/repos?per_page=100&sort=updated`,
-          { headers: { Accept: 'application/vnd.github.v3+json' } }
+          {
+            headers: { Accept: 'application/vnd.github.v3+json' },
+            signal: controller.signal,
+          }
         )
         if (!res.ok) throw new Error()
         const data = await res.json()
@@ -59,11 +63,13 @@ export default function ChannelGrid({ onSelect, onHover }) {
           .filter(r => !r.fork && r.name !== GITHUB_USER.toLowerCase())
           .sort((a, b) => b.stargazers_count - a.stargazers_count)
         setSlots(buildSlots(NAMED_CHANNELS, filtered))
-      } catch {
-        // Leave named channels, repo slots stay null
+      } catch (err) {
+        if (err.name === 'AbortError') return
+        // Leave named channels in place on error
       }
     }
     loadRepos()
+    return () => controller.abort()
   }, [])
 
   const prevPage = useCallback(() => setPage(p => Math.max(0, p - 1)), [])

@@ -31,7 +31,7 @@ export function useWiiAudio() {
     if (!enabled) return
     const sfx = new Audio(src)
     sfx.volume = 0.6
-    sfx.play().catch(() => {})
+    sfx.play().catch(() => {}).finally(() => { sfx.src = '' })
   }, [enabled])
 
   const playHover = useCallback(() => playSfx('/wii/audio/sfx-hover.wav'), [playSfx])

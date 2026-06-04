@@ -4,7 +4,7 @@ export function useCursorPhysics() {
   const [pos, setPos] = useState({ x: -200, y: -200 })
   const [tilt, setTilt] = useState(0)
   const velX = useRef(0)
-  const lastX = useRef(-200)
+  const lastX = useRef(null)
   const tiltRef = useRef(0)
   const rafRef = useRef(null)
 
@@ -12,7 +12,9 @@ export function useCursorPhysics() {
     function onMove(e) {
       const x = e.clientX
       const y = e.clientY
-      velX.current = x - lastX.current
+      if (lastX.current !== null) {
+        velX.current = x - lastX.current
+      }
       lastX.current = x
       setPos({ x, y })
     }
