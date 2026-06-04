@@ -37,14 +37,15 @@ export default function App() {
 
   function renderBannerContent(channelId, channelData) {
     if (!channelId) return null
-    const data = channelData ?? lastChannelDataRef.current
     if (channelId === 'mii-channel') return <AboutBanner />
     if (channelId === 'photo-channel') return <PhotoBanner />
     if (channelId === 'wii-shop') return <ShopBanner />
     if (channelId === 'check-mii-out') return <MakerWorldBanner />
     if (channelId === 'linkedin') return <LinkedInBanner />
     if (channelId === 'venmo') return <VenmoBanner />
-    if (channelId.startsWith('repo-')) return <RepoBanner channel={data} />
+    if (channelId.startsWith('repo-')) {
+      return <RepoBanner channel={channelData ?? lastChannelDataRef.current} />
+    }
     return null
   }
 
