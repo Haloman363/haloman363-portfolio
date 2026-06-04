@@ -1,0 +1,27 @@
+export const GITHUB_USER = 'Haloman363'
+export const FEATURED_REPO = 'rune-claude'
+
+export const LANG_COLORS = {
+  Python: '#3572A5',
+  JavaScript: '#f1e05a',
+  TypeScript: '#3178c6',
+  PowerShell: '#012456',
+  Rust: '#dea584',
+  HTML: '#e34c26',
+  CSS: '#563d7c',
+}
+
+export const NAMED_CHANNELS = [
+  { id: 'mii-channel', label: 'Mii Channel', sprite: '/wii/sprites/channel-mii.png', page: 0, slot: 0 },
+  { id: 'photo-channel', label: 'Photo Channel', sprite: '/wii/sprites/channel-photo.png', page: 0, slot: 1 },
+  { id: 'wii-shop', label: 'Wii Shop Channel', sprite: '/wii/sprites/channel-shop.png', page: 0, slot: 8 },
+  { id: 'check-mii-out', label: 'Check Mii Out', sprite: '/wii/sprites/channel-checkmiiout.png', page: 0, slot: 9 },
+  { id: 'linkedin', label: 'LinkedIn', sprite: null, page: 0, slot: 10 },
+  { id: 'venmo', label: 'Venmo', sprite: null, page: 1, slot: 0 },
+]
+
+export const REFERRAL_LINKS = [
+  { name: 'Ally Bank', desc: '$100 welcome bonus referral', href: 'https://ally.com/referral?code=7C9J9N9V9B', accent: '#c9a84c' },
+  { name: 'Discover', desc: 'Cashback card referral', href: 'https://refer.discover.com/s/jaymesbunce6', accent: '#f97316' },
+  { name: 'Capital One', desc: 'Card referral with bonus benefits', href: 'https://i.capitalone.com/GCvRtodqH', accent: '#a855f7' },
+]
