@@ -7,7 +7,7 @@ function formatDate(d) {
   return `${DAYS[d.getDay()]} ${d.getMonth() + 1}/${d.getDate()}`
 }
 
-export default function WiiFooter({ audioEnabled, onAudioToggle, darkMode, onDarkToggle }) {
+export default function WiiFooter({ audioEnabled, onAudioToggle, darkMode, onDarkToggle, channelOpen }) {
   useEffect(() => {
     function update() {
       const el = document.getElementById('wii-date')
@@ -41,7 +41,7 @@ export default function WiiFooter({ audioEnabled, onAudioToggle, darkMode, onDar
         </div>
       </div>
 
-      <button
+      {!channelOpen && <button
         className={styles.darkButton}
         onClick={onDarkToggle}
         aria-label={darkMode ? 'Switch to light mode' : 'Switch to dark mode'}
@@ -68,7 +68,7 @@ export default function WiiFooter({ audioEnabled, onAudioToggle, darkMode, onDar
             <path d="M21 12.79A9 9 0 1 1 11.21 3a7 7 0 0 0 9.79 9.79z" fill="#7090c0" />
           </svg>
         )}
-      </button>
+      </button>}
     </>
   )
 }

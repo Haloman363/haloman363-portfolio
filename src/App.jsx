@@ -91,6 +91,7 @@ export default function App() {
         onAudioToggle={audio.toggle}
         darkMode={darkMode}
         onDarkToggle={() => setDarkMode(d => !d)}
+        channelOpen={!!activeChannel}
       />
       <ChannelBanner channelId={activeChannel} onBack={handleBack}>
         {renderBannerContent(activeChannel, activeChannelData)}
