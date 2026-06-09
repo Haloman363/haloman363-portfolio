@@ -30,12 +30,12 @@ export default function App() {
   }, [])
 
   const prevPage = useCallback(() => {
-    audio.playHover()
+    audio.playClick()
     setPage(p => Math.max(0, p - 1))
   }, [audio])
 
   const nextPage = useCallback(() => {
-    audio.playHover()
+    audio.playClick()
     setPage(p => Math.min(TOTAL_PAGES - 1, p + 1))
   }, [audio])
 
@@ -55,7 +55,6 @@ export default function App() {
 
   function handleSelect(id, channelData) {
     audio.playClick()
-    audio.playSelect()
     lastChannelDataRef.current = channelData
     setActiveChannel(id)
     setActiveChannelData(channelData)
@@ -63,7 +62,6 @@ export default function App() {
 
   function handleBack() {
     audio.playClick()
-    audio.playBack()
     setActiveChannel(null)
     setActiveChannelData(null)
   }
@@ -75,7 +73,6 @@ export default function App() {
     const next = channels[(idx + direction + channels.length) % channels.length]
     if (!next) return
     audio.playClick()
-    audio.playHover()
     lastChannelDataRef.current = next
     setActiveChannel(next.id)
     setActiveChannelData(next)
@@ -101,7 +98,7 @@ export default function App() {
       <WiiCursor />
       <ChannelGrid
         onSelect={handleSelect}
-        onHover={audio.playHover}
+        onHover={audio.playClick}
         page={page}
         onPrev={prevPage}
         onNext={nextPage}
@@ -115,7 +112,7 @@ export default function App() {
         audioEnabled={audio.enabled}
         onAudioToggle={audio.toggle}
         darkMode={darkMode}
-        onDarkToggle={() => { audio.playClick(); setDarkMode(d => !d) }}
+        onDarkToggle={() => { audio.playClick(); setDarkMode(d => !d); }}
         channelOpen={!!activeChannel}
       />
       <ChannelBanner
