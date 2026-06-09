@@ -21,7 +21,12 @@ export function useWiiAudio() {
       const next = !prev
       enabledRef.current = next
       if (next) {
-        bgmRef.current?.play().catch(() => {})
+        const connect = new Audio('/wii/audio/sfx-connect.mp3')
+        connect.volume = 0.7
+        connect.play().catch(() => {})
+        connect.addEventListener('ended', () => {
+          bgmRef.current?.play().catch(() => {})
+        })
       } else {
         bgmRef.current?.pause()
       }
