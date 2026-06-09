@@ -9,16 +9,16 @@ export default function ChannelBanner({ channelId, onBack, onPrev, onNext, child
           <motion.div
             key={channelId}
             className={styles.splashScreen}
-            initial={{ opacity: 0, scale: 0.3 }}
+            initial={{ opacity: 0, scale: 0.85 }}
             animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.3 }}
-            transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+            exit={{ opacity: 0, scale: 0.92 }}
+            transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
           >
             <motion.div
               className={styles.content}
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ delay: 0.25, duration: 0.2 }}
+              transition={{ delay: 0.15, duration: 0.2 }}
             >
               {children}
             </motion.div>
@@ -26,10 +26,10 @@ export default function ChannelBanner({ channelId, onBack, onPrev, onNext, child
 
           <motion.div
             className={styles.splashBar}
-            initial={{ bottom: '-20vh', opacity: 0 }}
-            animate={{ bottom: 0, opacity: 1 }}
-            exit={{ bottom: '-20vh', opacity: 0 }}
-            transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+            initial={{ y: '100%', opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            exit={{ y: '100%', opacity: 0 }}
+            transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
           >
             <div className={styles.splashButtons}>
               <button className={`${styles.btn} ${styles.navBtn}`} onClick={onPrev} aria-label="Previous channel">
@@ -44,10 +44,16 @@ export default function ChannelBanner({ channelId, onBack, onPrev, onNext, child
             </div>
           </motion.div>
 
-          <div className={`${styles.border} ${styles.borderTopleft}`} />
-          <div className={`${styles.border} ${styles.borderTopright}`} />
-          <div className={`${styles.border} ${styles.borderBottomleft}`} />
-          <div className={`${styles.border} ${styles.borderBottomright}`} />
+          {[styles.borderTopleft, styles.borderTopright, styles.borderBottomleft, styles.borderBottomright].map(cls => (
+            <motion.div
+              key={cls}
+              className={`${styles.border} ${cls}`}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.2, delay: 0.1 }}
+            />
+          ))}
         </>
       )}
     </AnimatePresence>
