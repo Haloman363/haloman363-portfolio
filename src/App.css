@@ -38,17 +38,20 @@
   mix-blend-mode: multiply;
 }
 
-/* Lift button containers and date above the tint overlay */
+/* Lift button containers above the tint overlay — z-index only, no position change */
 .wii.dark [class*="leftButtonContainer"],
-.wii.dark [class*="rightButtonContainer"],
-.wii.dark [class*="bottomTitle"],
-.wii.dark [class*="date"] {
-  position: relative;
+.wii.dark [class*="rightButtonContainer"] {
   z-index: 2;
+}
+
+.wii.dark [class*="bottomTitle"] {
+  z-index: 2;
+  position: relative;
 }
 
 /* Date text glows blue */
 .wii.dark [class*="date"] {
   color: rgba(160, 200, 255, 0.9) !important;
   text-shadow: 0 0 12px rgba(100, 160, 255, 0.6);
+  z-index: 2;
 }
