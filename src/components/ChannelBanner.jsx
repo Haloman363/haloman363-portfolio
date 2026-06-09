@@ -26,9 +26,9 @@ export default function ChannelBanner({ channelId, onBack, onPrev, onNext, child
 
           <motion.div
             className={styles.splashBar}
-            initial={{ y: '100%', opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            exit={{ y: '100%', opacity: 0 }}
+            initial={{ bottom: '-20vh', opacity: 0 }}
+            animate={{ bottom: 0, opacity: 1 }}
+            exit={{ bottom: '-20vh', opacity: 0 }}
             transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
           >
             <div className={styles.splashButtons}>
