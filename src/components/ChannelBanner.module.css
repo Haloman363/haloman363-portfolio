@@ -1,13 +1,20 @@
-.splashScreen {
+/* Clips the sliding panels — sits exactly where the channel content lives */
+.viewport {
   position: fixed;
-  box-sizing: border-box;
-  height: 80vh;
-  width: 100%;
   top: 0;
   left: 0;
-  background-size: cover;
-  z-index: 200;
+  width: 100%;
+  height: 80vh;
   overflow: hidden;
+  z-index: 200;
+}
+
+/* Each channel panel fills the viewport absolutely so slides don't push layout */
+.splashScreen {
+  position: absolute;
+  inset: 0;
+  box-sizing: border-box;
+  background-size: cover;
 }
 
 .content {
@@ -16,6 +23,37 @@
   display: flex;
   flex-direction: column;
   overflow: auto;
+}
+
+/* Side nav arrows — vertically centered in the 80vh viewport */
+.sideArrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 64px;
+  height: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 140, 210, 0.55);
+  border: none;
+  cursor: none;
+  z-index: 205;
+  transition: background 150ms ease;
+}
+
+.sideArrow:hover {
+  background: rgba(0, 160, 240, 0.78);
+}
+
+.sideArrowLeft {
+  left: 0;
+  border-radius: 0 8px 8px 0;
+}
+
+.sideArrowRight {
+  right: 0;
+  border-radius: 8px 0 0 8px;
 }
 
 .splashBar {
@@ -90,15 +128,6 @@
   content: '';
   position: absolute;
   right: max(-2.2vw, -26px);
-}
-
-.navBtn {
-  width: min(5vw, 60px);
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  margin-left: min(1.5vw, 18px);
-  margin-right: min(1.5vw, 18px);
 }
 
 .border {
