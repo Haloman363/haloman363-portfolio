@@ -34,10 +34,16 @@ export function useWiiAudio() {
     sfx.play().catch(() => {}).finally(() => { sfx.src = '' })
   }, [enabled])
 
+  // Click plays regardless of enabled state — it's UI feedback, not BGM-gated
+  const playClick = useCallback(() => {
+    const sfx = new Audio('/wii/audio/sfx-click.mp3')
+    sfx.volume = 0.7
+    sfx.play().catch(() => {}).finally(() => { sfx.src = '' })
+  }, [])
+
   const playHover = useCallback(() => playSfx('/wii/audio/sfx-hover.mp3'), [playSfx])
   const playSelect = useCallback(() => playSfx('/wii/audio/sfx-zip.mp3'), [playSfx])
   const playBack = useCallback(() => playSfx('/wii/audio/sfx-back.mp3'), [playSfx])
-  const playClick = useCallback(() => playSfx('/wii/audio/sfx-click.mp3'), [playSfx])
 
   return { enabled, toggle, playHover, playSelect, playBack, playClick }
 }
