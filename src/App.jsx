@@ -22,7 +22,12 @@ export default function App() {
   const [page, setPage] = useState(0)
   const [darkMode, setDarkMode] = useState(false)
   const lastChannelDataRef = useRef(null)
+  const allChannelsRef = useRef([])
   const audio = useWiiAudio()
+
+  const handleSlotsReady = useCallback((flat) => {
+    allChannelsRef.current = flat
+  }, [])
 
   const prevPage = useCallback(() => {
     audio.playHover()
@@ -35,10 +40,14 @@ export default function App() {
   }, [audio])
 
   useEffect(() => {
-    if (activeChannel) return
     function onKey(e) {
-      if (e.key === 'ArrowLeft') prevPage()
-      if (e.key === 'ArrowRight') nextPage()
+      if (activeChannel) {
+        if (e.key === 'ArrowLeft') handleChannelNav(-1)
+        if (e.key === 'ArrowRight') handleChannelNav(1)
+      } else {
+        if (e.key === 'ArrowLeft') prevPage()
+        if (e.key === 'ArrowRight') nextPage()
+      }
     }
     window.addEventListener('keydown', onKey)
     return () => window.removeEventListener('keydown', onKey)
@@ -55,6 +64,18 @@ export default function App() {
     audio.playBack()
     setActiveChannel(null)
     setActiveChannelData(null)
+  }
+
+  function handleChannelNav(direction) {
+    const channels = allChannelsRef.current
+    const idx = channels.findIndex(c => c.id === activeChannel)
+    if (idx === -1) return
+    const next = channels[(idx + direction + channels.length) % channels.length]
+    if (!next) return
+    audio.playHover()
+    lastChannelDataRef.current = next
+    setActiveChannel(next.id)
+    setActiveChannelData(next)
   }
 
   function renderBannerContent(channelId, channelData) {
@@ -81,6 +102,7 @@ export default function App() {
         page={page}
         onPrev={prevPage}
         onNext={nextPage}
+        onSlotsReady={handleSlotsReady}
       />
       <WiiFooter
         page={page}
@@ -93,7 +115,12 @@ export default function App() {
         onDarkToggle={() => setDarkMode(d => !d)}
         channelOpen={!!activeChannel}
       />
-      <ChannelBanner channelId={activeChannel} onBack={handleBack}>
+      <ChannelBanner
+        channelId={activeChannel}
+        onBack={handleBack}
+        onPrev={() => handleChannelNav(-1)}
+        onNext={() => handleChannelNav(1)}
+      >
         {renderBannerContent(activeChannel, activeChannelData)}
       </ChannelBanner>
     </div>

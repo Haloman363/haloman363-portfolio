@@ -32,13 +32,16 @@
 }
 
 .splashButtons {
-  width: 50%;
+  width: 70%;
   margin-left: auto;
   margin-right: auto;
   text-align: center;
   padding-top: 4.1vh;
   height: 20vh;
   box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .btn {
@@ -87,6 +90,15 @@
   content: '';
   position: absolute;
   right: max(-2.2vw, -26px);
+}
+
+.navBtn {
+  width: min(5vw, 60px);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: min(1.5vw, 18px);
+  margin-right: min(1.5vw, 18px);
 }
 
 .border {

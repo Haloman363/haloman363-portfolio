@@ -2,7 +2,7 @@ import { useEffect, useRef } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import styles from './ChannelBanner.module.css'
 
-export default function ChannelBanner({ channelId, onBack, children }) {
+export default function ChannelBanner({ channelId, onBack, onPrev, onNext, children }) {
   return (
     <AnimatePresence>
       {channelId && (
@@ -33,8 +33,14 @@ export default function ChannelBanner({ channelId, onBack, children }) {
             transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
           >
             <div className={styles.splashButtons}>
+              <button className={`${styles.btn} ${styles.navBtn}`} onClick={onPrev} aria-label="Previous channel">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="none"><polyline points="15,18 9,12 15,6" stroke="#474747" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+              </button>
               <button className={styles.btn} onClick={onBack}>
                 Wii Menu
+              </button>
+              <button className={`${styles.btn} ${styles.navBtn}`} onClick={onNext} aria-label="Next channel">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="none"><polyline points="9,6 15,12 9,18" stroke="#474747" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
               </button>
             </div>
           </motion.div>

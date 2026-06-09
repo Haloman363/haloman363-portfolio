@@ -42,7 +42,7 @@ function repoToChannel(repo, featured) {
   }
 }
 
-export default function ChannelGrid({ onSelect, onHover, page, onPrev, onNext }) {
+export default function ChannelGrid({ onSelect, onHover, page, onPrev, onNext, onSlotsReady }) {
   const [slots, setSlots] = useState(() => buildSlots(NAMED_CHANNELS, []))
 
   useEffect(() => {
@@ -69,6 +69,12 @@ export default function ChannelGrid({ onSelect, onHover, page, onPrev, onNext })
     loadRepos()
     return () => controller.abort()
   }, [])
+
+  useEffect(() => {
+    if (!onSlotsReady) return
+    const flat = slots.flat().filter(Boolean)
+    onSlotsReady(flat)
+  }, [slots, onSlotsReady])
 
   const currentSlots = slots[page]
   // Split 12 slots into 4 columns of 3
