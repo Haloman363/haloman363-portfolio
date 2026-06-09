@@ -45,8 +45,7 @@
 }
 
 .wii.dark [class*="bottomTitle"] {
-  z-index: 2;
-  position: relative;
+  opacity: 0;
 }
 
 /* Date text glows blue */
