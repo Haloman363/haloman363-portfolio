@@ -44,21 +44,22 @@
 .btn {
   background-image: url('/wii/sprites/btn-texture.png');
   background-size: auto 100%;
-  height: 5vw;
-  width: 15vw;
+  height: min(5vw, 60px);
+  width: min(15vw, 180px);
   display: inline-block;
   position: relative;
-  margin-left: 4.5vw;
-  margin-right: 4.5vw;
+  margin-left: min(4.5vw, 54px);
+  margin-right: min(4.5vw, 54px);
   text-decoration: none;
   font-family: 'Nunito', 'Asap', sans-serif;
   color: #474747;
-  font-size: 2.2vw;
-  line-height: calc(4.5vw + 5px);
+  font-size: min(2.2vw, 26px);
+  line-height: min(calc(4.5vw + 5px), 59px);
   border: none;
   cursor: none;
   transform: scale(1);
   transition: 150ms ease;
+  white-space: nowrap;
 }
 
 .btn:hover {
@@ -69,24 +70,24 @@
   background-image: url('/wii/sprites/btn-left.png');
   background-size: 100% 100%;
   background-repeat: no-repeat;
-  height: 5vw;
-  width: 2.2vw;
+  height: min(5vw, 60px);
+  width: min(2.2vw, 26px);
   display: inline-block;
   content: '';
   position: absolute;
-  left: -2.2vw;
+  left: max(-2.2vw, -26px);
 }
 
 .btn::after {
   background-image: url('/wii/sprites/btn-right.png');
   background-size: 100% 100%;
   background-repeat: no-repeat;
-  height: 5vw;
-  width: 2.2vw;
+  height: min(5vw, 60px);
+  width: min(2.2vw, 26px);
   display: inline-block;
   content: '';
   position: absolute;
-  right: -2.2vw;
+  right: max(-2.2vw, -26px);
 }
 
 .border {
