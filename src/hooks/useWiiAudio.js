@@ -2,6 +2,7 @@ import { useRef, useState, useCallback } from 'react'
 
 export function useWiiAudio() {
   const [enabled, setEnabled] = useState(false)
+  const enabledRef = useRef(false)
   const bgmRef = useRef(null)
   const unlockedRef = useRef(false)
 
@@ -18,6 +19,7 @@ export function useWiiAudio() {
     unlock()
     setEnabled(prev => {
       const next = !prev
+      enabledRef.current = next
       if (next) {
         bgmRef.current?.play().catch(() => {})
       } else {
@@ -28,11 +30,11 @@ export function useWiiAudio() {
   }, [])
 
   const playSfx = useCallback((src) => {
-    if (!enabled) return
+    if (!enabledRef.current) return
     const sfx = new Audio(src)
     sfx.volume = 0.6
     sfx.play().catch(() => {}).finally(() => { sfx.src = '' })
-  }, [enabled])
+  }, [])
 
   const playHover  = useCallback(() => playSfx('/wii/audio/sfx-hover.mp3'),  [playSfx])
   const playSelect = useCallback(() => playSfx('/wii/audio/sfx-zip.mp3'),    [playSfx])
