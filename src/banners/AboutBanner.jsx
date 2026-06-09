@@ -14,7 +14,7 @@ export default function AboutBanner() {
       <div className={styles.top}>
         <img
           className={styles.avatar}
-          src="/wii/sprites/mii-avatar-placeholder.png"
+          src={`${import.meta.env.BASE_URL}wii/sprites/mii-avatar-placeholder.png`}
           alt="Mii avatar"
         />
         <div className={styles.info}>

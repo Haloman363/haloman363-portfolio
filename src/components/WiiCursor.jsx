@@ -11,7 +11,7 @@ export default function WiiCursor() {
         transform: `translate(${pos.x - 20}px, ${pos.y - 8}px) rotate(${tilt}deg)`,
       }}
     >
-      <img src="/wii/sprites/cursor.png" alt="" aria-hidden="true" />
+      <img src={`${import.meta.env.BASE_URL}wii/sprites/cursor.png`} alt="" aria-hidden="true" />
     </div>
   )
 }

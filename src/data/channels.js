@@ -11,13 +11,15 @@ export const LANG_COLORS = {
   CSS: '#563d7c',
 }
 
+const base = import.meta.env.BASE_URL
+
 export const NAMED_CHANNELS = [
-  { id: 'mii-channel',   label: 'Mii Channel',       sprite: '/wii/sprites/channel-mii.svg',        page: 0, slot: 0 },
-  { id: 'photo-channel', label: 'Photo Channel',      sprite: '/wii/sprites/channel-photo.svg',      page: 0, slot: 1 },
-  { id: 'wii-shop',      label: 'Wii Shop Channel',   sprite: '/wii/sprites/channel-shop.svg',       page: 0, slot: 8 },
-  { id: 'check-mii-out', label: 'Check Mii Out',      sprite: '/wii/sprites/channel-makerworld.svg', page: 0, slot: 9 },
-  { id: 'linkedin',      label: 'LinkedIn',            sprite: '/wii/sprites/channel-linkedin.svg',   page: 0, slot: 10 },
-  { id: 'venmo',         label: 'Venmo',               sprite: '/wii/sprites/channel-venmo.svg',      page: 1, slot: 0 },
+  { id: 'mii-channel',   label: 'Mii Channel',       sprite: `${base}wii/sprites/channel-mii.svg`,        page: 0, slot: 0 },
+  { id: 'photo-channel', label: 'Photo Channel',      sprite: `${base}wii/sprites/channel-photo.svg`,      page: 0, slot: 1 },
+  { id: 'wii-shop',      label: 'Wii Shop Channel',   sprite: `${base}wii/sprites/channel-shop.svg`,       page: 0, slot: 8 },
+  { id: 'check-mii-out', label: 'Check Mii Out',      sprite: `${base}wii/sprites/channel-makerworld.svg`, page: 0, slot: 9 },
+  { id: 'linkedin',      label: 'LinkedIn',            sprite: `${base}wii/sprites/channel-linkedin.svg`,   page: 0, slot: 10 },
+  { id: 'venmo',         label: 'Venmo',               sprite: `${base}wii/sprites/channel-venmo.svg`,      page: 1, slot: 0 },
 ]
 
 export const REFERRAL_LINKS = [

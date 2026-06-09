@@ -1,5 +1,7 @@
 import { useRef, useState, useCallback } from 'react'
 
+const base = import.meta.env.BASE_URL
+
 export function useWiiAudio() {
   const [enabled, setEnabled] = useState(false)
   const enabledRef = useRef(false)
@@ -10,7 +12,7 @@ export function useWiiAudio() {
   function unlock() {
     if (unlockedRef.current) return
     unlockedRef.current = true
-    const bgm = new Audio('/wii/audio/bg-music.mp3')
+    const bgm = new Audio(`${base}wii/audio/bg-music.mp3`)
     bgm.loop = true
     bgm.volume = 0.4
     bgmRef.current = bgm
@@ -22,7 +24,7 @@ export function useWiiAudio() {
       const next = !prev
       enabledRef.current = next
       if (next) {
-        const startup = new Audio('/wii/audio/sfx-startup.mp3')
+        const startup = new Audio(`${base}wii/audio/sfx-startup.mp3`)
         startup.volume = 0.7
         startupRef.current = startup
         startup.play().catch(() => {})
@@ -48,10 +50,10 @@ export function useWiiAudio() {
     sfx.play().catch(() => {})
   }, [])
 
-  const playHover  = useCallback(() => playSfx('/wii/audio/sfx-hover.wav'),  [playSfx])
-  const playSelect = useCallback(() => playSfx('/wii/audio/sfx-zip.mp3'),    [playSfx])
-  const playBack   = useCallback(() => playSfx('/wii/audio/sfx-back.mp3'),   [playSfx])
-  const playClick  = useCallback(() => playSfx('/wii/audio/sfx-click.mp3'),  [playSfx])
+  const playHover  = useCallback(() => playSfx(`${base}wii/audio/sfx-hover.wav`),  [playSfx])
+  const playSelect = useCallback(() => playSfx(`${base}wii/audio/sfx-zip.mp3`),    [playSfx])
+  const playBack   = useCallback(() => playSfx(`${base}wii/audio/sfx-back.mp3`),   [playSfx])
+  const playClick  = useCallback(() => playSfx(`${base}wii/audio/sfx-click.mp3`),  [playSfx])
 
   return { enabled, toggle, playHover, playSelect, playBack, playClick }
 }
