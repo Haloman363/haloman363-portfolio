@@ -44,8 +44,8 @@
   text-shadow: 0 0 12px rgba(100, 160, 255, 0.6);
 }
 
-/* Corner button areas: bright blue tint, fully visible */
+/* Corner button areas: subtle blue tint, natural brightness */
 .wii.dark [class*="leftButtonContainer"],
 .wii.dark [class*="rightButtonContainer"] {
-  filter: hue-rotate(180deg) brightness(1.4) saturate(1.6);
+  filter: hue-rotate(160deg) brightness(0.85) saturate(1.3);
 }
