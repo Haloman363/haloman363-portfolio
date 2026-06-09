@@ -73,9 +73,8 @@ export default function App() {
 
   return (
     <div className={`wii${darkMode ? ' dark' : ''}`}>
-      <WiiBackground />
+      <WiiBackground darkMode={darkMode} />
       <WiiCursor />
-      {darkMode && <div className="darkBg" />}
       <ChannelGrid
         onSelect={handleSelect}
         onHover={audio.playHover}

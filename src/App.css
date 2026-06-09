@@ -8,39 +8,45 @@
   flex-direction: column;
 }
 
-/* Dark mode overlay */
-.darkBg {
-  position: fixed;
-  inset: 0;
-  background: radial-gradient(ellipse at center, rgba(10,15,40,0.82) 0%, rgba(0,0,20,0.92) 100%);
-  z-index: 2;
-  pointer-events: none;
-  animation: darkFadeIn 0.4s ease forwards;
-}
+/* ── Dark mode ── */
 
-@keyframes darkFadeIn {
-  from { opacity: 0; }
-  to   { opacity: 1; }
-}
-
-/* Dim channels in dark mode */
+/* Channels: swap from muted to vivid glow */
 .wii.dark [class*="channelIcon"] {
-  filter: brightness(0.5) saturate(0.5);
-  transition: filter 0.4s ease;
+  filter: brightness(0.75) saturate(1.3);
+  transition: filter 0.5s ease, box-shadow 0.5s ease;
 }
 
 .wii.dark [class*="channelIcon"]:hover {
-  filter: brightness(0.8) saturate(0.8);
+  filter: brightness(1.1) saturate(1.6);
+  box-shadow: 0 0 24px rgba(120, 180, 255, 0.5), 0 0 48px rgba(80, 120, 255, 0.2);
 }
 
-/* Dim bottom bar in dark mode */
+/* Bottom bar: glassy dark panel */
 .wii.dark [class*="bottomSection"] {
-  filter: brightness(0.45) saturate(0.5);
-  transition: filter 0.4s ease;
+  background-color: rgba(8, 12, 32, 0.92) !important;
+  background-image: none !important;
+  backdrop-filter: blur(16px);
+  border-top: 1px solid rgba(100, 140, 255, 0.2);
+  box-shadow: 0 -4px 32px rgba(0, 0, 60, 0.6);
+  transition: background 0.5s ease;
 }
 
-/* Dim bg in dark mode */
-.wii.dark [class*="bg"]:not(.darkBg) {
-  filter: brightness(0.3);
-  transition: filter 0.4s ease;
+/* Bottom title: hide the daytime "Wii Menu" graphic, show a glowing version */
+.wii.dark [class*="bottomTitle"] {
+  filter: invert(1) brightness(0.5) sepia(1) hue-rotate(180deg);
+  opacity: 0.4;
+}
+
+/* Date text gets lighter in dark mode */
+.wii.dark [class*="date"] {
+  color: rgba(160, 200, 255, 0.8) !important;
+  text-shadow: 0 0 12px rgba(100, 160, 255, 0.6);
+}
+
+/* Corner buttons get a cool tint */
+.wii.dark [class*="leftButton"],
+.wii.dark [class*="rightButton"],
+.wii.dark [class*="wiiButton"],
+.wii.dark [class*="mailButton"] {
+  filter: hue-rotate(200deg) brightness(0.7) saturate(1.5);
 }
