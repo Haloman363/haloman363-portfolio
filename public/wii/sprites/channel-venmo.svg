@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 186" width="340" height="186">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#3d95ce"/>
+      <stop offset="100%" stop-color="#1a6ea8"/>
+    </linearGradient>
+  </defs>
+  <rect width="340" height="186" fill="url(#bg)"/>
+  <!-- Venmo V checkmark logo -->
+  <polygon points="138,48 162,48 170,68 178,48 202,48 170,118" fill="white" opacity="0.95"/>
+  <!-- Label -->
+  <text x="170" y="148" font-family="'Nunito',Arial,sans-serif" font-weight="900" font-size="26" fill="white" text-anchor="middle">venmo</text>
+  <text x="170" y="170" font-family="'Nunito',Arial,sans-serif" font-weight="600" font-size="12" fill="white" opacity="0.7" text-anchor="middle">@JaymesBunce</text>
+</svg>

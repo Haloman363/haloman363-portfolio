@@ -1,7 +1,6 @@
-import { useState, useRef } from 'react'
+import { useState, useRef, useCallback, useEffect } from 'react'
 import WiiBackground from './components/WiiBackground'
 import WiiCursor from './components/WiiCursor'
-import WiiHeader from './components/WiiHeader'
 import WiiFooter from './components/WiiFooter'
 import ChannelGrid from './components/ChannelGrid'
 import ChannelBanner from './components/ChannelBanner'
@@ -15,12 +14,35 @@ import VenmoBanner from './banners/VenmoBanner'
 import { useWiiAudio } from './hooks/useWiiAudio'
 import './App.css'
 
+const TOTAL_PAGES = 2
+
 export default function App() {
   const [activeChannel, setActiveChannel] = useState(null)
   const [activeChannelData, setActiveChannelData] = useState(null)
-  // Retain last channel data through exit animation so banner doesn't blank
+  const [page, setPage] = useState(0)
+  const [darkMode, setDarkMode] = useState(false)
   const lastChannelDataRef = useRef(null)
   const audio = useWiiAudio()
+
+  const prevPage = useCallback(() => {
+    audio.playHover()
+    setPage(p => Math.max(0, p - 1))
+  }, [audio])
+
+  const nextPage = useCallback(() => {
+    audio.playHover()
+    setPage(p => Math.min(TOTAL_PAGES - 1, p + 1))
+  }, [audio])
+
+  useEffect(() => {
+    if (activeChannel) return
+    function onKey(e) {
+      if (e.key === 'ArrowLeft') prevPage()
+      if (e.key === 'ArrowRight') nextPage()
+    }
+    window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
+  }, [prevPage, nextPage, activeChannel])
 
   function handleSelect(id, channelData) {
     audio.playSelect()
@@ -50,12 +72,27 @@ export default function App() {
   }
 
   return (
-    <div className="wii">
+    <div className={`wii${darkMode ? ' dark' : ''}`}>
       <WiiBackground />
       <WiiCursor />
-      <WiiHeader audioEnabled={audio.enabled} onAudioToggle={audio.toggle} />
-      <ChannelGrid onSelect={handleSelect} onHover={audio.playHover} />
-      <WiiFooter />
+      {darkMode && <div className="darkBg" />}
+      <ChannelGrid
+        onSelect={handleSelect}
+        onHover={audio.playHover}
+        page={page}
+        onPrev={prevPage}
+        onNext={nextPage}
+      />
+      <WiiFooter
+        page={page}
+        onPrev={prevPage}
+        onNext={nextPage}
+        totalPages={TOTAL_PAGES}
+        audioEnabled={audio.enabled}
+        onAudioToggle={audio.toggle}
+        darkMode={darkMode}
+        onDarkToggle={() => setDarkMode(d => !d)}
+      />
       <ChannelBanner channelId={activeChannel} onBack={handleBack}>
         {renderBannerContent(activeChannel, activeChannelData)}
       </ChannelBanner>

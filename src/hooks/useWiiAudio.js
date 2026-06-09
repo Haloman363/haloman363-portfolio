@@ -8,7 +8,7 @@ export function useWiiAudio() {
   function unlock() {
     if (unlockedRef.current) return
     unlockedRef.current = true
-    const bgm = new Audio('/wii/audio/mii-channel-theme.mp3')
+    const bgm = new Audio('/wii/audio/bg-music.mp3')
     bgm.loop = true
     bgm.volume = 0.4
     bgmRef.current = bgm
@@ -34,9 +34,9 @@ export function useWiiAudio() {
     sfx.play().catch(() => {}).finally(() => { sfx.src = '' })
   }, [enabled])
 
-  const playHover = useCallback(() => playSfx('/wii/audio/sfx-hover.wav'), [playSfx])
-  const playSelect = useCallback(() => playSfx('/wii/audio/sfx-select.wav'), [playSfx])
-  const playBack = useCallback(() => playSfx('/wii/audio/sfx-back.wav'), [playSfx])
+  const playHover = useCallback(() => playSfx('/wii/audio/sfx-hover.mp3'), [playSfx])
+  const playSelect = useCallback(() => playSfx('/wii/audio/sfx-zip.mp3'), [playSfx])
+  const playBack = useCallback(() => playSfx('/wii/audio/sfx-back.mp3'), [playSfx])
 
   return { enabled, toggle, playHover, playSelect, playBack }
 }

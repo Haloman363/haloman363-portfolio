@@ -1,62 +1,89 @@
-.slot {
+.channelIcon {
+  display: block;
   width: 100%;
-  aspect-ratio: 1.5 / 1;
-  border-radius: 12px;
-  background: rgba(255,255,255,0.15);
-  border: 2px solid rgba(255,255,255,0.25);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  cursor: none;
-  overflow: hidden;
+  aspect-ratio: 340 / 186;
   position: relative;
-  animation: channelFloat 3s ease-in-out infinite;
-  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  margin-left: auto;
+  margin-right: auto;
+  overflow: visible;
 }
 
-.slot:hover {
-  transform: scale(1.04);
-  box-shadow: 0 0 0 3px rgba(255,255,255,0.5), 0 8px 24px rgba(0,0,0,0.25);
-  animation-play-state: paused;
+/* blank channel: animated spritesheet */
+.channelIcon.blank {
+  background-image: url('/wii/sprites/channel-spritesheet.png');
+  background-size: calc(100% * 3) 100%;
+  animation: play 0.3s steps(3) infinite;
 }
 
-.slot.empty {
-  background: rgba(255,255,255,0.05);
-  border-color: rgba(255,255,255,0.1);
-  cursor: default;
-  animation: none;
+.channelIcon.blank::before {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  content: '';
+  background-image: url('/wii/sprites/channel-wiilogo.png');
+  background-size: 100% 100%;
+}
+
+/* channel border overlay on all tiles — sits above content, below hover */
+.channelIcon::after {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  content: '';
+  background-image: url('/wii/sprites/channel-border.png');
+  background-size: 100% 100%;
+  pointer-events: none;
+  z-index: 5;
+}
+
+/* hover glow overlay */
+.channelIcon.occupied .hover {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('/wii/sprites/channel-hover.png');
+  background-size: 100% 100%;
+  z-index: 99;
+  opacity: 0;
+  transition: 400ms ease;
+  transform: scale(0.94);
   pointer-events: none;
 }
 
-.sprite {
-  width: 72px;
-  height: 72px;
-  object-fit: contain;
-  image-rendering: pixelated;
+.channelIcon.occupied:hover .hover {
+  opacity: 1;
+  transform: scale(1.02);
 }
 
-.label {
-  font-family: 'Nunito', sans-serif;
-  font-weight: 700;
-  font-size: 11px;
-  color: #fff;
-  text-align: center;
-  margin-top: 6px;
-  text-shadow: 0 1px 3px rgba(0,0,0,0.4);
-  padding: 0 4px;
-  line-height: 1.2;
+/* content images inside occupied channels */
+.channelIcon.occupied > img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  -webkit-clip-path: polygon(2% 7%, 6% 2%, 52% 1%, 95% 3%, 98% 8%, 100% 49%, 98% 92%, 95% 97%, 50% 99%, 5% 97%, 2% 93%, 0 50%);
+  clip-path: polygon(2% 7%, 6% 2%, 52% 1%, 95% 3%, 98% 8%, 100% 49%, 98% 92%, 95% 97%, 50% 99%, 5% 97%, 2% 93%, 0 50%);
+  object-fit: cover;
 }
 
-.repoTile {
+/* repo tile */
+.repoInner {
+  position: absolute;
+  inset: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   gap: 6px;
-  padding: 8px;
-  width: 100%;
-  height: 100%;
+  background: linear-gradient(135deg, #1e3a5f 0%, #2d5a8e 100%);
+  -webkit-clip-path: polygon(2% 7%, 6% 2%, 52% 1%, 95% 3%, 98% 8%, 100% 49%, 98% 92%, 95% 97%, 50% 99%, 5% 97%, 2% 93%, 0 50%);
+  clip-path: polygon(2% 7%, 6% 2%, 52% 1%, 95% 3%, 98% 8%, 100% 49%, 98% 92%, 95% 97%, 50% 99%, 5% 97%, 2% 93%, 0 50%);
+  padding: 0 12%;
 }
 
 .langDot {
@@ -69,22 +96,37 @@
 .repoName {
   font-family: 'Nunito', sans-serif;
   font-weight: 800;
-  font-size: 12px;
+  font-size: clamp(9px, 1vw, 14px);
   color: #fff;
   text-align: center;
   word-break: break-all;
   line-height: 1.2;
+  text-shadow: 0 1px 3px rgba(0,0,0,0.5);
 }
 
-.emptyInner {
-  width: 28px;
-  height: 28px;
-  border: 2px solid rgba(255,255,255,0.15);
-  border-radius: 6px;
-  opacity: 0.3;
+/* text-only tile */
+.textInner {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #3a7bd5 0%, #2559a7 100%);
+  -webkit-clip-path: polygon(2% 7%, 6% 2%, 52% 1%, 95% 3%, 98% 8%, 100% 49%, 98% 92%, 95% 97%, 50% 99%, 5% 97%, 2% 93%, 0 50%);
+  clip-path: polygon(2% 7%, 6% 2%, 52% 1%, 95% 3%, 98% 8%, 100% 49%, 98% 92%, 95% 97%, 50% 99%, 5% 97%, 2% 93%, 0 50%);
 }
 
-@keyframes channelFloat {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-4px); }
+.textLabel {
+  font-family: 'Nunito', sans-serif;
+  font-weight: 800;
+  font-size: clamp(10px, 1.2vw, 16px);
+  color: #fff;
+  text-align: center;
+  text-shadow: 0 1px 3px rgba(0,0,0,0.5);
+  padding: 0 10%;
+}
+
+@keyframes play {
+  from { background-position-x: 0px; }
+  to { background-position-x: calc(100% * 3 - 1px); }
 }

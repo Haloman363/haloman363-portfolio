@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 186" width="340" height="186">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1a237e"/>
+      <stop offset="100%" stop-color="#283593"/>
+    </linearGradient>
+  </defs>
+  <rect width="340" height="186" fill="url(#bg)"/>
+  <!-- Camera body -->
+  <rect x="105" y="60" width="130" height="86" rx="12" fill="white" opacity="0.9"/>
+  <!-- Lens ring -->
+  <circle cx="170" cy="100" r="30" fill="#1a237e"/>
+  <circle cx="170" cy="100" r="24" fill="#0d1b7a"/>
+  <circle cx="170" cy="100" r="16" fill="#111"/>
+  <circle cx="163" cy="93" r="5" fill="white" opacity="0.25"/>
+  <!-- Flash -->
+  <rect x="198" y="68" width="20" height="14" rx="4" fill="#ffd600"/>
+  <!-- Viewfinder -->
+  <rect x="112" y="68" width="22" height="14" rx="3" fill="#90caf9" opacity="0.7"/>
+  <!-- Shutter button -->
+  <circle cx="215" cy="60" r="8" fill="white" opacity="0.7"/>
+  <!-- Label -->
+  <text x="170" y="163" font-family="'Nunito',Arial,sans-serif" font-weight="800" font-size="17" fill="white" text-anchor="middle">Photo Channel</text>
+</svg>

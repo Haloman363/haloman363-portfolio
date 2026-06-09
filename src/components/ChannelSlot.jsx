@@ -4,8 +4,8 @@ import { LANG_COLORS } from '../data/channels'
 export default function ChannelSlot({ channel, onSelect, onHover }) {
   if (!channel) {
     return (
-      <div className={`${styles.slot} ${styles.empty}`} aria-hidden="true">
-        <span className={styles.emptyInner} />
+      <div className={`${styles.channelIcon} ${styles.blank}`} aria-hidden="true">
+        <div className={styles.hover} />
       </div>
     )
   }
@@ -22,7 +22,7 @@ export default function ChannelSlot({ channel, onSelect, onHover }) {
 
   return (
     <div
-      className={styles.slot}
+      className={`${styles.channelIcon} ${styles.occupied}`}
       onClick={handleClick}
       onMouseEnter={handleMouseEnter}
       role="button"
@@ -31,7 +31,7 @@ export default function ChannelSlot({ channel, onSelect, onHover }) {
       onKeyDown={e => e.key === 'Enter' && handleClick()}
     >
       {isRepo ? (
-        <div className={styles.repoTile}>
+        <div className={styles.repoInner}>
           {channel.language && (
             <span
               className={styles.langDot}
@@ -41,13 +41,13 @@ export default function ChannelSlot({ channel, onSelect, onHover }) {
           <span className={styles.repoName}>{channel.label}</span>
         </div>
       ) : channel.sprite ? (
-        <>
-          <img className={styles.sprite} src={channel.sprite} alt="" aria-hidden="true" />
-          <span className={styles.label}>{channel.label}</span>
-        </>
+        <img src={channel.sprite} alt={channel.label} />
       ) : (
-        <span className={styles.label}>{channel.label}</span>
+        <div className={styles.textInner}>
+          <span className={styles.textLabel}>{channel.label}</span>
+        </div>
       )}
+      <div className={styles.hover} />
     </div>
   )
 }

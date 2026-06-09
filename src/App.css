@@ -2,7 +2,45 @@
   position: relative;
   width: 100vw;
   height: 100vh;
-  overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: hidden;
   display: flex;
   flex-direction: column;
+}
+
+/* Dark mode overlay */
+.darkBg {
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(ellipse at center, rgba(10,15,40,0.82) 0%, rgba(0,0,20,0.92) 100%);
+  z-index: 2;
+  pointer-events: none;
+  animation: darkFadeIn 0.4s ease forwards;
+}
+
+@keyframes darkFadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* Dim channels in dark mode */
+.wii.dark [class*="channelIcon"] {
+  filter: brightness(0.5) saturate(0.5);
+  transition: filter 0.4s ease;
+}
+
+.wii.dark [class*="channelIcon"]:hover {
+  filter: brightness(0.8) saturate(0.8);
+}
+
+/* Dim bottom bar in dark mode */
+.wii.dark [class*="bottomSection"] {
+  filter: brightness(0.45) saturate(0.5);
+  transition: filter 0.4s ease;
+}
+
+/* Dim bg in dark mode */
+.wii.dark [class*="bg"]:not(.darkBg) {
+  filter: brightness(0.3);
+  transition: filter 0.4s ease;
 }

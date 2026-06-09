@@ -42,8 +42,7 @@ function repoToChannel(repo, featured) {
   }
 }
 
-export default function ChannelGrid({ onSelect, onHover }) {
-  const [page, setPage] = useState(0)
+export default function ChannelGrid({ onSelect, onHover, page, onPrev, onNext }) {
   const [slots, setSlots] = useState(() => buildSlots(NAMED_CHANNELS, []))
 
   useEffect(() => {
@@ -65,63 +64,36 @@ export default function ChannelGrid({ onSelect, onHover }) {
         setSlots(buildSlots(NAMED_CHANNELS, filtered))
       } catch (err) {
         if (err.name === 'AbortError') return
-        // Leave named channels in place on error
       }
     }
     loadRepos()
     return () => controller.abort()
   }, [])
 
-  const prevPage = useCallback(() => setPage(p => Math.max(0, p - 1)), [])
-  const nextPage = useCallback(() => setPage(p => Math.min(TOTAL_PAGES - 1, p + 1)), [])
-
-  useEffect(() => {
-    function onKey(e) {
-      if (e.key === 'ArrowLeft') prevPage()
-      if (e.key === 'ArrowRight') nextPage()
-    }
-    window.addEventListener('keydown', onKey)
-    return () => window.removeEventListener('keydown', onKey)
-  }, [prevPage, nextPage])
-
   const currentSlots = slots[page]
+  // Split 12 slots into 4 columns of 3
+  const cols = [
+    currentSlots.slice(0, 3),
+    currentSlots.slice(3, 6),
+    currentSlots.slice(6, 9),
+    currentSlots.slice(9, 12),
+  ]
 
   return (
-    <div className={styles.gridWrap}>
-      <div className={styles.frame}>
-        <div className={styles.grid}>
-          {currentSlots.map((channel, i) => (
-            <ChannelSlot
-              key={channel?.id ?? `empty-${page}-${i}`}
-              channel={channel}
-              onSelect={onSelect}
-              onHover={onHover}
-            />
-          ))}
-        </div>
-        <nav className={styles.nav} aria-label="Channel pages">
-          <button
-            className={styles.arrowBtn}
-            onClick={prevPage}
-            disabled={page === 0}
-            aria-label="Previous page"
-          >
-            <img src="/wii/sprites/arrow-left.png" alt="←" />
-          </button>
-          <div className={styles.dots}>
-            {Array.from({ length: TOTAL_PAGES }, (_, i) => (
-              <span key={i} className={`${styles.dot} ${i === page ? styles.active : ''}`} />
+    <div className={styles.topSection}>
+      <div className={styles.channels}>
+        {cols.map((col, ci) => (
+          <div key={ci} className={`${styles.col} ${ci === 0 ? styles.first : ''}`}>
+            {col.map((channel, ri) => (
+              <ChannelSlot
+                key={channel?.id ?? `empty-${page}-${ci}-${ri}`}
+                channel={channel}
+                onSelect={onSelect}
+                onHover={onHover}
+              />
             ))}
           </div>
-          <button
-            className={styles.arrowBtn}
-            onClick={nextPage}
-            disabled={page === TOTAL_PAGES - 1}
-            aria-label="Next page"
-          >
-            <img src="/wii/sprites/arrow-right.png" alt="→" />
-          </button>
-        </nav>
+        ))}
       </div>
     </div>
   )

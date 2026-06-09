@@ -1,27 +1,158 @@
-.footer {
+.bottomSection {
+  height: 219px;
+  background: #d2d6db;
+  background-image: url('/wii/sprites/bottom-bg.png');
+  background-repeat: repeat-x;
   position: relative;
+  flex-shrink: 0;
   z-index: 10;
+}
+
+.bottomTitle {
+  background-image: url('/wii/sprites/bottom-title.png');
+  width: 1200px;
+  max-width: 100%;
+  height: 220px;
+  margin-left: auto;
+  margin-right: auto;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.leftButtonContainer {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}
+
+.leftButton {
+  position: absolute;
+  bottom: 42px;
+  left: 0;
+  background-image: url('/wii/sprites/left-button.png');
+  width: 185px;
+  height: 135px;
+  background-size: 100% 100%;
+}
+
+.wiiButton {
+  background-image: url('/wii/sprites/wii-button.png');
+  width: 100px;
+  height: 105px;
+  position: absolute;
+  bottom: 60px;
+  left: 60px;
+  background-size: 100% 100%;
+  background-color: transparent;
+  border: none;
+  cursor: none;
+}
+
+.rightButtonContainer {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+}
+
+.rightButton {
+  position: absolute;
+  bottom: 42px;
+  right: 0;
+  background-image: url('/wii/sprites/right-button.png');
+  width: 185px;
+  height: 135px;
+  background-size: 100% 100%;
+}
+
+.mailButton {
+  background-image: url('/wii/sprites/mail-button.png');
+  width: 100px;
+  height: 105px;
+  position: absolute;
+  bottom: 60px;
+  right: 60px;
+  background-size: 100% 100%;
+  z-index: 999;
+}
+
+.darkButton {
+  width: 46px;
+  height: 46px;
+  position: fixed;
+  bottom: 172px;
+  right: 80px;
+  background: rgba(20, 20, 60, 0.6);
+  border: 2px solid rgba(255, 255, 255, 0.55);
+  border-radius: 50%;
+  font-size: 22px;
   display: flex;
   align-items: center;
-  gap: 12px;
-  padding: 8px 20px 12px;
-  flex-shrink: 0;
+  justify-content: center;
+  z-index: 1100;
+  backdrop-filter: blur(8px);
+  cursor: none;
+  line-height: 1;
+  padding: 0;
+  transition: transform 200ms, background 200ms, box-shadow 200ms;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.4);
 }
 
-.avatar {
-  width: 48px;
-  height: 48px;
-  border-radius: 50%;
-  border: 2px solid rgba(255,255,255,0.6);
-  object-fit: cover;
-  background: rgba(255,255,255,0.2);
+.darkButton:hover {
+  transform: scale(1.15);
+  background: rgba(50, 50, 120, 0.8);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.6);
 }
 
-.name {
-  font-family: 'Nunito', sans-serif;
-  font-weight: 800;
-  font-size: 18px;
-  color: #fff;
-  text-shadow: 0 1px 4px rgba(0,0,0,0.3);
-  letter-spacing: 0.04em;
+.cornerButton {
+  transition: 300ms;
+}
+
+.cornerButton:hover {
+  transform: scale(1.1);
+}
+
+.date {
+  position: absolute;
+  color: #84868a;
+  font-family: 'Asap', 'Nunito', sans-serif;
+  bottom: 32px;
+  left: 50%;
+  transform: translate(-50%, 0);
+  font-size: 40px;
+  letter-spacing: -1px;
+}
+
+@media only screen and (max-height: 718px) {
+  .bottomSection {
+    height: 130px;
+    background-image: url('/wii/sprites/mini-bottom-bg.png');
+  }
+
+  .leftButtonContainer {
+    transform: scale(0.6);
+    transform-origin: left;
+  }
+
+  .rightButtonContainer {
+    transform: scale(0.6);
+    transform-origin: right;
+  }
+
+  .leftButton, .rightButton {
+    bottom: 180px;
+  }
+
+  .wiiButton, .mailButton {
+    bottom: 197px;
+  }
+
+  .bottomTitle {
+    transform-origin: top;
+    transform: scale(0.65);
+  }
+
+  .date {
+    font-size: 22px;
+    bottom: 17px;
+  }
 }
