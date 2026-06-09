@@ -76,45 +76,35 @@
 }
 
 .darkButton {
-  width: 48px;
-  height: 48px;
+  width: 100px;
+  height: 100px;
   position: fixed;
-  bottom: 175px;
-  right: 78px;
-  background: rgba(20, 20, 60, 0.55);
-  border: 2px solid rgba(180, 200, 255, 0.45);
+  top: 12px;
+  right: 12px;
+  background: radial-gradient(circle at 38% 32%, #f0f0f2 0%, #d8d9dd 45%, #b8babe 100%);
+  border: 3px solid #5ac8e8;
   border-radius: 50%;
-  font-size: 22px;
+  font-size: 38px;
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 1100;
-  backdrop-filter: blur(10px);
   cursor: none;
   line-height: 1;
   padding: 0;
-  transition: transform 250ms ease, background 400ms ease, box-shadow 400ms ease, border-color 400ms ease;
-  box-shadow: 0 2px 16px rgba(0, 0, 40, 0.5);
+  transition: transform 250ms ease, box-shadow 250ms ease;
+  box-shadow: 0 0 0 2px rgba(90, 200, 232, 0.35), 0 4px 12px rgba(0,0,0,0.25);
 }
 
 .darkButton:hover {
-  transform: scale(1.18);
-  background: rgba(40, 50, 140, 0.8);
-  box-shadow: 0 0 20px rgba(100, 140, 255, 0.5), 0 4px 24px rgba(0,0,0,0.5);
-  border-color: rgba(140, 180, 255, 0.7);
+  transform: scale(1.1);
+  box-shadow: 0 0 0 3px rgba(90, 200, 232, 0.6), 0 4px 18px rgba(0,0,0,0.3);
 }
 
-/* Glowing moon state — applied via JS-toggled class on the button */
 :global(.dark) .darkButton {
-  background: rgba(5, 8, 35, 0.75);
-  border-color: rgba(180, 200, 255, 0.6);
-  box-shadow: 0 0 16px rgba(80, 120, 255, 0.4), 0 2px 12px rgba(0,0,40,0.6);
-  animation: moonPulse 3s ease-in-out infinite;
-}
-
-@keyframes moonPulse {
-  0%, 100% { box-shadow: 0 0 16px rgba(80, 120, 255, 0.4), 0 2px 12px rgba(0,0,40,0.6); }
-  50%       { box-shadow: 0 0 28px rgba(100, 160, 255, 0.65), 0 2px 20px rgba(0,0,60,0.7); }
+  background: radial-gradient(circle at 38% 32%, #c8d8f0 0%, #8aaace 45%, #4a6a9e 100%);
+  border-color: #7ab0f0;
+  box-shadow: 0 0 0 2px rgba(120, 170, 240, 0.5), 0 4px 16px rgba(0,0,60,0.5);
 }
 
 .cornerButton {
