@@ -10,15 +10,16 @@
 
 /* ── Dark mode ── */
 
-/* Channels: swap from muted to vivid glow */
+/* Channels: full brightness + vivid saturation + ambient glow */
 .wii.dark [class*="channelIcon"] {
-  filter: brightness(0.75) saturate(1.3);
-  transition: filter 0.5s ease, box-shadow 0.5s ease;
+  filter: brightness(1.15) saturate(1.5) contrast(1.05);
+  transition: filter 0.5s ease;
+  box-shadow: 0 0 18px rgba(80, 140, 255, 0.25), 0 4px 20px rgba(0,0,0,0.5);
 }
 
 .wii.dark [class*="channelIcon"]:hover {
-  filter: brightness(1.1) saturate(1.6);
-  box-shadow: 0 0 24px rgba(120, 180, 255, 0.5), 0 0 48px rgba(80, 120, 255, 0.2);
+  filter: brightness(1.35) saturate(1.8) contrast(1.1);
+  box-shadow: 0 0 32px rgba(120, 180, 255, 0.6), 0 0 64px rgba(80, 120, 255, 0.3);
 }
 
 /* Bottom bar: glassy dark panel */
