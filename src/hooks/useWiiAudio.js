@@ -4,6 +4,7 @@ export function useWiiAudio() {
   const [enabled, setEnabled] = useState(false)
   const enabledRef = useRef(false)
   const bgmRef = useRef(null)
+  const startupRef = useRef(null)
   const unlockedRef = useRef(false)
 
   function unlock() {
@@ -21,13 +22,20 @@ export function useWiiAudio() {
       const next = !prev
       enabledRef.current = next
       if (next) {
-        const connect = new Audio('/wii/audio/sfx-startup.mp3')
-        connect.volume = 0.7
-        connect.play().catch(() => {})
-        connect.addEventListener('ended', () => {
-          bgmRef.current?.play().catch(() => {})
+        const startup = new Audio('/wii/audio/sfx-startup.mp3')
+        startup.volume = 0.7
+        startupRef.current = startup
+        startup.play().catch(() => {})
+        startup.addEventListener('ended', () => {
+          if (enabledRef.current) bgmRef.current?.play().catch(() => {})
         })
       } else {
+        // Stop startup sound if still playing
+        if (startupRef.current) {
+          startupRef.current.pause()
+          startupRef.current.currentTime = 0
+          startupRef.current = null
+        }
         bgmRef.current?.pause()
       }
       return next
