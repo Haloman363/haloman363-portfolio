@@ -42,6 +42,29 @@ export default function WiiFooter({ audioEnabled, onAudioToggle, darkMode, onDar
       </div>
 
       {!channelOpen && <button
+        className={styles.audioButton}
+        onClick={onAudioToggle}
+        aria-label={audioEnabled ? 'Mute audio' : 'Unmute audio'}
+        title={audioEnabled ? 'Mute' : 'Unmute'}
+      >
+        {audioEnabled ? (
+          // Speaker on
+          <svg viewBox="0 0 24 24" width="44" height="44" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <polygon points="11,5 6,9 2,9 2,15 6,15 11,19" fill="#5a8a6a" stroke="#5a8a6a" strokeWidth="1" strokeLinejoin="round"/>
+            <path d="M15.54 8.46a5 5 0 0 1 0 7.07" stroke="#5a8a6a" strokeWidth="2" strokeLinecap="round"/>
+            <path d="M19.07 4.93a10 10 0 0 1 0 14.14" stroke="#5a8a6a" strokeWidth="2" strokeLinecap="round"/>
+          </svg>
+        ) : (
+          // Speaker muted
+          <svg viewBox="0 0 24 24" width="44" height="44" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <polygon points="11,5 6,9 2,9 2,15 6,15 11,19" fill="#888" stroke="#888" strokeWidth="1" strokeLinejoin="round"/>
+            <line x1="23" y1="9" x2="17" y2="15" stroke="#888" strokeWidth="2" strokeLinecap="round"/>
+            <line x1="17" y1="9" x2="23" y2="15" stroke="#888" strokeWidth="2" strokeLinecap="round"/>
+          </svg>
+        )}
+      </button>}
+
+      {!channelOpen && <button
         className={styles.darkButton}
         onClick={onDarkToggle}
         aria-label={darkMode ? 'Switch to light mode' : 'Switch to dark mode'}
