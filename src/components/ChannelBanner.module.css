@@ -57,13 +57,12 @@
   line-height: min(calc(4.5vw + 5px), 59px);
   border: none;
   cursor: none;
-  transform: scale(1);
-  transition: 150ms ease;
+  transition: filter 150ms ease;
   white-space: nowrap;
 }
 
 .btn:hover {
-  transform: scale(1.1);
+  filter: brightness(1.08) drop-shadow(0 0 6px rgba(90, 200, 232, 0.5));
 }
 
 .btn::before {
