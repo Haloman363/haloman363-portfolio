@@ -37,6 +37,7 @@ export function useWiiAudio() {
   const playHover = useCallback(() => playSfx('/wii/audio/sfx-hover.mp3'), [playSfx])
   const playSelect = useCallback(() => playSfx('/wii/audio/sfx-zip.mp3'), [playSfx])
   const playBack = useCallback(() => playSfx('/wii/audio/sfx-back.mp3'), [playSfx])
+  const playClick = useCallback(() => playSfx('/wii/audio/sfx-click.mp3'), [playSfx])
 
-  return { enabled, toggle, playHover, playSelect, playBack }
+  return { enabled, toggle, playHover, playSelect, playBack, playClick }
 }

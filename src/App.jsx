@@ -54,6 +54,7 @@ export default function App() {
   }, [prevPage, nextPage, activeChannel])
 
   function handleSelect(id, channelData) {
+    audio.playClick()
     audio.playSelect()
     lastChannelDataRef.current = channelData
     setActiveChannel(id)
@@ -61,6 +62,7 @@ export default function App() {
   }
 
   function handleBack() {
+    audio.playClick()
     audio.playBack()
     setActiveChannel(null)
     setActiveChannelData(null)
@@ -72,6 +74,7 @@ export default function App() {
     if (idx === -1) return
     const next = channels[(idx + direction + channels.length) % channels.length]
     if (!next) return
+    audio.playClick()
     audio.playHover()
     lastChannelDataRef.current = next
     setActiveChannel(next.id)
@@ -112,7 +115,7 @@ export default function App() {
         audioEnabled={audio.enabled}
         onAudioToggle={audio.toggle}
         darkMode={darkMode}
-        onDarkToggle={() => setDarkMode(d => !d)}
+        onDarkToggle={() => { audio.playClick(); setDarkMode(d => !d) }}
         channelOpen={!!activeChannel}
       />
       <ChannelBanner
