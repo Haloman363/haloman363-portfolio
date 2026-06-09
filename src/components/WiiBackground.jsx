@@ -65,7 +65,6 @@ export default function WiiBackground({ darkMode }) {
           ctx.fill()
         }
       } else {
-        // Light mode: original bg-pattern is handled by CSS, canvas is transparent
         ctx.clearRect(0, 0, w, h)
       }
 
@@ -84,9 +83,7 @@ export default function WiiBackground({ darkMode }) {
 
   return (
     <>
-      {/* CSS bg-pattern tile for light mode */}
       <div className={`${styles.bg} ${darkMode ? styles.bgHidden : ''}`} aria-hidden="true" />
-      {/* Canvas for dark mode starfield (always mounted, only draws when dark) */}
       <canvas ref={canvasRef} className={styles.canvas} aria-hidden="true" />
     </>
   )

@@ -77,7 +77,6 @@ export default function ChannelGrid({ onSelect, onHover, page, onPrev, onNext, o
   }, [slots, onSlotsReady])
 
   const currentSlots = slots[page]
-  // Split 12 slots into 4 columns of 3
   const cols = [
     currentSlots.slice(0, 3),
     currentSlots.slice(3, 6),

@@ -30,7 +30,6 @@ export function useWiiAudio() {
           if (enabledRef.current) bgmRef.current?.play().catch(() => {})
         })
       } else {
-        // Stop startup sound if still playing
         if (startupRef.current) {
           startupRef.current.pause()
           startupRef.current.currentTime = 0
@@ -49,7 +48,7 @@ export function useWiiAudio() {
     sfx.play().catch(() => {})
   }, [])
 
-  const playHover  = useCallback(() => playSfx('/wii/audio/sfx-hover.mp3'),  [playSfx])
+  const playHover  = useCallback(() => playSfx('/wii/audio/sfx-hover.wav'),  [playSfx])
   const playSelect = useCallback(() => playSfx('/wii/audio/sfx-zip.mp3'),    [playSfx])
   const playBack   = useCallback(() => playSfx('/wii/audio/sfx-back.mp3'),   [playSfx])
   const playClick  = useCallback(() => playSfx('/wii/audio/sfx-click.mp3'),  [playSfx])

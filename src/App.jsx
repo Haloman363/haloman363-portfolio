@@ -98,7 +98,7 @@ export default function App() {
       <WiiCursor />
       <ChannelGrid
         onSelect={handleSelect}
-        onHover={audio.playClick}
+        onHover={audio.playHover}
         page={page}
         onPrev={prevPage}
         onNext={nextPage}

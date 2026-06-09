@@ -8,9 +8,6 @@
   flex-direction: column;
 }
 
-/* ── Dark mode ── */
-
-/* Channels: slightly boosted, rich saturation */
 .wii.dark [class*="channelIcon"] {
   filter: brightness(0.95) saturate(1.4) contrast(1.05);
   transition: filter 0.5s ease;
@@ -22,7 +19,6 @@
   box-shadow: 0 0 28px rgba(120, 180, 255, 0.55), 0 0 56px rgba(80, 120, 255, 0.25);
 }
 
-/* Bottom bar: keep original sprites untouched, tint via ::after overlay */
 .wii.dark [class*="bottomSection"] {
   border-top: 1px solid rgba(100, 140, 255, 0.25);
   box-shadow: 0 -4px 32px rgba(0, 0, 60, 0.5);
@@ -38,7 +34,6 @@
   mix-blend-mode: multiply;
 }
 
-/* Lift button containers above the tint overlay — z-index only, no position change */
 .wii.dark [class*="leftButtonContainer"],
 .wii.dark [class*="rightButtonContainer"] {
   z-index: 2;
@@ -48,7 +43,6 @@
   opacity: 0;
 }
 
-/* Date text glows blue */
 .wii.dark [class*="date"] {
   color: rgba(160, 200, 255, 0.9) !important;
   text-shadow: 0 0 12px rgba(100, 160, 255, 0.6);

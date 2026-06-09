@@ -1,4 +1,3 @@
-import { useEffect, useRef } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import styles from './ChannelBanner.module.css'
 
