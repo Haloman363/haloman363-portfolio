@@ -229,6 +229,12 @@
     font-size: 22px;
     bottom: 16px;
   }
+
+  .settingsMenu {
+    position: fixed;
+    bottom: 130px;
+    right: 16px;
+  }
 }
 
 /* Phone footer */
@@ -262,5 +268,13 @@
   .date {
     font-size: 12px;
     bottom: 6px;
+  }
+
+  .settingsMenu {
+    position: fixed;
+    bottom: 66px;
+    right: 8px;
+    min-width: 140px;
+    font-size: 13px;
   }
 }
