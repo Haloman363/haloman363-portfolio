@@ -37,3 +37,18 @@
 }
 
 .cta:hover { opacity: 0.9; }
+
+@media only screen and (max-width: 639px) {
+  .venmo {
+    padding: 24px 20px;
+    gap: 14px;
+  }
+
+  .title {
+    font-size: 28px;
+  }
+
+  .handle {
+    font-size: 15px;
+  }
+}

@@ -95,3 +95,61 @@
   border-radius: 7px;
   transition: width 1s ease;
 }
+
+@media only screen and (max-width: 1023px) {
+  .about {
+    padding: 40px 28px 24px;
+  }
+
+  .name {
+    font-size: 32px;
+  }
+
+  .bio {
+    font-size: 14px;
+    max-width: 100%;
+  }
+
+  .bars {
+    max-width: 100%;
+  }
+}
+
+@media only screen and (max-width: 639px) {
+  .about {
+    padding: 24px 16px 16px;
+  }
+
+  .top {
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 20px;
+  }
+
+  .info {
+    text-align: center;
+  }
+
+  .name {
+    font-size: 26px;
+  }
+
+  .role {
+    font-size: 14px;
+  }
+
+  .bio {
+    font-size: 13px;
+    margin-bottom: 20px;
+  }
+
+  .barLabel {
+    width: 72px;
+    font-size: 12px;
+  }
+
+  .barTrack {
+    height: 11px;
+  }
+}

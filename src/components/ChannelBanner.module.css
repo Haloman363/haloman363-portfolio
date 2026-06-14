@@ -161,3 +161,78 @@
   bottom: 0;
   right: 0;
 }
+
+/* Tablet banner */
+@media only screen and (max-width: 1023px) {
+  .border {
+    width: 180px;
+    height: 135px;
+  }
+
+  .sideArrow {
+    width: 44px;
+    height: 80px;
+  }
+
+  .btn {
+    height: min(7vw, 52px);
+    width: min(22vw, 160px);
+    font-size: min(3vw, 22px);
+    line-height: min(calc(6.5vw + 5px), 51px);
+    margin-left: min(5vw, 40px);
+    margin-right: min(5vw, 40px);
+  }
+
+  .btn::before,
+  .btn::after {
+    height: min(7vw, 52px);
+    width: min(3vw, 22px);
+  }
+
+  .btn::before { left: max(-3vw, -22px); }
+  .btn::after { right: max(-3vw, -22px); }
+}
+
+/* Phone banner */
+@media only screen and (max-width: 639px) {
+  .viewport {
+    height: 75vh;
+  }
+
+  .splashBar {
+    height: 25vh;
+  }
+
+  .border {
+    width: 110px;
+    height: 82px;
+  }
+
+  .sideArrow {
+    width: 32px;
+    height: 56px;
+  }
+
+  .splashButtons {
+    width: 90%;
+    padding-top: 5vh;
+  }
+
+  .btn {
+    height: min(9vw, 48px);
+    width: min(28vw, 140px);
+    font-size: min(3.8vw, 18px);
+    line-height: min(calc(8.5vw + 5px), 47px);
+    margin-left: min(4vw, 20px);
+    margin-right: min(4vw, 20px);
+  }
+
+  .btn::before,
+  .btn::after {
+    height: min(9vw, 48px);
+    width: min(3.5vw, 18px);
+  }
+
+  .btn::before { left: max(-3.5vw, -18px); }
+  .btn::after { right: max(-3.5vw, -18px); }
+}

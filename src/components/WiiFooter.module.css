@@ -19,6 +19,10 @@
   background-position: center;
 }
 
+:global(.dark) .bottomTitle {
+  background-image: url('/wii/sprites/bottom-title-dark.png');
+}
+
 .leftButtonContainer {
   position: absolute;
   bottom: 0;
@@ -189,4 +193,110 @@
     font-size: 22px;
     bottom: 17px;
   }
+}
+
+/* Tablet footer */
+@media only screen and (max-width: 1023px) and (min-width: 640px) {
+  .bottomSection {
+    height: 120px;
+    background-image: url('/wii/sprites/mini-bottom-bg.png');
+    overflow: hidden;
+  }
+
+  .bottomTitle {
+    height: 120px;
+    /* Scale the 1200×220 image down to fit the 120px height */
+    background-size: auto 120px;
+    background-position: center top;
+  }
+
+  .leftButtonContainer {
+    transform: scale(0.55);
+    transform-origin: bottom left;
+  }
+
+  .rightButtonContainer {
+    transform: scale(0.55);
+    transform-origin: bottom right;
+  }
+
+  .leftButton, .rightButton {
+    bottom: 80px;
+  }
+
+  .wiiButton, .mailButton {
+    bottom: 90px;
+  }
+
+  .date {
+    font-size: 22px;
+    bottom: 16px;
+  }
+
+  .audioButton,
+  .darkButton {
+    width: 60px;
+    height: 60px;
+    top: 8px;
+  }
+
+  .audioButton svg,
+  .darkButton svg {
+    width: 30px;
+    height: 30px;
+  }
+
+  .audioButton { left: 8px; }
+  .darkButton { right: 8px; }
+}
+
+/* Phone footer */
+@media only screen and (max-width: 639px) {
+  .bottomSection {
+    height: 56px;
+    background-image: url('/wii/sprites/mini-bottom-bg.png');
+    flex-shrink: 0;
+    overflow: hidden;
+  }
+
+  .bottomTitle {
+    height: 56px;
+    background-size: auto 56px;
+    background-position: center top;
+  }
+
+  /* Scale buttons down to fit the 56px footer — origin anchors to bottom corner */
+  .leftButtonContainer {
+    display: block;
+    transform: scale(0.24);
+    transform-origin: bottom left;
+  }
+
+  .rightButtonContainer {
+    display: block;
+    transform: scale(0.24);
+    transform-origin: bottom right;
+  }
+
+  .date {
+    font-size: 12px;
+    bottom: 6px;
+  }
+
+  .audioButton,
+  .darkButton {
+    width: 32px;
+    height: 32px;
+    top: 2px;
+    border-width: 2px;
+  }
+
+  .audioButton svg,
+  .darkButton svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  .audioButton { left: 2px; }
+  .darkButton { right: 2px; }
 }
