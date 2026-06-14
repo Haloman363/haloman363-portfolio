@@ -33,3 +33,7 @@ dist-ssr
 # Working/temp directories
 CC-Session-Logs/
 upscale-assets/
+
+# Claude Code
+CLAUDE.md
+.claude/
