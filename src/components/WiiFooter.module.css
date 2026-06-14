@@ -68,77 +68,74 @@
   background-size: 100% 100%;
 }
 
-.mailButton {
-  background-image: url('/wii/sprites/mail-button.png');
+.settingsButton {
+  background-image: url('/wii/sprites/settings-icon.png');
   width: 100px;
   height: 105px;
   position: absolute;
   bottom: 60px;
   right: 60px;
   background-size: 100% 100%;
+  background-color: transparent;
+  border: none;
+  cursor: none;
   z-index: 999;
 }
 
-.audioButton {
-  width: 100px;
-  height: 100px;
-  position: fixed;
-  top: 12px;
-  left: 12px;
-  background: radial-gradient(circle at 38% 32%, #f0f0f2 0%, #d8d9dd 45%, #b8babe 100%);
-  border: 3px solid #5ac8e8;
-  border-radius: 50%;
+.settingsMenu {
+  position: absolute;
+  bottom: 175px;
+  right: 20px;
+  background: rgba(255, 255, 255, 0.92);
+  border: 2px solid #b0b8c8;
+  border-radius: 12px;
+  padding: 8px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  z-index: 1200;
+  min-width: 160px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.18);
+  animation: settingsFadeIn 120ms ease;
+}
+
+:global(.dark) .settingsMenu {
+  background: rgba(40, 55, 80, 0.96);
+  border-color: #4a6a9e;
+  box-shadow: 0 4px 16px rgba(0,0,60,0.4);
+}
+
+@keyframes settingsFadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.settingsMenuItem {
   display: flex;
   align-items: center;
-  justify-content: center;
-  z-index: 1100;
+  gap: 10px;
+  padding: 10px 16px;
+  background: transparent;
+  border: none;
   cursor: none;
-  padding: 0;
-  transition: transform 250ms ease, box-shadow 250ms ease;
-  box-shadow: 0 0 0 2px rgba(90, 200, 232, 0.35), 0 4px 12px rgba(0,0,0,0.25);
+  width: 100%;
+  text-align: left;
+  font-family: 'Asap', 'Nunito', sans-serif;
+  font-size: 15px;
+  color: #333;
+  transition: background 150ms;
 }
 
-.audioButton:hover {
-  transform: scale(1.1);
-  box-shadow: 0 0 0 3px rgba(90, 200, 232, 0.6), 0 4px 18px rgba(0,0,0,0.3);
+.settingsMenuItem:hover {
+  background: rgba(90, 200, 232, 0.15);
 }
 
-:global(.dark) .audioButton {
-  background: radial-gradient(circle at 38% 32%, #c8d8f0 0%, #8aaace 45%, #4a6a9e 100%);
-  border-color: #7ab0f0;
-  box-shadow: 0 0 0 2px rgba(120, 170, 240, 0.5), 0 4px 16px rgba(0,0,60,0.5);
+:global(.dark) .settingsMenuItem {
+  color: #dde8f8;
 }
 
-.darkButton {
-  width: 100px;
-  height: 100px;
-  position: fixed;
-  top: 12px;
-  right: 12px;
-  background: radial-gradient(circle at 38% 32%, #f0f0f2 0%, #d8d9dd 45%, #b8babe 100%);
-  border: 3px solid #5ac8e8;
-  border-radius: 50%;
-  font-size: 38px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 1100;
-  cursor: none;
-  line-height: 1;
-  padding: 0;
-  transition: transform 250ms ease, box-shadow 250ms ease;
-  box-shadow: 0 0 0 2px rgba(90, 200, 232, 0.35), 0 4px 12px rgba(0,0,0,0.25);
-}
-
-.darkButton:hover {
-  transform: scale(1.1);
-  box-shadow: 0 0 0 3px rgba(90, 200, 232, 0.6), 0 4px 18px rgba(0,0,0,0.3);
-}
-
-:global(.dark) .darkButton {
-  background: radial-gradient(circle at 38% 32%, #c8d8f0 0%, #8aaace 45%, #4a6a9e 100%);
-  border-color: #7ab0f0;
-  box-shadow: 0 0 0 2px rgba(120, 170, 240, 0.5), 0 4px 16px rgba(0,0,60,0.5);
+:global(.dark) .settingsMenuItem:hover {
+  background: rgba(120, 170, 240, 0.2);
 }
 
 .cornerButton {
@@ -180,7 +177,7 @@
     bottom: 180px;
   }
 
-  .wiiButton, .mailButton {
+  .wiiButton, .settingsButton {
     bottom: 197px;
   }
 
@@ -224,7 +221,7 @@
     bottom: 80px;
   }
 
-  .wiiButton, .mailButton {
+  .wiiButton, .settingsButton {
     bottom: 90px;
   }
 
@@ -232,22 +229,6 @@
     font-size: 22px;
     bottom: 16px;
   }
-
-  .audioButton,
-  .darkButton {
-    width: 60px;
-    height: 60px;
-    top: 8px;
-  }
-
-  .audioButton svg,
-  .darkButton svg {
-    width: 30px;
-    height: 30px;
-  }
-
-  .audioButton { left: 8px; }
-  .darkButton { right: 8px; }
 }
 
 /* Phone footer */
@@ -282,21 +263,4 @@
     font-size: 12px;
     bottom: 6px;
   }
-
-  .audioButton,
-  .darkButton {
-    width: 32px;
-    height: 32px;
-    top: 2px;
-    border-width: 2px;
-  }
-
-  .audioButton svg,
-  .darkButton svg {
-    width: 16px;
-    height: 16px;
-  }
-
-  .audioButton { left: 2px; }
-  .darkButton { right: 2px; }
 }

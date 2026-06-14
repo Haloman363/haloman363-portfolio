@@ -32,6 +32,10 @@ export default function WiiFooter({ audioEnabled, onAudioToggle, darkMode, onDar
     return () => document.removeEventListener('mousedown', handleOutside)
   }, [settingsOpen])
 
+  useEffect(() => {
+    if (channelOpen) setSettingsOpen(false)
+  }, [channelOpen])
+
   return (
     <div className={styles.bottomSection}>
       <div className={styles.bottomTitle} />
