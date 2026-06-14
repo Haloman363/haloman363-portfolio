@@ -12,7 +12,7 @@ function formatTime(d) {
   return `${day}  ${h}:${m} ${ampm}`
 }
 
-export default function WiiHeader({ audioEnabled, onAudioToggle }) {
+export default function WiiHeader() {
   const [time, setTime] = useState(() => formatTime(new Date()))
 
   useEffect(() => {
@@ -22,14 +22,6 @@ export default function WiiHeader({ audioEnabled, onAudioToggle }) {
 
   return (
     <header className={styles.header}>
-      <button
-        className={styles.speaker}
-        onClick={onAudioToggle}
-        aria-label={audioEnabled ? 'Mute audio' : 'Unmute audio'}
-        title={audioEnabled ? 'Mute' : 'Unmute'}
-      >
-        {audioEnabled ? '🔊' : '🔇'}
-      </button>
       <span className={styles.clock}>{time}</span>
     </header>
   )
