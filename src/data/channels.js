@@ -13,13 +13,15 @@ export const LANG_COLORS = {
 
 const base = import.meta.env.BASE_URL
 
+export const EXCLUDED_REPOS = ['haloman363-portfolio', 'ctt']
+
 export const NAMED_CHANNELS = [
   { id: 'mii-channel',   label: 'Mii Channel',       sprite: `${base}wii/sprites/channel-mii.svg`,        page: 0, slot: 0 },
-  { id: 'photo-channel', label: 'Photo Channel',      sprite: `${base}wii/sprites/channel-photo.svg`,      page: 0, slot: 1 },
-  { id: 'wii-shop',      label: 'Wii Shop Channel',   sprite: `${base}wii/sprites/channel-shop.svg`,       page: 0, slot: 8 },
+  { id: 'wii-shop',      label: 'Referrals',           sprite: `${base}wii/sprites/channel-referrals.svg`,  page: 0, slot: 8 },
   { id: 'check-mii-out', label: 'Check Mii Out',      sprite: `${base}wii/sprites/channel-makerworld.svg`, page: 0, slot: 9 },
-  { id: 'linkedin',      label: 'LinkedIn',            sprite: `${base}wii/sprites/channel-linkedin.svg`,   page: 0, slot: 10 },
-  { id: 'venmo',         label: 'Venmo',               sprite: `${base}wii/sprites/channel-venmo.svg`,      page: 1, slot: 0 },
+  { id: 'github',        label: 'GitHub',              sprite: `${base}wii/sprites/channel-github.svg`,    page: 0, slot: 10 },
+  { id: 'linkedin',      label: 'LinkedIn',            sprite: `${base}wii/sprites/channel-linkedin.svg`,   page: 0, slot: 11 },
+  { id: 'venmo',         label: 'Venmo',               sprite: `${base}wii/sprites/channel-venmo.svg`,      page: 0, slot: 12 },
 ]
 
 export const REFERRAL_LINKS = [

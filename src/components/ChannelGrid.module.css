@@ -92,10 +92,6 @@
   }
 
   .col {
-    flex: none;
-    height: auto;
-    width: 100%;
-    justify-content: flex-start;
-    gap: 0;
+    display: contents;
   }
 }

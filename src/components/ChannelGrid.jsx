@@ -1,32 +1,28 @@
 import { useState, useEffect, useCallback } from 'react'
 import ChannelSlot from './ChannelSlot'
-import { NAMED_CHANNELS, GITHUB_USER, FEATURED_REPO } from '../data/channels'
+import { NAMED_CHANNELS, GITHUB_USER, FEATURED_REPO, EXCLUDED_REPOS } from '../data/channels'
 import styles from './ChannelGrid.module.css'
 
 const SLOTS_PER_PAGE = 12
-const TOTAL_PAGES = 2
+const COLS = 4
+const ROWS = 3
 
+// Slots are stored in row-major reading order (left to right, top to bottom),
+// with blanks pushed to the end. Desktop's column layout is derived from this
+// at render time; tablet/phone consume it directly since they flow row-major too.
 function buildSlots(namedChannels, repos) {
-  const pages = Array.from({ length: TOTAL_PAGES }, () => Array(SLOTS_PER_PAGE).fill(null))
-
-  for (const ch of namedChannels) {
-    pages[ch.page][ch.slot] = ch
-  }
+  const named = [...namedChannels].sort((a, b) => a.slot - b.slot)
 
   const featured = repos.find(r => r.name === FEATURED_REPO)
-  if (featured) {
-    pages[0][2] = repoToChannel(featured, true)
-  }
+  const rest = repos.filter(r => r.name !== FEATURED_REPO)
+  const repoChannels = [
+    ...(featured ? [repoToChannel(featured, true)] : []),
+    ...rest.map(r => repoToChannel(r, false)),
+  ]
 
-  const rest = repos.filter(r => r.name !== FEATURED_REPO).slice(0, 5)
-  let slotIdx = 3
-  for (const repo of rest) {
-    if (slotIdx > 7) break
-    if (!pages[0][slotIdx]) pages[0][slotIdx] = repoToChannel(repo, false)
-    slotIdx++
-  }
+  const flat = [...named, ...repoChannels].slice(0, SLOTS_PER_PAGE)
 
-  return pages
+  return [[...flat, ...Array(SLOTS_PER_PAGE - flat.length).fill(null)]]
 }
 
 function repoToChannel(repo, featured) {
@@ -59,7 +55,7 @@ export default function ChannelGrid({ onSelect, onHover, page, onPrev, onNext, o
         if (!res.ok) throw new Error()
         const data = await res.json()
         const filtered = data
-          .filter(r => !r.fork && r.name !== GITHUB_USER.toLowerCase())
+          .filter(r => !r.fork && r.name !== GITHUB_USER.toLowerCase() && !EXCLUDED_REPOS.includes(r.name))
           .sort((a, b) => b.stargazers_count - a.stargazers_count)
         setSlots(buildSlots(NAMED_CHANNELS, filtered))
       } catch (err) {
@@ -77,24 +73,30 @@ export default function ChannelGrid({ onSelect, onHover, page, onPrev, onNext, o
   }, [slots, onSlotsReady])
 
   const currentSlots = slots[page]
-  const cols = [
-    currentSlots.slice(0, 3),
-    currentSlots.slice(3, 6),
-    currentSlots.slice(6, 9),
-    currentSlots.slice(9, 12),
-  ]
+  // currentSlots is row-major (reading order); regroup into column-major for
+  // desktop's flex-column layout, where each .col renders top-to-bottom. Each
+  // slot also carries its row-major index as a CSS `order`, so the tablet
+  // breakpoint (which flattens .col via display:contents and grid auto-flow)
+  // still reads left-to-right, top-to-bottom regardless of DOM order.
+  const cols = Array.from({ length: COLS }, (_, ci) =>
+    Array.from({ length: ROWS }, (_, ri) => {
+      const rowMajorIndex = ri * COLS + ci
+      return { channel: currentSlots[rowMajorIndex], order: rowMajorIndex }
+    })
+  )
 
   return (
     <div className={styles.topSection}>
       <div className={styles.channels}>
         {cols.map((col, ci) => (
           <div key={ci} className={`${styles.col} ${ci === 0 ? styles.first : ''}`}>
-            {col.map((channel, ri) => (
+            {col.map(({ channel, order }, ri) => (
               <ChannelSlot
                 key={channel?.id ?? `empty-${page}-${ci}-${ri}`}
                 channel={channel}
                 onSelect={onSelect}
                 onHover={onHover}
+                style={{ order }}
               />
             ))}
           </div>

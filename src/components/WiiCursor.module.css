@@ -2,11 +2,10 @@
   position: fixed;
   top: 0;
   left: 0;
-  width: 65px;
-  height: 91px;
+  width: clamp(42px, 6vw, 65px);
+  height: clamp(59px, 8.4vw, 91px);
   pointer-events: none;
   z-index: 9999;
-  transform-origin: 20px 10px;
   will-change: transform;
 }
 

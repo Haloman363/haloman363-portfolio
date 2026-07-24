@@ -9,18 +9,20 @@ import PhotoBanner from './banners/PhotoBanner'
 import RepoBanner from './banners/RepoBanner'
 import ShopBanner from './banners/ShopBanner'
 import MakerWorldBanner from './banners/MakerWorldBanner'
+import GitHubBanner from './banners/GitHubBanner'
 import LinkedInBanner from './banners/LinkedInBanner'
 import VenmoBanner from './banners/VenmoBanner'
 import { useWiiAudio } from './hooks/useWiiAudio'
 import './App.css'
 
-const TOTAL_PAGES = 2
+const TOTAL_PAGES = 1
 
 export default function App() {
   const [activeChannel, setActiveChannel] = useState(null)
   const [activeChannelData, setActiveChannelData] = useState(null)
   const [page, setPage] = useState(0)
   const [darkMode, setDarkMode] = useState(false)
+  const [openOrigin, setOpenOrigin] = useState(null)
   const lastChannelDataRef = useRef(null)
   const allChannelsRef = useRef([])
   const audio = useWiiAudio()
@@ -30,12 +32,12 @@ export default function App() {
   }, [])
 
   const prevPage = useCallback(() => {
-    audio.playClick()
+    audio.playPageTurn(-1)
     setPage(p => Math.max(0, p - 1))
   }, [audio])
 
   const nextPage = useCallback(() => {
-    audio.playClick()
+    audio.playPageTurn(1)
     setPage(p => Math.min(TOTAL_PAGES - 1, p + 1))
   }, [audio])
 
@@ -53,9 +55,10 @@ export default function App() {
     return () => window.removeEventListener('keydown', onKey)
   }, [prevPage, nextPage, activeChannel])
 
-  function handleSelect(id, channelData) {
+  function handleSelect(id, channelData, origin) {
     audio.playClick()
     lastChannelDataRef.current = channelData
+    setOpenOrigin(origin ?? null)
     setActiveChannel(id)
     setActiveChannelData(channelData)
   }
@@ -84,6 +87,7 @@ export default function App() {
     if (channelId === 'photo-channel') return <PhotoBanner />
     if (channelId === 'wii-shop') return <ShopBanner />
     if (channelId === 'check-mii-out') return <MakerWorldBanner />
+    if (channelId === 'github') return <GitHubBanner />
     if (channelId === 'linkedin') return <LinkedInBanner />
     if (channelId === 'venmo') return <VenmoBanner />
     if (channelId.startsWith('repo-')) {
@@ -117,6 +121,7 @@ export default function App() {
       />
       <ChannelBanner
         channelId={activeChannel}
+        origin={openOrigin}
         onBack={handleBack}
         onPrev={() => handleChannelNav(-1)}
         onNext={() => handleChannelNav(1)}

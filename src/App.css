@@ -25,28 +25,7 @@
   box-shadow: 0 -4px 32px rgba(0, 0, 60, 0.5);
 }
 
-.wii.dark [class*="bottomSection"]::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: rgba(10, 15, 50, 0.6);
-  pointer-events: none;
-  z-index: 1;
-  mix-blend-mode: multiply;
-}
-
-.wii.dark [class*="leftButtonContainer"],
-.wii.dark [class*="rightButtonContainer"] {
-  z-index: 2;
-}
-
-.wii.dark [class*="bottomTitle"] {
-  position: relative;
-  z-index: 2;
-}
-
 .wii.dark [class*="date"] {
   color: rgba(160, 200, 255, 0.9) !important;
   text-shadow: 0 0 12px rgba(100, 160, 255, 0.6);
-  z-index: 2;
 }

@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 186" width="340" height="186">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0d9488"/>
+      <stop offset="100%" stop-color="#065f56"/>
+    </linearGradient>
+  </defs>
+  <rect width="340" height="186" fill="url(#bg)"/>
+
+  <!-- Two connected "people" nodes representing referral/share -->
+  <circle cx="140" cy="90" r="22" fill="white" opacity="0.95"/>
+  <circle cx="140" cy="90" r="10" fill="#0d9488"/>
+  <path d="M118 118 Q118 100 140 100 Q162 100 162 118" fill="white" opacity="0.95"/>
+
+  <circle cx="204" cy="90" r="22" fill="white" opacity="0.8"/>
+  <circle cx="204" cy="90" r="10" fill="#0d9488" opacity="0.85"/>
+  <path d="M182 118 Q182 100 204 100 Q226 100 226 118" fill="white" opacity="0.8"/>
+
+  <!-- Connecting arrow / link between the two -->
+  <path d="M164 84 Q172 78 180 84" stroke="white" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+  <polygon points="177,80 182,84 176,87" fill="white"/>
+
+  <!-- Gold coin bonus badge, bottom-right of the pair -->
+  <circle cx="222" cy="122" r="15" fill="#ffd600"/>
+  <line x1="222" y1="114" x2="222" y2="130" stroke="#b35c00" stroke-width="2.2"/>
+  <path d="M215 118 Q215 114 222 114 Q229 114 229 118 Q229 122 222 122 Q215 122 215 126 Q215 130 222 130 Q229 130 229 126"
+        stroke="#b35c00" stroke-width="2.2" fill="none"/>
+
+  <!-- Small gold sparkle accents -->
+  <circle cx="118" cy="55" r="4" fill="#ffd600" opacity="0.85"/>
+  <circle cx="256" cy="70" r="3" fill="#ffd600" opacity="0.7"/>
+
+  <!-- Label -->
+  <text x="170" y="165" font-family="'Nunito',Arial,sans-serif" font-weight="800"
+        font-size="20" fill="white" text-anchor="middle">Referrals</text>
+</svg>

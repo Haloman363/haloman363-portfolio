@@ -55,5 +55,42 @@ export function useWiiAudio() {
   const playBack   = useCallback(() => playSfx(`${base}wii/audio/sfx-back.mp3`),   [playSfx])
   const playClick  = useCallback(() => playSfx(`${base}wii/audio/sfx-click.mp3`),  [playSfx])
 
-  return { enabled, toggle, playHover, playSelect, playBack, playClick }
+  // Short synthesized swish for page turns — a quick pitch-swept noise burst,
+  // distinct from the click SFX. Generated on the fly so no extra audio asset is needed.
+  const playPageTurn = useCallback((direction = 1) => {
+    if (!enabledRef.current) return
+    const AudioCtx = window.AudioContext || window.webkitAudioContext
+    if (!AudioCtx) return
+    const ctx = new AudioCtx()
+    const duration = 0.22
+    const bufferSize = Math.floor(ctx.sampleRate * duration)
+    const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate)
+    const data = buffer.getChannelData(0)
+    for (let i = 0; i < bufferSize; i++) {
+      data[i] = (Math.random() * 2 - 1) * (1 - i / bufferSize)
+    }
+    const noise = ctx.createBufferSource()
+    noise.buffer = buffer
+
+    const filter = ctx.createBiquadFilter()
+    filter.type = 'bandpass'
+    filter.Q.value = 0.7
+    const startFreq = direction >= 0 ? 800 : 2200
+    const endFreq = direction >= 0 ? 2200 : 800
+    filter.frequency.setValueAtTime(startFreq, ctx.currentTime)
+    filter.frequency.exponentialRampToValueAtTime(endFreq, ctx.currentTime + duration)
+
+    const gain = ctx.createGain()
+    gain.gain.setValueAtTime(0.5, ctx.currentTime)
+    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + duration)
+
+    noise.connect(filter).connect(gain).connect(ctx.destination)
+    noise.start()
+    noise.stop(ctx.currentTime + duration)
+    noise.onended = () => {
+      if (ctx.state !== 'closed') ctx.close().catch(() => {})
+    }
+  }, [])
+
+  return { enabled, toggle, playHover, playSelect, playBack, playClick, playPageTurn }
 }

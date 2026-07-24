@@ -1,17 +1,23 @@
 import styles from './ChannelSlot.module.css'
 import { LANG_COLORS } from '../data/channels'
 
-export default function ChannelSlot({ channel, onSelect, onHover }) {
+export default function ChannelSlot({ channel, onSelect, onHover, style }) {
   if (!channel) {
     return (
-      <div className={`${styles.channelIcon} ${styles.blank}`} aria-hidden="true">
+      <div className={`${styles.channelIcon} ${styles.blank}`} style={style} aria-hidden="true">
         <div className={styles.hover} />
       </div>
     )
   }
 
-  function handleClick() {
-    onSelect?.(channel.id, channel)
+  function handleClick(e) {
+    const rect = e.currentTarget.getBoundingClientRect()
+    onSelect?.(channel.id, channel, {
+      x: rect.left + rect.width / 2,
+      y: rect.top + rect.height / 2,
+      width: rect.width,
+      height: rect.height,
+    })
   }
 
   function handleMouseEnter() {
@@ -23,12 +29,13 @@ export default function ChannelSlot({ channel, onSelect, onHover }) {
   return (
     <div
       className={`${styles.channelIcon} ${styles.occupied}`}
+      style={style}
       onClick={handleClick}
       onMouseEnter={handleMouseEnter}
       role="button"
       tabIndex={0}
       aria-label={`Open ${channel.label}`}
-      onKeyDown={e => e.key === 'Enter' && handleClick()}
+      onKeyDown={e => e.key === 'Enter' && handleClick(e)}
     >
       {isRepo ? (
         <div className={styles.repoInner}>

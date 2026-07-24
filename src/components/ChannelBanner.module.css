@@ -1,3 +1,16 @@
+/* Radial burst from the clicked tile — the Wii "start" flash */
+.flash {
+  position: fixed;
+  width: 140vmax;
+  height: 140vmax;
+  margin-left: -70vmax;
+  margin-top: -70vmax;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255,255,255,0.95) 0%, rgba(120,210,255,0.55) 45%, rgba(120,210,255,0) 72%);
+  z-index: 199;
+  pointer-events: none;
+}
+
 /* Clips the sliding panels — sits exactly where the channel content lives */
 .viewport {
   position: fixed;

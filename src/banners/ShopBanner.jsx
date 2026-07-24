@@ -4,7 +4,7 @@ import { REFERRAL_LINKS } from '../data/channels'
 export default function ShopBanner() {
   return (
     <div className={styles.shop}>
-      <h1 className={styles.header}>Welcome to the Wii Shop Channel!</h1>
+      <h1 className={styles.header}>Referrals</h1>
       <p className={styles.sub}>Referral links &amp; bonus offers</p>
       <div className={styles.cards}>
         {REFERRAL_LINKS.map(link => (
