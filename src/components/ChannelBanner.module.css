@@ -36,6 +36,7 @@
   display: flex;
   flex-direction: column;
   overflow: auto;
+  --arrow-inset: 64px;
 }
 
 /* Side nav arrows — vertically centered in the 80vh viewport */
@@ -187,6 +188,10 @@
     height: 80px;
   }
 
+  .content {
+    --arrow-inset: 44px;
+  }
+
   .btn {
     height: min(7vw, 52px);
     width: min(22vw, 160px);
@@ -224,6 +229,10 @@
   .sideArrow {
     width: 32px;
     height: 56px;
+  }
+
+  .content {
+    --arrow-inset: 32px;
   }
 
   .splashButtons {

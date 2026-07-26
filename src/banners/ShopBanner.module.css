@@ -6,6 +6,9 @@
   background: linear-gradient(160deg, #14b8a6 0%, #065f56 100%);
   color: #fff;
   padding: 64px 48px 32px;
+  padding-left: calc(48px + var(--arrow-inset, 0px));
+  padding-right: calc(48px + var(--arrow-inset, 0px));
+  box-sizing: border-box;
   overflow-y: auto;
 }
 
@@ -82,6 +85,8 @@
 @media only screen and (max-width: 639px) {
   .shop {
     padding: 24px 16px 16px;
+    padding-left: calc(16px + var(--arrow-inset, 0px));
+    padding-right: calc(16px + var(--arrow-inset, 0px));
   }
 
   .header {

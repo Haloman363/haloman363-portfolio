@@ -9,6 +9,9 @@
   gap: 20px;
   text-align: center;
   padding: 48px;
+  padding-left: calc(48px + var(--arrow-inset, 0px));
+  padding-right: calc(48px + var(--arrow-inset, 0px));
+  box-sizing: border-box;
 }
 
 .title {
@@ -40,6 +43,8 @@
 @media only screen and (max-width: 639px) {
   .li {
     padding: 24px 20px;
+    padding-left: calc(20px + var(--arrow-inset, 0px));
+    padding-right: calc(20px + var(--arrow-inset, 0px));
     gap: 14px;
   }
 

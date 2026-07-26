@@ -12,6 +12,9 @@
   align-items: center;
   justify-content: center;
   overflow: hidden;
+  padding-left: var(--arrow-inset, 0px);
+  padding-right: var(--arrow-inset, 0px);
+  box-sizing: border-box;
 }
 
 .image {
