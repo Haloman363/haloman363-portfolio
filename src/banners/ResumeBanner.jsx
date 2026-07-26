@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import styles from './ResumeBanner.module.css'
 
-const TABS = ['Summary', 'Experience', 'Skills', 'Certifications', 'Interests']
+const TABS = ['Summary', 'Experience', 'Education', 'Skills', 'Certifications', 'Interests']
 
 const EXPERIENCE = [
   {
@@ -104,6 +104,11 @@ export default function ResumeBanner() {
               secure infrastructure, managing enterprise systems, and streamlining IT operations. Actively seeking
               to contribute technical expertise to a growing IT team.
             </p>
+          </div>
+        )}
+
+        {tab === 'Education' && (
+          <div className={styles.summary}>
             <div className={styles.eduCard}>
               <p className={styles.eduSchool}>Brigham Young University - Idaho</p>
               <p className={styles.eduDegree}>B.S. in Computer Information Technology</p>

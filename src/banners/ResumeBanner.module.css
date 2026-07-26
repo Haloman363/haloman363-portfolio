@@ -57,11 +57,11 @@
 
 .tabs {
   display: flex;
+  flex-wrap: wrap;
   gap: 8px;
   flex-shrink: 0;
   margin-bottom: 16px;
   border-bottom: 2px solid #d5dde6;
-  overflow-x: auto;
 }
 
 .tab {

@@ -13,11 +13,6 @@ export default function AboutBanner() {
     <div className={styles.about}>
       <div className={styles.content}>
         <div className={styles.top}>
-          <img
-            className={styles.avatar}
-            src={`${import.meta.env.BASE_URL}wii/sprites/mii-avatar-placeholder.png`}
-            alt="Mii avatar"
-          />
           <div className={styles.info}>
             <h1 className={styles.name}>JAYMES BUNCE</h1>
             <p className={styles.role}>Hobbyist Developer &amp; Maker</p>
