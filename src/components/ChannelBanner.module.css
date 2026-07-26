@@ -37,6 +37,8 @@
   flex-direction: column;
   overflow: auto;
   --arrow-inset: 64px;
+  --corner-clear-x: 306px;
+  --corner-clear-y: 230px;
 }
 
 /* Side nav arrows — vertically centered in the 80vh viewport */
@@ -190,6 +192,8 @@
 
   .content {
     --arrow-inset: 44px;
+    --corner-clear-x: 180px;
+    --corner-clear-y: 135px;
   }
 
   .btn {
@@ -233,6 +237,8 @@
 
   .content {
     --arrow-inset: 32px;
+    --corner-clear-x: 110px;
+    --corner-clear-y: 82px;
   }
 
   .splashButtons {

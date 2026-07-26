@@ -5,6 +5,7 @@ import WiiFooter from './components/WiiFooter'
 import ChannelGrid from './components/ChannelGrid'
 import ChannelBanner from './components/ChannelBanner'
 import AboutBanner from './banners/AboutBanner'
+import ResumeBanner from './banners/ResumeBanner'
 import PhotoBanner from './banners/PhotoBanner'
 import RepoBanner from './banners/RepoBanner'
 import ShopBanner from './banners/ShopBanner'
@@ -84,6 +85,7 @@ export default function App() {
   function renderBannerContent(channelId, channelData) {
     if (!channelId) return null
     if (channelId === 'mii-channel') return <AboutBanner />
+    if (channelId === 'resume') return <ResumeBanner />
     if (channelId === 'photo-channel') return <PhotoBanner />
     if (channelId === 'wii-shop') return <ShopBanner />
     if (channelId === 'check-mii-out') return <MakerWorldBanner />

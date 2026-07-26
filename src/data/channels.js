@@ -17,6 +17,7 @@ export const EXCLUDED_REPOS = ['haloman363-portfolio', 'ctt']
 
 export const NAMED_CHANNELS = [
   { id: 'mii-channel',   label: 'Mii Channel',       sprite: `${base}wii/sprites/channel-mii.svg`,        page: 0, slot: 0 },
+  { id: 'resume',        label: 'Resume',              sprite: `${base}wii/sprites/channel-resume.svg`,     page: 0, slot: 1 },
   { id: 'wii-shop',      label: 'Referrals',           sprite: `${base}wii/sprites/channel-referrals.svg`,  page: 0, slot: 8 },
   { id: 'check-mii-out', label: 'Check Mii Out',      sprite: `${base}wii/sprites/channel-makerworld.svg`, page: 0, slot: 9 },
   { id: 'github',        label: 'GitHub',              sprite: `${base}wii/sprites/channel-github.svg`,    page: 0, slot: 10 },
