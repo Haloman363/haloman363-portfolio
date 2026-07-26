@@ -7,7 +7,6 @@ import ChannelBanner from './components/ChannelBanner'
 import AboutBanner from './banners/AboutBanner'
 import ResumeBanner from './banners/ResumeBanner'
 import PhotoBanner from './banners/PhotoBanner'
-import RepoBanner from './banners/RepoBanner'
 import ShopBanner from './banners/ShopBanner'
 import MakerWorldBanner from './banners/MakerWorldBanner'
 import GitHubBanner from './banners/GitHubBanner'
@@ -92,14 +91,11 @@ export default function App() {
     if (channelId === 'github') return <GitHubBanner />
     if (channelId === 'linkedin') return <LinkedInBanner />
     if (channelId === 'venmo') return <VenmoBanner />
-    if (channelId.startsWith('repo-')) {
-      return <RepoBanner channel={channelData ?? lastChannelDataRef.current} />
-    }
     return null
   }
 
   return (
-    <div className={`wii${darkMode ? ' dark' : ''}`}>
+    <main className={`wii${darkMode ? ' dark' : ''}`}>
       <WiiBackground darkMode={darkMode} />
       <WiiCursor />
       <ChannelGrid
@@ -130,6 +126,6 @@ export default function App() {
       >
         {renderBannerContent(activeChannel, activeChannelData)}
       </ChannelBanner>
-    </div>
+    </main>
   )
 }

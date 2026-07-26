@@ -1,28 +1,70 @@
 .gh {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
   height: 100%;
   background: #0d1117;
   color: #fff;
-  gap: 20px;
-  text-align: center;
-  padding: 48px;
+  padding: 40px 48px 24px;
+  padding-top: max(40px, var(--corner-clear-y, 0px));
   padding-left: calc(48px + var(--arrow-inset, 0px));
   padding-right: calc(48px + var(--arrow-inset, 0px));
   box-sizing: border-box;
+  overflow: hidden;
+  gap: 20px;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex-shrink: 0;
+  flex-wrap: wrap;
 }
 
 .title {
   font-family: 'Nunito', sans-serif;
   font-weight: 800;
-  font-size: 40px;
+  font-size: 32px;
+  line-height: 1;
 }
 
 .handle {
-  font-size: 16px;
+  font-size: 14px;
   opacity: 0.7;
+  margin-top: 4px;
+}
+
+.avatar {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  border: 3px solid #fff;
+  flex-shrink: 0;
+}
+
+.stats {
+  display: flex;
+  gap: 24px;
+  margin-left: auto;
+}
+
+.stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.statNum {
+  font-family: 'Nunito', sans-serif;
+  font-weight: 800;
+  font-size: 20px;
+}
+
+.statLabel {
+  font-size: 11px;
+  opacity: 0.65;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
 }
 
 .cta {
@@ -31,28 +73,177 @@
   color: #0d1117;
   font-family: 'Nunito', sans-serif;
   font-weight: 700;
-  font-size: 16px;
-  padding: 12px 28px;
+  font-size: 14px;
+  padding: 10px 20px;
   border-radius: 8px;
   text-decoration: none;
+  white-space: nowrap;
   transition: opacity 0.15s;
 }
 
 .cta:hover { opacity: 0.85; }
 
+.repoGrid {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 14px;
+  align-content: start;
+}
+
+.repoCard {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  background: #161b22;
+  border: 1px solid #30363d;
+  border-radius: 10px;
+  padding: 14px 16px;
+  text-decoration: none;
+  color: #fff;
+  transition: border-color 0.15s, background 0.15s;
+}
+
+.repoCard:hover {
+  border-color: #58a6ff;
+  background: #1c2330;
+}
+
+.repoCard.featured {
+  border-color: #f0c040;
+}
+
+.repoName {
+  font-family: 'Nunito', sans-serif;
+  font-weight: 800;
+  font-size: 14px;
+}
+
+.repoDesc {
+  font-size: 12px;
+  color: #8b949e;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+.repoMeta {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-top: auto;
+}
+
+.langTag {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 12px;
+  color: #8b949e;
+}
+
+.langDot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.stars {
+  font-size: 12px;
+  color: #8b949e;
+}
+
+.error {
+  font-size: 13px;
+  color: #f0a860;
+  background: #2a1f14;
+  border: 1px solid #4a3620;
+  border-radius: 8px;
+  padding: 10px 14px;
+}
+
+.skeleton {
+  position: relative;
+  overflow: hidden;
+  background: #161b22;
+  border-color: transparent;
+}
+
+.skeleton::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.06), transparent);
+  animation: shimmer 1.3s infinite;
+}
+
+.skeletonNum {
+  display: inline-block;
+  width: 28px;
+  height: 20px;
+  border-radius: 4px;
+}
+
+.repoCard.skeleton {
+  min-height: 84px;
+}
+
+@keyframes shimmer {
+  from { transform: translateX(-100%); }
+  to { transform: translateX(100%); }
+}
+
+@media only screen and (max-width: 1023px) {
+  .gh {
+    padding: 28px 28px 20px;
+    padding-top: max(28px, var(--corner-clear-y, 0px));
+    padding-left: calc(28px + var(--arrow-inset, 0px));
+    padding-right: calc(28px + var(--arrow-inset, 0px));
+  }
+}
+
 @media only screen and (max-width: 639px) {
   .gh {
-    padding: 24px 20px;
-    padding-left: calc(20px + var(--arrow-inset, 0px));
-    padding-right: calc(20px + var(--arrow-inset, 0px));
+    padding: 20px 16px 16px;
+    padding-top: max(20px, var(--corner-clear-y, 0px));
+    padding-left: calc(16px + var(--arrow-inset, 0px));
+    padding-right: calc(16px + var(--arrow-inset, 0px));
     gap: 14px;
   }
 
+  .header {
+    gap: 12px;
+  }
+
   .title {
-    font-size: 28px;
+    font-size: 24px;
   }
 
   .handle {
-    font-size: 14px;
+    font-size: 12px;
+  }
+
+  .avatar {
+    width: 52px;
+    height: 52px;
+  }
+
+  .stats {
+    gap: 16px;
+    margin-left: 0;
+  }
+
+  .cta {
+    width: 100%;
+    text-align: center;
+  }
+
+  .repoGrid {
+    grid-template-columns: 1fr;
   }
 }

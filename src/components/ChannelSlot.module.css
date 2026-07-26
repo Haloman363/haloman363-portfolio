@@ -99,38 +99,6 @@
   object-fit: cover;
 }
 
-/* repo tile */
-.repoInner {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-  background: linear-gradient(135deg, #1e3a5f 0%, #2d5a8e 100%);
-  border-radius: 9%;
-  padding: 0 12%;
-}
-
-.langDot {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  flex-shrink: 0;
-}
-
-.repoName {
-  font-family: 'Nunito', sans-serif;
-  font-weight: 800;
-  font-size: clamp(9px, 1vw, 14px);
-  color: #fff;
-  text-align: center;
-  word-break: break-all;
-  line-height: 1.2;
-  text-shadow: 0 1px 3px rgba(0,0,0,0.5);
-}
-
 /* text-only tile */
 .textInner {
   position: absolute;
@@ -198,43 +166,17 @@
     object-fit: cover;
   }
 
-  .repoInner,
   .textInner {
     clip-path: none;
     -webkit-clip-path: none;
     border-radius: 8px;
-  }
-
-  .repoName {
-    font-size: 18px;
-    word-break: normal;
-    text-overflow: ellipsis;
-    overflow: hidden;
-    white-space: nowrap;
+    justify-content: center;
+    align-items: center;
+    padding: 0 10%;
   }
 
   .textLabel {
     font-size: 20px;
     font-weight: 900;
-  }
-
-  .repoInner {
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 0 12%;
-    gap: 6px;
-  }
-
-  .langDot {
-    width: 14px;
-    height: 14px;
-    flex-shrink: 0;
-  }
-
-  .textInner {
-    justify-content: center;
-    align-items: center;
-    padding: 0 10%;
   }
 }

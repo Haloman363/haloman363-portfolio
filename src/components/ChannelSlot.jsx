@@ -1,5 +1,4 @@
 import styles from './ChannelSlot.module.css'
-import { LANG_COLORS } from '../data/channels'
 
 export default function ChannelSlot({ channel, onSelect, onHover, style }) {
   if (!channel) {
@@ -24,8 +23,6 @@ export default function ChannelSlot({ channel, onSelect, onHover, style }) {
     onHover?.()
   }
 
-  const isRepo = channel.id.startsWith('repo-') || channel.id === 'rune-claude'
-
   return (
     <div
       className={`${styles.channelIcon} ${styles.occupied}`}
@@ -37,17 +34,7 @@ export default function ChannelSlot({ channel, onSelect, onHover, style }) {
       aria-label={`Open ${channel.label}`}
       onKeyDown={e => e.key === 'Enter' && handleClick(e)}
     >
-      {isRepo ? (
-        <div className={styles.repoInner}>
-          {channel.language && (
-            <span
-              className={styles.langDot}
-              style={{ background: LANG_COLORS[channel.language] ?? '#888' }}
-            />
-          )}
-          <span className={styles.repoName}>{channel.label}</span>
-        </div>
-      ) : channel.sprite ? (
+      {channel.sprite ? (
         <img src={channel.sprite} alt={channel.label} />
       ) : (
         <div className={styles.textInner}>
