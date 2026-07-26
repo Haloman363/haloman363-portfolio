@@ -14,7 +14,7 @@
 }
 
 .bottomTitle {
-  background-image: url('/wii/sprites/bottom-title.png');
+  background-image: url('/wii/sprites/bottom-title.webp');
   width: 100%;
   height: 220px;
   background-repeat: no-repeat;
@@ -24,7 +24,7 @@
 }
 
 :global(.dark) .bottomTitle {
-  background-image: url('/wii/sprites/bottom-title-dark.png');
+  background-image: url('/wii/sprites/bottom-title-dark.webp');
 }
 
 .bottomTitleText {
