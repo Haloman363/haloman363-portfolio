@@ -1,10 +1,10 @@
 {
-  "fetchedAt": "2026-09-10T16:45:14.820Z",
+  "fetchedAt": "2026-09-12T15:55:43.097Z",
   "followers": 11,
   "following": 17,
-  "likes": 80,
-  "downloads": 150,
-  "collections": 202,
+  "likes": 81,
+  "downloads": 152,
+  "collections": 203,
   "designCount": 2,
   "models": [
     {
@@ -19,8 +19,8 @@
       "title": "Elden Ring Prophet Bell",
       "url": "https://makerworld.com/en/models/1853138",
       "coverUrl": "https://makerworld.bblmw.com/makerworld/model/US1e264f49b5f78f/design/2025-10-03_7192008b9259c8.webp",
-      "likes": 18,
-      "downloads": 24,
+      "likes": 19,
+      "downloads": 25,
       "prints": 7
     }
   ]
