@@ -1,10 +1,10 @@
 {
-  "fetchedAt": "2026-09-12T15:55:43.097Z",
+  "fetchedAt": "2026-09-13T16:44:53.336Z",
   "followers": 11,
   "following": 17,
   "likes": 81,
-  "downloads": 152,
-  "collections": 203,
+  "downloads": 155,
+  "collections": 206,
   "designCount": 2,
   "models": [
     {
@@ -12,7 +12,7 @@
       "url": "https://makerworld.com/en/models/1853216",
       "coverUrl": "https://makerworld.bblmw.com/makerworld/model/USab34a77dd6a493/design/2025-10-03_6614493427a12.webp",
       "likes": 62,
-      "downloads": 71,
+      "downloads": 72,
       "prints": 5
     },
     {
@@ -21,7 +21,7 @@
       "coverUrl": "https://makerworld.bblmw.com/makerworld/model/US1e264f49b5f78f/design/2025-10-03_7192008b9259c8.webp",
       "likes": 19,
       "downloads": 25,
-      "prints": 7
+      "prints": 8
     }
   ]
 }
