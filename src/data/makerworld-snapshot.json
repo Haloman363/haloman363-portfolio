@@ -1,10 +1,10 @@
 {
-  "fetchedAt": "2026-09-20T16:38:11.863Z",
+  "fetchedAt": "2026-09-21T18:23:17.463Z",
   "followers": 11,
   "following": 17,
   "likes": 81,
-  "downloads": 158,
-  "collections": 211,
+  "downloads": 160,
+  "collections": 212,
   "designCount": 2,
   "models": [
     {
@@ -20,7 +20,7 @@
       "url": "https://makerworld.com/en/models/1853138",
       "coverUrl": "https://makerworld.bblmw.com/makerworld/model/US1e264f49b5f78f/design/2025-10-03_7192008b9259c8.webp",
       "likes": 19,
-      "downloads": 26,
+      "downloads": 27,
       "prints": 8
     }
   ]
