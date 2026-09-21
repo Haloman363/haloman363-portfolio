@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 186" width="340" height="186">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="100%" stop-color="#e6eef5"/>
+    </linearGradient>
+    <clipPath id="icon"><rect width="64" height="64" rx="12"/></clipPath>
+  </defs>
+  <rect width="340" height="186" fill="url(#bg)"/>
+  <!-- Site favicon (jaymes.nofundsit.net/favicon.svg) -->
+  <g transform="translate(110,20) scale(1.875)" clip-path="url(#icon)">
+    <rect width="64" height="64" fill="#000"/>
+    <ellipse cx="32" cy="32" rx="29.5" ry="9.4" fill="none" stroke="#39f" stroke-width="1.7" transform="rotate(-8 32 32)"/>
+    <circle cx="32" cy="32" r="18.7" fill="#ff0" stroke="#f60" stroke-width="2.3"/>
+    <ellipse cx="32" cy="32" rx="28.1" ry="9.4" fill="none" stroke="#f00" stroke-width="2.6" transform="rotate(-20 32 32)">
+      <animateTransform attributeName="transform" type="rotate" values="-24 32 32;-14 32 32;-24 32 32" keyTimes="0;0.5;1" calcMode="spline" keySplines="0.45 0 0.55 1;0.45 0 0.55 1" dur="7s" repeatCount="indefinite"/>
+    </ellipse>
+  </g>
+  <!-- Label -->
+  <text x="170" y="168" font-family="'Nunito',Arial,sans-serif" font-weight="900" font-size="22" fill="#d40000" text-anchor="middle">Cool Jaymes Games</text>
+</svg>

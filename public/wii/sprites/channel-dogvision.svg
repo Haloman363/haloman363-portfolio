@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 186" width="340" height="186">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="100%" stop-color="#e6eef5"/>
+    </linearGradient>
+    <clipPath id="icon"><rect width="64" height="64" rx="12"/></clipPath>
+  </defs>
+  <rect width="340" height="186" fill="url(#bg)"/>
+  <!-- Paw print icon -->
+  <g transform="translate(110,20) scale(1.875)" clip-path="url(#icon)">
+    <rect width="64" height="64" fill="#0c4a6e"/>
+    <g fill="#7dd3fc">
+      <animateTransform attributeName="transform" type="rotate" values="0 32 36;-6 32 36;0 32 36;6 32 36;0 32 36" keyTimes="0;0.2;0.4;0.6;1" calcMode="spline" keySplines="0.45 0 0.55 1;0.45 0 0.55 1;0.45 0 0.55 1;0.45 0 0.55 1" dur="6s" repeatCount="indefinite"/>
+      <ellipse cx="16" cy="29" rx="5" ry="7" transform="rotate(-22 16 29)"/>
+      <ellipse cx="26" cy="19" rx="5.5" ry="8" transform="rotate(-8 26 19)"/>
+      <ellipse cx="38" cy="19" rx="5.5" ry="8" transform="rotate(8 38 19)"/>
+      <ellipse cx="48" cy="29" rx="5" ry="7" transform="rotate(22 48 29)"/>
+      <path d="M32 30c-8 0-15 8-15 14 0 5 4 7 8 6 3-1 5-2 7-2s4 1 7 2c4 1 8-1 8-6 0-6-7-14-15-14z"/>
+    </g>
+  </g>
+  <!-- Label -->
+  <text x="170" y="168" font-family="'Nunito',Arial,sans-serif" font-weight="900" font-size="26" fill="#0c4a6e" text-anchor="middle">Dog Vision</text>
+</svg>

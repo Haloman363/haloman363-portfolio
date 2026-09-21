@@ -12,6 +12,8 @@ import MakerWorldBanner from './banners/MakerWorldBanner'
 import GitHubBanner from './banners/GitHubBanner'
 import LinkedInBanner from './banners/LinkedInBanner'
 import VenmoBanner from './banners/VenmoBanner'
+import CoolGamesBanner from './banners/CoolGamesBanner'
+import ArtifactBanner from './banners/ArtifactBanner'
 import { useWiiAudio } from './hooks/useWiiAudio'
 import './App.css'
 
@@ -89,8 +91,28 @@ export default function App() {
     if (channelId === 'wii-shop') return <ShopBanner />
     if (channelId === 'check-mii-out') return <MakerWorldBanner />
     if (channelId === 'github') return <GitHubBanner />
-    if (channelId === 'linkedin') return <LinkedInBanner />
-    if (channelId === 'venmo') return <VenmoBanner />
+    if (channelId === 'linkedin') return <LinkedInBanner sfx={audio} />
+    if (channelId === 'venmo') return <VenmoBanner sfx={audio} />
+    if (channelId === 'cool-jaymes-games') return <CoolGamesBanner sfx={audio} />
+    if (channelId === 'dog-vision') return (
+      <ArtifactBanner
+        title="Dog Vision"
+        sub="See the world the way a dog does, through your camera or a photo"
+        href="https://haloman363.github.io/artifacts/dog-vision"
+        bg="#0c4a6e"
+        accent="#7dd3fc"
+      />
+    )
+    if (channelId === 'dolos21') return (
+      <ArtifactBanner
+        title="DOLOS://21"
+        sub="Pixel-art IT-horror card game against a corrupted daemon dealer"
+        href="https://haloman363.github.io/artifacts/dolos21"
+        bg="#022c22"
+        accent="#34d399"
+        titleFont="'Courier New', monospace"
+      />
+    )
     return null
   }
 

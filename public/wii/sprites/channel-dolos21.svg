@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 186" width="340" height="186">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="100%" stop-color="#e6eef5"/>
+    </linearGradient>
+    <clipPath id="icon"><rect width="64" height="64" rx="12"/></clipPath>
+  </defs>
+  <rect width="340" height="186" fill="url(#bg)"/>
+  <!-- Terminal-style "21" icon -->
+  <g transform="translate(110,20) scale(1.875)" clip-path="url(#icon)">
+    <rect width="64" height="64" fill="#022c22"/>
+    <text x="32" y="43" font-family="'Courier New',monospace" font-weight="700" font-size="34" fill="#34d399" text-anchor="middle">21</text>
+    <rect x="52" y="41" width="8" height="3.5" fill="#34d399">
+      <animate attributeName="opacity" values="1;1;0;0" keyTimes="0;0.5;0.5;1" dur="1.1s" repeatCount="indefinite"/>
+    </rect>
+    <text x="7" y="14" font-family="'Courier New',monospace" font-weight="700" font-size="8" fill="#34d399" opacity="0.6">//</text>
+  </g>
+  <!-- Label -->
+  <text x="170" y="168" font-family="'Courier New',monospace" font-weight="700" font-size="26" fill="#065f46" text-anchor="middle">DOLOS://21</text>
+</svg>

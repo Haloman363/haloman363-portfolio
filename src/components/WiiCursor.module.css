@@ -9,6 +9,10 @@
   will-change: transform;
 }
 
+:global(body[data-embed-hover]) .cursor {
+  opacity: 0;
+}
+
 .cursor img {
   width: 100%;
   height: 100%;
