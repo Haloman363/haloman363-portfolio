@@ -114,6 +114,17 @@
   margin-bottom: 20px;
 }
 
+.photo {
+  display: block;
+  width: 180px;
+  height: 180px;
+  object-fit: cover;
+  object-position: 50% 20%;
+  border: 3px solid #5ac8e8;
+  border-radius: 14px;
+  box-shadow: 0 0 14px rgba(90, 200, 232, 0.5);
+}
+
 .eduCard {
   background: #fff;
   border: 1px solid #d5dde6;

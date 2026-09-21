@@ -5,50 +5,54 @@ const TABS = ['Summary', 'Experience', 'Education', 'Skills', 'Certifications', 
 
 const EXPERIENCE = [
   {
-    company: 'Conservice', location: 'Logan, Utah', role: 'Network Admin',
+    company: 'Conservice', location: 'Logan, Utah', role: 'System Administrator II',
     dates: 'June 2022 - Present',
     bullets: [
       'Deploying and administering firewalls, strengthening network security, and reducing unauthorized access.',
       'Handle all aspects of OpenVPN servers for over 1,800 remote staff members across 4 regions.',
       'Manage Google Workspace for 3,000+ users, troubleshooting and configuring various Workspace services and features.',
-      'Identified a manual process for managing SSL certificates, automating real-time issuance for 50+ servers.',
-      'Automated IT processes with Ansible and PowerShell, cutting audit turnaround from 3 days to 1 day.',
+      'Works with departments to analyze, document, and solve email routing for 5+ departments to improve email productivity with clients.',
+      'Identify a manual process for managing SSL management system, resulting in automation creating real-time certificates for 50+ servers.',
+      'Automated IT processes with Ansible and PowerShell, reducing manual workload and reducing audits from 3 days down to 1 day.',
       'Implemented 3 monitoring solutions (Zabbix, Uptime Kuma, PagerDuty) to cut incident response times.',
-      'Maintain Linux servers and Docker environments, improving reliability and security patching for 26+ services.',
-      'Administers ProofPoint email protection, reducing attack vectors for over 4 million monthly incoming emails.',
+      'Maintain Linux servers and Docker environments, improving the reliability and security patches for over 26 services.',
+      'Deployed and administers WebTitan filtering to 2,800+ devices to remove the risk of malicious and unsafe sites.',
+      'Administers ProofPoint email protection services to reduce attack vectors for over 4 million monthly incoming emails.',
+      'Implements Google Workspace Single Sign-On for 20+ services for easier integration and account management.',
       'Monitor and maintain 30+ Ubiquiti access points across 4 buildings.',
     ],
   },
   {
-    company: 'Conservice', location: 'Logan, Utah', role: 'IT Help Desk',
+    company: 'Conservice', location: 'Logan, Utah', role: 'IT - Help Desk',
     dates: 'January 2022 - June 2022',
     bullets: [
-      'Provided Tier 1-2 support for 3,000+ local and remote employees, resolving issues within a 1-hour timeframe.',
-      'Assisted with administering Google Workspace, Microsoft 365, and custom PowerShell scripting for ticket resolution.',
-      'Cut computer re-imaging time by 1 hour per unit by scripting the process in KACE.',
-      'Installed and administered a Wiki.js server for IT documentation, reducing new-hire training time.',
-      'Built a custom PowerShell toolkit of scripts for the team to resolve tickets rapidly.',
+      'Provided Tier 1-2 support for 3,000+ local and remote employees, resolving hardware and software issues within a 1-hour time frame.',
+      'Assisted with administering Google Workspace, Microsoft 365, and custom PowerShell scripting, contributing to efficient ticket resolution.',
+      'Reduced computer formatting for 30+ items by creating custom scripting in KACE for the formatting process. Reducing the average formatting time by 1 hour.',
+      'Installed and administered a Wikijs server for IT troubleshooting procedures and documentation for the team. Reducing training time for new employees.',
+      'Created a custom PowerShell Toolkit of various scripts and repetitive actions for the team to resolve tickets rapidly.',
     ],
   },
   {
     company: 'Conservice', location: 'Logan, Utah', role: 'Electronic Data Exchange Setup Specialist',
     dates: 'January 2020 - January 2022',
     bullets: [
-      'Coordinated with 170+ clients to configure and troubleshoot electronic data exchange systems.',
+      'Coordinated with ~170 clients to configure and troubleshoot electronic data exchange systems.',
       'Set up an average of 150-200 properties per month into the internal system to process utility charges.',
-      'Managed a portfolio of large firms/properties, tracking timelines to meet contracted setup dates.',
-      'Trained a new employee to carry on the same portfolio care as I moved into new career steps.',
+      'Managed portfolio of large firms/properties, keeping track of timelines and following up with internal teams to ensure setups were completed by the contracted agreement dates.',
+      'Assisted other team members with their firms and properties when they would fall behind or need coverage during time off.',
+      'Trained a new employee to provide the same diligence and care for my portfolio as I moved to new career steps.',
     ],
   },
 ]
 
 const SKILLS = [
+  { group: 'AI', items: ['Claude', 'Gemini', 'Cowork', 'Claude Code', 'MCP'] },
   { group: 'Systems', items: ['Linux Administration', 'Windows Server', 'Proxmox', 'Docker', 'KACE', 'pfSense', 'VMware vSphere', 'Ubuntu', 'LXC', 'Unifi Network Manager', 'OPNsense'] },
   { group: 'Networking', items: ['Firewall Administration', 'OpenVPN', 'DNS', 'DHCP', 'SSL', 'Netbird', 'VPN', 'Ubiquiti', 'VNC'] },
-  { group: 'Cloud / Email', items: ['Google Workspace', 'Office 365', 'Mailgun', 'Proofpoint', 'GAM', 'Email Routing'] },
-  { group: 'Automation', items: ['Ansible', 'PowerShell', 'AWX', 'Bash', 'Rsync', 'Cron'] },
+  { group: 'Cloud / Email', items: ['Google Workspace', 'Office 365', 'Mailgun', 'Proofpoint', 'GAM', 'Email Routing/Management'] },
+  { group: 'Automation', items: ['Ansible', 'PowerShell', 'AWX', 'Bash', 'Rsync', 'Cron jobs'] },
   { group: 'Monitoring', items: ['Zabbix', 'Uptime Kuma', 'PagerDuty', 'Prometheus', 'Grafana'] },
-  { group: 'AI', items: ['Claude', 'Claude Code', 'Gemini', 'Cowork', 'MCP'] },
 ]
 
 const CERTIFICATIONS = [
@@ -76,7 +80,7 @@ export default function ResumeBanner() {
       <div className={styles.header}>
         <div>
           <h1 className={styles.name}>Jaymes Bunce</h1>
-          <p className={styles.tagline}>Network Administrator &middot; Logan, UT (Ready to Relocate)</p>
+          <p className={styles.tagline}>System Administrator &middot; Logan, UT (Ready to Relocate)</p>
         </div>
         <a className={styles.download} href={RESUME_PDF} download target="_blank" rel="noopener noreferrer">
           Download Resume ↓
@@ -99,11 +103,16 @@ export default function ResumeBanner() {
         {tab === 'Summary' && (
           <div className={styles.summary}>
             <p className={styles.summaryText}>
-              Network Administrator with 5+ years of IT experience in Linux administration, networking, cloud
-              services (Google Workspace, O365), and automation (Ansible, Docker, PowerShell). Skilled at deploying
-              secure infrastructure, managing enterprise systems, and streamlining IT operations. Actively seeking
-              to contribute technical expertise to a growing IT team.
+              System Administrator with 5+ years of IT experience in Windows, Mac, and Linux administration,
+              networking, cloud services (Google Workspace, O365), and automation (Ansible, Docker, PowerShell).
+              Skilled at deploying secure infrastructure, managing enterprise systems, and streamlining IT
+              operations. Actively seeking to contribute technical expertise to a growing IT team.
             </p>
+            <img
+              className={styles.photo}
+              src={`${import.meta.env.BASE_URL}resume/jaymes-bunce.jpg`}
+              alt="Jaymes Bunce"
+            />
           </div>
         )}
 
