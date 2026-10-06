@@ -225,6 +225,11 @@
     display: none;
   }
 
+  /* A scrolling column has no use for empty filler slots */
+  .channelIcon.blank {
+    display: none;
+  }
+
   /* Blank channels: stop spritesheet animation, show simple placeholder */
   .channelIcon.blank {
     animation: none;

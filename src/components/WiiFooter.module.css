@@ -417,6 +417,25 @@
     bottom: 6px;
   }
 
+  /* The footer clips overflow here, so the dots sit in the gap between the
+     title and the date, with a larger invisible tap area. */
+  .pageDots {
+    bottom: 22px;
+    gap: 14px;
+  }
+
+  .pageDot {
+    position: relative;
+    width: 8px;
+    height: 8px;
+  }
+
+  .pageDot::after {
+    content: '';
+    position: absolute;
+    inset: -14px -8px;
+  }
+
   /* The scaled-down corner buttons are ~24px; extend the tap area to ~44px
      (inset is in pre-scale px) without changing how they look. */
   .cornerButton::after {

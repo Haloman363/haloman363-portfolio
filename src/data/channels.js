@@ -1,3 +1,5 @@
+import { PHOTOS } from './photos'
+
 export const GITHUB_USER = 'Haloman363'
 export const FEATURED_REPO = 'rune-claude'
 
@@ -15,6 +17,8 @@ const base = import.meta.env.BASE_URL
 
 export const EXCLUDED_REPOS = ['haloman363-portfolio', 'ctt']
 
+export const SLOTS_PER_PAGE = 12
+
 export const NAMED_CHANNELS = [
   { id: 'mii-channel',   label: 'Mii Channel',       sprite: `${base}wii/sprites/channel-mii.svg`,        blinkSprite: `${base}wii/sprites/channel-mii-blink.svg`, page: 0, slot: 0 },
   { id: 'resume',        label: 'Resume',              sprite: `${base}wii/sprites/channel-resume.svg`,     page: 0, slot: 1 },
@@ -29,6 +33,13 @@ export const NAMED_CHANNELS = [
   { id: 'news',           label: 'News',              sprite: `${base}wii/sprites/channel-news.svg`,       page: 0, slot: 17 },
   { id: 'dolos21',        label: 'Dolos://21',        sprite: `${base}wii/sprites/channel-dolos21.svg`,    page: 0, slot: 15 },
 ]
+
+// Dormant until there's at least one image in src/photos/.
+if (PHOTOS.length > 0) {
+  NAMED_CHANNELS.push({ id: 'photo-channel', label: 'Photos', sprite: `${base}wii/sprites/channel-photo.svg`, page: 0, slot: 18 })
+}
+
+export const TOTAL_PAGES = Math.max(1, Math.ceil(NAMED_CHANNELS.length / SLOTS_PER_PAGE))
 
 export const REFERRAL_LINKS = [
   { name: 'Ally Bank', desc: '$100 welcome bonus referral', href: 'https://ally.com/referral?code=7C9J9N9V9B', accent: '#c9a84c' },

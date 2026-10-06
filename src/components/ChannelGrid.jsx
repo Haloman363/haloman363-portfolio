@@ -1,9 +1,8 @@
 import { useMemo, useEffect } from 'react'
 import ChannelSlot from './ChannelSlot'
-import { NAMED_CHANNELS } from '../data/channels'
+import { NAMED_CHANNELS, SLOTS_PER_PAGE } from '../data/channels'
 import styles from './ChannelGrid.module.css'
 
-const SLOTS_PER_PAGE = 12
 const COLS = 4
 const ROWS = 3
 
@@ -12,8 +11,12 @@ const ROWS = 3
 // at render time; tablet/phone consume it directly since they flow row-major too.
 function buildSlots(namedChannels) {
   const named = [...namedChannels].sort((a, b) => a.slot - b.slot)
-  const flat = named.slice(0, SLOTS_PER_PAGE)
-  return [[...flat, ...Array(SLOTS_PER_PAGE - flat.length).fill(null)]]
+  const pages = []
+  for (let i = 0; i < Math.max(named.length, 1); i += SLOTS_PER_PAGE) {
+    const chunk = named.slice(i, i + SLOTS_PER_PAGE)
+    pages.push([...chunk, ...Array(SLOTS_PER_PAGE - chunk.length).fill(null)])
+  }
+  return pages
 }
 
 // Arrow keys move focus to the nearest tile in that direction (geometric, so it

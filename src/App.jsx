@@ -17,10 +17,10 @@ import CoolGamesBanner from './banners/CoolGamesBanner'
 import ArtifactBanner from './banners/ArtifactBanner'
 import ForecastBanner from './banners/ForecastBanner'
 import NewsBanner from './banners/NewsBanner'
+import { TOTAL_PAGES } from './data/channels'
 import { useWiiAudio } from './hooks/useWiiAudio'
 import './App.css'
 
-const TOTAL_PAGES = 1
 const KONAMI = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a']
 
 export default function App() {
@@ -91,7 +91,8 @@ export default function App() {
       if (activeChannel) {
         if (e.key === 'ArrowLeft') handleChannelNav(-1)
         if (e.key === 'ArrowRight') handleChannelNav(1)
-      } else {
+      } else if (!e.defaultPrevented) {
+        // (the grid already handled it if focus moved between tiles)
         if (e.key === 'ArrowLeft') prevPage()
         if (e.key === 'ArrowRight') nextPage()
       }
@@ -110,7 +111,7 @@ export default function App() {
     if (!channelId) return null
     if (channelId === 'mii-channel') return <AboutBanner />
     if (channelId === 'resume') return <ResumeBanner />
-    if (channelId === 'photo-channel') return <PhotoBanner />
+    if (channelId === 'photo-channel') return <PhotoBanner sfx={audio} />
     if (channelId === 'wii-shop') return <ShopBanner />
     if (channelId === 'check-mii-out') return <MakerWorldBanner />
     if (channelId === 'github') return <GitHubBanner />

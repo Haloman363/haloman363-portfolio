@@ -27,7 +27,8 @@ npm run lint     # ESLint
 | --- | --- |
 | `src/components/` | Wii shell: background, cursor, header, footer, channel grid and slots |
 | `src/banners/` | One banner component per channel |
-| `src/data/channels.js` | Channel definitions and grid slot assignments |
+| `src/data/channels.js` | Channel definitions and grid slot assignments (12 per page; extra channels paginate) |
+| `src/photos/` | Drop images here to enable the Photos channel (see its README) |
 | `src/data/makerworld-snapshot.json` | Generated MakerWorld stats (do not edit by hand) |
 | `src/hooks/` | Cursor physics and audio hooks |
 | `public/wii/` | Sprites and audio |
