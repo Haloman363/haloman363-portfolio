@@ -15,7 +15,10 @@ function makestar(w, h) {
 export default function WiiBackground({ darkMode }) {
   const canvasRef = useRef(null)
   const darkRef = useRef(darkMode)
-  darkRef.current = darkMode
+
+  useEffect(() => {
+    darkRef.current = darkMode
+  }, [darkMode])
 
   useEffect(() => {
     const canvas = canvasRef.current

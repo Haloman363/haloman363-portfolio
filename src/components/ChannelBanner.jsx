@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react'
+import { useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import styles from './ChannelBanner.module.css'
 
@@ -37,16 +37,11 @@ export default function ChannelBanner({ channelId, origin, onBack, onPrev, onNex
   const isOpen = !!channelId
   const isChannelSwitch = direction !== 0
 
-  // Snapshot children per channelId — exiting panel uses its own frozen snapshot
-  const snapshotRef = useRef({})
-  if (channelId && children != null) {
-    snapshotRef.current[channelId] = children
-  }
-
   // Freeze the origin used for the zoom-from-tile effect for the lifetime of
   // this open/close cycle, so a stale origin from a previous session doesn't leak in.
-  const originRef = useRef(origin)
-  if (isOpen) originRef.current = origin
+  // (Adjusted during render: while closed the last origin is kept for the exit animation.)
+  const [frozenOrigin, setFrozenOrigin] = useState(origin)
+  if (isOpen && frozenOrigin !== origin) setFrozenOrigin(origin)
 
   function handlePrev() {
     setDirection(-1)
@@ -97,8 +92,8 @@ export default function ChannelBanner({ channelId, origin, onBack, onPrev, onNex
             key="channel-flash"
             className={styles.flash}
             style={
-              originRef.current
-                ? { left: originRef.current.x, top: originRef.current.y }
+              frozenOrigin
+                ? { left: frozenOrigin.x, top: frozenOrigin.y }
                 : undefined
             }
             initial={{ opacity: 0.9, scale: 0 }}
@@ -116,7 +111,7 @@ export default function ChannelBanner({ channelId, origin, onBack, onPrev, onNex
           <motion.div
             key="viewport"
             className={styles.viewport}
-            variants={zoomVariants(originRef.current)}
+            variants={zoomVariants(frozenOrigin)}
             initial="enter"
             animate="center"
             exit="exit"
@@ -134,7 +129,7 @@ export default function ChannelBanner({ channelId, origin, onBack, onPrev, onNex
                 transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
               >
                 <div className={styles.content}>
-                  {snapshotRef.current[channelId]}
+                  {children}
                 </div>
               </motion.div>
             </AnimatePresence>

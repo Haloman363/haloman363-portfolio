@@ -33,9 +33,13 @@ export default function WiiFooter({ audioEnabled, onAudioToggle, darkMode, onDar
     return () => document.removeEventListener('mousedown', handleOutside)
   }, [settingsOpen])
 
-  useEffect(() => {
+  // Close the menu whenever a channel opens (adjusting state during render
+  // rather than in an effect).
+  const [prevChannelOpen, setPrevChannelOpen] = useState(channelOpen)
+  if (channelOpen !== prevChannelOpen) {
+    setPrevChannelOpen(channelOpen)
     if (channelOpen) setSettingsOpen(false)
-  }, [channelOpen])
+  }
 
   return (
     <div className={styles.bottomSection}>

@@ -16,7 +16,7 @@ function buildSlots(namedChannels) {
   return [[...flat, ...Array(SLOTS_PER_PAGE - flat.length).fill(null)]]
 }
 
-export default function ChannelGrid({ onSelect, onHover, page, onPrev, onNext, onSlotsReady }) {
+export default function ChannelGrid({ onSelect, onHover, page, onSlotsReady }) {
   const slots = useMemo(() => buildSlots(NAMED_CHANNELS), [])
 
   useEffect(() => {

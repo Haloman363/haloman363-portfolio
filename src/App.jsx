@@ -21,11 +21,9 @@ const TOTAL_PAGES = 1
 
 export default function App() {
   const [activeChannel, setActiveChannel] = useState(null)
-  const [activeChannelData, setActiveChannelData] = useState(null)
   const [page, setPage] = useState(0)
   const [darkMode, setDarkMode] = useState(false)
   const [openOrigin, setOpenOrigin] = useState(null)
-  const lastChannelDataRef = useRef(null)
   const allChannelsRef = useRef([])
   const audio = useWiiAudio()
 
@@ -43,6 +41,16 @@ export default function App() {
     setPage(p => Math.min(TOTAL_PAGES - 1, p + 1))
   }, [audio])
 
+  const handleChannelNav = useCallback((direction) => {
+    const channels = allChannelsRef.current
+    const idx = channels.findIndex(c => c.id === activeChannel)
+    if (idx === -1) return
+    const next = channels[(idx + direction + channels.length) % channels.length]
+    if (!next) return
+    audio.playClick()
+    setActiveChannel(next.id)
+  }, [activeChannel, audio])
+
   useEffect(() => {
     function onKey(e) {
       if (activeChannel) {
@@ -55,35 +63,20 @@ export default function App() {
     }
     window.addEventListener('keydown', onKey)
     return () => window.removeEventListener('keydown', onKey)
-  }, [prevPage, nextPage, activeChannel])
+  }, [prevPage, nextPage, activeChannel, handleChannelNav])
 
   function handleSelect(id, channelData, origin) {
     audio.playClick()
-    lastChannelDataRef.current = channelData
     setOpenOrigin(origin ?? null)
     setActiveChannel(id)
-    setActiveChannelData(channelData)
   }
 
   function handleBack() {
     audio.playClick()
     setActiveChannel(null)
-    setActiveChannelData(null)
   }
 
-  function handleChannelNav(direction) {
-    const channels = allChannelsRef.current
-    const idx = channels.findIndex(c => c.id === activeChannel)
-    if (idx === -1) return
-    const next = channels[(idx + direction + channels.length) % channels.length]
-    if (!next) return
-    audio.playClick()
-    lastChannelDataRef.current = next
-    setActiveChannel(next.id)
-    setActiveChannelData(next)
-  }
-
-  function renderBannerContent(channelId, channelData) {
+  function renderBannerContent(channelId) {
     if (!channelId) return null
     if (channelId === 'mii-channel') return <AboutBanner />
     if (channelId === 'resume') return <ResumeBanner />
@@ -124,8 +117,6 @@ export default function App() {
         onSelect={handleSelect}
         onHover={audio.playHover}
         page={page}
-        onPrev={prevPage}
-        onNext={nextPage}
         onSlotsReady={handleSlotsReady}
       />
       <WiiFooter
@@ -146,7 +137,7 @@ export default function App() {
         onPrev={() => handleChannelNav(-1)}
         onNext={() => handleChannelNav(1)}
       >
-        {renderBannerContent(activeChannel, activeChannelData)}
+        {renderBannerContent(activeChannel)}
       </ChannelBanner>
     </main>
   )
