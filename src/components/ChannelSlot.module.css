@@ -197,8 +197,9 @@
 /* Phone: single scrollable column — wide card layout */
 @media only screen and (max-width: 639px) {
   .channelIcon {
-    aspect-ratio: unset;
-    height: 140px;
+    /* keep the sprite's native shape so baked-in labels aren't cropped */
+    aspect-ratio: 340 / 186;
+    height: auto;
     width: 100%;
     margin-bottom: 10px;
     border-radius: 12px;

@@ -219,7 +219,7 @@ src/
 
 ## 7. Out of Scope
 
-- Mobile/responsive layout (Wii menu was desktop/TV only; touch fallback is graceful degradation, not a mobile design).
+- ~~Mobile/responsive layout~~ Originally out of scope; since implemented with tablet (640-1023px) and phone (<640px) breakpoints.
 - Server-side rendering.
 - Any backend or database.
 - MakerWorld API integration (link card only unless API is trivially available).

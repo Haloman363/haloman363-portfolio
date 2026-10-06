@@ -42,4 +42,4 @@ npm run lint     # ESLint
 
 ## Scope
 
-Desktop-first by design. There is no backend or database, and mobile/responsive layout is not currently supported (see `docs/superpowers/specs/`).
+Responsive: desktop (1024px and up) shows the 4x3 Wii grid, tablets (640-1023px) a 3-column grid, and phones (under 640px) a single scrolling column. Touch devices skip hover effects and the custom cursor. There is no backend or database.

@@ -59,7 +59,11 @@
   .channels {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
-    grid-template-rows: repeat(4, minmax(0, 1fr));
+    /* rows size to the tiles (native sprite aspect) and spread evenly, rather
+       than stretching each tile to a near-square cell and cropping its sprite */
+    grid-template-rows: repeat(4, auto);
+    align-content: space-evenly;
+    align-items: center;
     width: 100%;
     max-width: 100%;
     height: 100%;
