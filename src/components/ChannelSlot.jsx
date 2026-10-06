@@ -77,13 +77,19 @@ export default function ChannelSlot({ channel, onSelect, onHover, style }) {
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
       role="button"
+      data-channel-tile
       tabIndex={0}
       aria-label={`Open ${channel.label}`}
-      onKeyDown={e => e.key === 'Enter' && handleClick(e)}
+      onKeyDown={e => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault()
+          handleClick(e)
+        }
+      }}
     >
       <div className={styles.face} ref={faceRef}>
         {channel.sprite ? (
-          <img src={blink ? blinkSprite : channel.sprite} alt={channel.label} />
+          <img src={blink ? blinkSprite : channel.sprite} alt="" />
         ) : (
           <div className={styles.textInner}>
             <span className={styles.textLabel}>{channel.label}</span>

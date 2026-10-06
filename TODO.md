@@ -12,8 +12,8 @@ Running list for the portfolio. Check items off as they land. Items marked **(ne
 
 - [ ] **Contact channel** ("Message Board" tile): a way to reach me. Resume deliberately omits email, so decide what to publish: email, a contact form, or just LinkedIn/GitHub links. **(needs decision)**
 - [ ] **Startup splash:** optional "Press A to start" screen on first load that plays `sfx-startup.mp3` (also unlocks audio autoplay on mobile). Audio already in `public/wii/audio/`.
-- [ ] **Keyboard / gamepad navigation:** arrow keys move between tiles, Enter opens, Escape goes back. Optional Gamepad API support.
-- [ ] **Easter eggs:** Konami code, clicking the clock, clicking the Mii.
+- [x] **Keyboard navigation:** arrow keys move between tiles, Enter/Space opens, Escape goes back. (Gamepad API support not done.)
+- [x] **Easter eggs:** Konami code (rainbow shimmer) and clicking the date to show the time. (Mii click not done.)
 
 ## Medium
 
@@ -26,14 +26,16 @@ Running list for the portfolio. Check items off as they land. Items marked **(ne
 
 ## Polish and housekeeping
 
-- [ ] **Footer buttons on phones:** sound/settings buttons render ~28px; enlarge the tap target to 44px without changing the look.
+- [x] **Footer buttons on phones:** sound/settings buttons render ~28px; enlarge the tap target to 44px without changing the look.
 - [ ] **Tablet spacing:** the 3-column grid has large gaps between rows; consider larger tiles.
-- [ ] **Open-channel zoom on phones:** `zoomVariants` in `ChannelBanner.jsx` assumes an 80% viewport height, phones use 75%, so the zoom origin is slightly off.
-- [ ] **Accessibility pass:** focus rings, labels for sprite-only tiles, `prefers-reduced-motion` coverage.
-- [ ] **Share image:** a proper Open Graph image for link previews (currently uses `mii-fullbody.png`).
+- [x] **Open-channel zoom on phones:** `zoomVariants` in `ChannelBanner.jsx` assumes an 80% viewport height, phones use 75%, so the zoom origin is slightly off.
+- [x] **Accessibility pass:** focus rings, tile names announced once, OS reduced-motion honored for all framer-motion animations. (Still worth a screen-reader/contrast audit.)
+- [x] **Share image:** `public/og-image.png` (1200x630) wired into OG/Twitter tags. Uses a fallback font; swap in a Nunito version if desired.
 - [ ] Test on real iOS Safari / Android Chrome (all mobile testing so far was headless Chromium emulation).
 
 ## Done
+
+- [x] Keyboard nav, focus rings, 44px phone tap targets, reduced motion, share image, easter eggs (see ticked items above).
 
 - [x] Real README; removed unused Vite template assets; plan docs marked implemented.
 - [x] ESLint clean (`npm run lint` passes).

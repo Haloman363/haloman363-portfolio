@@ -16,6 +16,36 @@ function buildSlots(namedChannels) {
   return [[...flat, ...Array(SLOTS_PER_PAGE - flat.length).fill(null)]]
 }
 
+// Arrow keys move focus to the nearest tile in that direction (geometric, so it
+// works for the desktop column layout and the tablet/phone grids alike).
+function handleArrowNav(e) {
+  const dir = { ArrowLeft: [-1, 0], ArrowRight: [1, 0], ArrowUp: [0, -1], ArrowDown: [0, 1] }[e.key]
+  if (!dir) return
+  const tiles = [...e.currentTarget.querySelectorAll('[data-channel-tile]')]
+  const current = tiles.indexOf(document.activeElement)
+  if (current === -1) return
+  const center = el => {
+    const r = el.getBoundingClientRect()
+    return { x: r.left + r.width / 2, y: r.top + r.height / 2 }
+  }
+  const from = center(tiles[current])
+  let best = null
+  for (const el of tiles) {
+    if (el === tiles[current]) continue
+    const c = center(el)
+    const along = (c.x - from.x) * dir[0] + (c.y - from.y) * dir[1]
+    const across = Math.abs((c.x - from.x) * dir[1]) + Math.abs((c.y - from.y) * dir[0])
+    if (along <= 4) continue
+    const score = along + across * 2
+    if (!best || score < best.score) best = { el, score }
+  }
+  if (best) {
+    e.preventDefault()
+    best.el.focus()
+    best.el.scrollIntoView({ block: 'nearest' })
+  }
+}
+
 export default function ChannelGrid({ onSelect, onHover, page, onSlotsReady }) {
   const slots = useMemo(() => buildSlots(NAMED_CHANNELS), [])
 
@@ -39,7 +69,7 @@ export default function ChannelGrid({ onSelect, onHover, page, onSlotsReady }) {
   )
 
   return (
-    <div className={styles.topSection}>
+    <div className={styles.topSection} onKeyDown={handleArrowNav}>
       <div className={styles.channels}>
         {cols.map((col, ci) => (
           <div key={ci} className={`${styles.col} ${ci === 0 ? styles.first : ''}`}>

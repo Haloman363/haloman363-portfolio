@@ -19,6 +19,7 @@ import { useWiiAudio } from './hooks/useWiiAudio'
 import './App.css'
 
 const TOTAL_PAGES = 1
+const KONAMI = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a']
 
 export default function App() {
   const [activeChannel, setActiveChannel] = useState(null)
@@ -33,14 +34,25 @@ export default function App() {
   }, [])
 
   const prevPage = useCallback(() => {
+    if (page <= 0) return
     audio.playPageTurn(-1)
-    setPage(p => Math.max(0, p - 1))
-  }, [audio])
+    setPage(page - 1)
+  }, [audio, page])
 
   const nextPage = useCallback(() => {
+    if (page >= TOTAL_PAGES - 1) return
     audio.playPageTurn(1)
-    setPage(p => Math.min(TOTAL_PAGES - 1, p + 1))
+    setPage(page + 1)
+  }, [audio, page])
+
+  const handleBack = useCallback(() => {
+    audio.playClick()
+    setActiveChannel(null)
   }, [audio])
+
+  // Konami code: a short rainbow shimmer over the whole menu.
+  const [party, setParty] = useState(false)
+  const konamiProgress = useRef(0)
 
   const handleChannelNav = useCallback((direction) => {
     const channels = allChannelsRef.current
@@ -54,6 +66,26 @@ export default function App() {
 
   useEffect(() => {
     function onKey(e) {
+      if (e.ctrlKey || e.metaKey || e.altKey) return
+
+      const expected = KONAMI[konamiProgress.current]
+      const key = e.key.length === 1 ? e.key.toLowerCase() : e.key
+      if (key === expected) {
+        konamiProgress.current += 1
+        if (konamiProgress.current === KONAMI.length) {
+          konamiProgress.current = 0
+          audio.playSelect()
+          setParty(true)
+          setTimeout(() => setParty(false), 5000)
+        }
+      } else {
+        konamiProgress.current = key === KONAMI[0] ? 1 : 0
+      }
+
+      if (e.key === 'Escape' && activeChannel) {
+        handleBack()
+        return
+      }
       if (activeChannel) {
         if (e.key === 'ArrowLeft') handleChannelNav(-1)
         if (e.key === 'ArrowRight') handleChannelNav(1)
@@ -64,17 +96,12 @@ export default function App() {
     }
     window.addEventListener('keydown', onKey)
     return () => window.removeEventListener('keydown', onKey)
-  }, [prevPage, nextPage, activeChannel, handleChannelNav])
+  }, [prevPage, nextPage, activeChannel, handleChannelNav, handleBack, audio])
 
   function handleSelect(id, channelData, origin) {
     audio.playClick()
     setOpenOrigin(origin ?? null)
     setActiveChannel(id)
-  }
-
-  function handleBack() {
-    audio.playClick()
-    setActiveChannel(null)
   }
 
   function renderBannerContent(channelId) {
@@ -111,7 +138,7 @@ export default function App() {
   }
 
   return (
-    <main className={`wii${darkMode ? ' dark' : ''}`}>
+    <main className={`wii${darkMode ? ' dark' : ''}${party ? ' party' : ''}`}>
       <WiiBackground darkMode={darkMode} />
       <WiiCursor />
       <DesktopHint />

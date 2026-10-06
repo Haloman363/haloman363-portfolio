@@ -128,6 +128,18 @@
   100% { scale: 1 1; }
 }
 
+/* Keyboard focus shows the same glow as hover */
+.channelIcon.occupied:focus-visible {
+  outline: 3px solid #7ad8ff;
+  outline-offset: 4px;
+  border-radius: 9%;
+}
+
+.channelIcon.occupied:focus-visible .hover {
+  opacity: 1;
+  transform: scale(1.02);
+}
+
 /* One-shot diagonal shine across the tile on hover */
 .gloss {
   position: absolute;

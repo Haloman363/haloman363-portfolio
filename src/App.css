@@ -10,6 +10,20 @@
 }
 
 
+/* Konami easter egg */
+.wii.party {
+  animation: party 1.2s linear infinite;
+}
+
+@keyframes party {
+  from { filter: hue-rotate(0deg) saturate(1.3); }
+  to   { filter: hue-rotate(360deg) saturate(1.3); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wii.party { animation: none; }
+}
+
 .wii.dark [class*="channelIcon"] {
   filter: brightness(0.95) saturate(1.4) contrast(1.05);
   transition: filter 0.5s ease;

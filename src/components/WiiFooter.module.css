@@ -417,6 +417,14 @@
     bottom: 6px;
   }
 
+  /* The scaled-down corner buttons are ~24px; extend the tap area to ~44px
+     (inset is in pre-scale px) without changing how they look. */
+  .cornerButton::after {
+    content: '';
+    position: absolute;
+    inset: -42px;
+  }
+
   .settingsMenu {
     position: fixed;
     bottom: 66px;

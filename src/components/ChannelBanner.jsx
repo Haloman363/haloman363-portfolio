@@ -20,7 +20,7 @@ function zoomVariants(origin) {
     }
   }
   const vw = window.innerWidth
-  const vh = window.innerHeight * 0.8 // matches .viewport's 80vh height
+  const vh = window.innerHeight * (vw < 640 ? 0.75 : 0.8) // matches .viewport's height (75vh phone / 80vh else)
   const scaleX = origin.width / vw
   const scaleY = origin.height / vh
   const originX = (origin.x / vw) * 100

@@ -7,20 +7,34 @@ function formatDate(d) {
   return `${DAYS[d.getDay()]} ${d.getMonth() + 1}/${d.getDate()}`
 }
 
+function formatTime(d) {
+  return d.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' })
+}
+
 export default function WiiFooter({ audioEnabled, onAudioToggle, darkMode, onDarkToggle, channelOpen, page, onPrev, onNext, totalPages, notificationCount }) {
   const [settingsOpen, setSettingsOpen] = useState(false)
   const settingsRef = useRef(null)
   const settingsMenuRef = useRef(null)
 
+  // Clicking the date flips it to the current time for a few seconds.
+  const showTimeUntil = useRef(0)
+
   useEffect(() => {
     function update() {
       const el = document.getElementById('wii-date')
-      if (el) el.textContent = formatDate(new Date())
+      const now = new Date()
+      if (el) el.textContent = Date.now() < showTimeUntil.current ? formatTime(now) : formatDate(now)
     }
     update()
-    const id = setInterval(update, 60000)
+    const id = setInterval(update, 1000)
     return () => clearInterval(id)
   }, [])
+
+  function handleDateClick() {
+    showTimeUntil.current = Date.now() + 4000
+    const el = document.getElementById('wii-date')
+    if (el) el.textContent = formatTime(new Date())
+  }
 
   useEffect(() => {
     if (!settingsOpen) return
@@ -89,7 +103,7 @@ export default function WiiFooter({ audioEnabled, onAudioToggle, darkMode, onDar
         </div>
       )}
 
-      <div className={styles.date} id="wii-date" />
+      <div className={styles.date} id="wii-date" onClick={handleDateClick} />
 
       <div className={styles.rightButtonContainer} ref={settingsRef}>
         <div className={styles.rightButton} />
