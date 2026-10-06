@@ -73,13 +73,17 @@
   border-radius: 8px 0 0 8px;
 }
 
-/* With a mouse the banners show a real (14px) scrollbar at the right edge; keep the
-   arrow clear of it so the scrollbar can always be grabbed. Touch uses overlay
-   scrollbars and keeps the edge-flush arrow. */
+/* With a mouse, channels use the ScrollRail beside the content instead of a native
+   scrollbar at the screen edge (where the frame and arrows would cover it).
+   Touch devices keep their native overlay indicators. */
 @media (hover: hover) and (pointer: fine) {
-  .sideArrowRight {
-    right: 14px;
-    border-radius: 8px;
+  .viewport,
+  .viewport * {
+    scrollbar-width: none;
+  }
+
+  .viewport *::-webkit-scrollbar {
+    display: none;
   }
 }
 
@@ -165,31 +169,34 @@
   height: 230px;
   z-index: 210;
   pointer-events: none;
+  /* One vector corner, mirrored for the other three: crisp on any display and
+     with a soft falloff along the curve instead of a hard raster edge. */
+  background: url('/wii/sprites/frame-corner.svg') no-repeat;
   background-size: 100% 100%;
+  will-change: opacity;
 }
 
 .borderTopleft {
-  background-image: url('/wii/sprites/border-topleft.png');
   top: 0;
   left: 0;
 }
 
 .borderTopright {
-  background-image: url('/wii/sprites/border-topright.png');
   top: 0;
   right: 0;
+  transform: scaleX(-1);
 }
 
 .borderBottomleft {
-  background-image: url('/wii/sprites/border-bottomleft.png');
   bottom: 0;
   left: 0;
+  transform: scaleY(-1);
 }
 
 .borderBottomright {
-  background-image: url('/wii/sprites/border-bottomright.png');
   bottom: 0;
   right: 0;
+  transform: scale(-1, -1);
 }
 
 /* Tablet banner */

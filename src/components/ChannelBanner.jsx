@@ -1,6 +1,7 @@
 import { useState, useRef } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import styles from './ChannelBanner.module.css'
+import ScrollRail from './ScrollRail'
 
 const slideVariants = {
   enter: (dir) => ({ x: dir >= 0 ? '100%' : '-100%' }),
@@ -100,7 +101,7 @@ export default function ChannelBanner({ channelId, origin, onBack, onPrev, onNex
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.2, delay: 0.1 }}
+            transition={{ duration: 0.32, ease: [0.22, 1, 0.36, 1] }}
           />
         ))}
       </AnimatePresence>
@@ -150,9 +151,7 @@ export default function ChannelBanner({ channelId, origin, onBack, onPrev, onNex
                 exit={isChannelSwitch ? 'exit' : undefined}
                 transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
               >
-                <div className={styles.content}>
-                  {children}
-                </div>
+                <PanelBody>{children}</PanelBody>
               </motion.div>
             </AnimatePresence>
 
@@ -169,6 +168,20 @@ export default function ChannelBanner({ channelId, origin, onBack, onPrev, onNex
           </motion.div>
         )}
       </AnimatePresence>
+    </>
+  )
+}
+
+// A channel's content plus its scroll rail. Split out so each panel owns its own ref
+// (the exiting and entering panels both exist during a channel switch).
+function PanelBody({ children }) {
+  const contentRef = useRef(null)
+  return (
+    <>
+      <div className={styles.content} ref={contentRef}>
+        {children}
+      </div>
+      <ScrollRail rootRef={contentRef} />
     </>
   )
 }
