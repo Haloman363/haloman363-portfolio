@@ -32,11 +32,12 @@ Running list for the portfolio. Check items off as they land. Items marked **(ne
 - [x] **Tablet grid:** tiles keep their native shape and are sized from the tighter of available width/height (container query units), centered as one group. Also fixes a clipping bug from the earlier aspect-ratio change where the last row ran under the footer on short landscape tablets (e.g. 1000x700).
 - [x] **Open-channel zoom on phones:** `zoomVariants` in `ChannelBanner.jsx` assumes an 80% viewport height, phones use 75%, so the zoom origin is slightly off.
 - [x] **Accessibility pass:** focus rings, tile names announced once, OS reduced-motion honored for all framer-motion animations. (Still worth a screen-reader/contrast audit.)
-- [x] **Share image:** `public/og-image.png` (1200x630) wired into OG/Twitter tags. Uses a fallback font; swap in a Nunito version if desired.
+- [x] **Share image:** `public/og-image.png` (1200x630) wired into OG/Twitter tags, rendered with the real Nunito. A copy lives in the profile repo (`Haloman363/haloman363`, `assets/portfolio-banner.png`); re-copy it there if you change this one.
 - [ ] Test on real iOS Safari / Android Chrome (all mobile testing so far was headless Chromium emulation).
 
 ## Done
 
+- [x] SEO/no-JS: JSON-LD `Person` data, canonical + theme-color, robots.txt, sitemap.xml, and a `<noscript>` fallback with your key links.
 - [x] Nunito self-hosted via @fontsource (4 weights, Latin, ~65 KB) and preloaded; Google Fonts links removed. NB: earlier screenshots in this project used a fallback font because Google Fonts was unreachable from the build sandbox.
 - [x] `npm audit fix`: vite 8.0.3 -> 8.3.3, 0 known vulnerabilities (all were dev-server issues, not the shipped site).
 - [x] CI: lint gate before every deploy + `ci.yml` (lint, build, browser smoke test on every push/PR). Smoke test is report-only for now; once it has run reliably on GitHub, make `deploy.yml` depend on it.
