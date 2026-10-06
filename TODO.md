@@ -12,8 +12,8 @@ Running list for the portfolio. Check items off as they land. Items marked **(ne
 
 - [~] ~~**Contact channel**~~ Decided against (2026-10-06): not building one.
 - [~] ~~**Startup splash**~~ Decided against (2026-10-06): no click-through gate on first load.
-- [x] **Keyboard navigation:** arrow keys move between tiles, Enter/Space opens, Escape goes back. (Gamepad API support not done.)
-- [x] **Easter eggs:** Konami code (rainbow shimmer) and clicking the date to show the time. (Mii click not done.)
+- [x] **Keyboard + gamepad navigation:** arrow keys move between tiles, Enter/Space opens, Escape goes back. Standard-layout gamepads work too (D-pad/left stick = arrows, A = open, B = back, bumpers = prev/next channel). The tile grid is `inert` while a channel is open and focus returns to the opener on close. Gamepad tested only with a mocked controller; try a real one.
+- [x] **Easter eggs:** Konami code (rainbow shimmer), clicking the date to show the time, and clicking the Mii on the About channel makes it hop and smile.
 
 ## Medium
 

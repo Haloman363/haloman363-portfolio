@@ -49,7 +49,7 @@ function handleArrowNav(e) {
   }
 }
 
-export default function ChannelGrid({ onSelect, onHover, page, onSlotsReady }) {
+export default function ChannelGrid({ onSelect, onHover, page, onSlotsReady, inert }) {
   const slots = useMemo(() => buildSlots(NAMED_CHANNELS), [])
 
   useEffect(() => {
@@ -72,7 +72,7 @@ export default function ChannelGrid({ onSelect, onHover, page, onSlotsReady }) {
   )
 
   return (
-    <div className={styles.topSection} onKeyDown={handleArrowNav}>
+    <div className={styles.topSection} onKeyDown={handleArrowNav} inert={inert}>
       <div className={styles.channels}>
         {cols.map((col, ci) => (
           <div key={ci} className={`${styles.col} ${ci === 0 ? styles.first : ''}`}>

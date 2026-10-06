@@ -19,6 +19,7 @@ import ForecastBanner from './banners/ForecastBanner'
 import NewsBanner from './banners/NewsBanner'
 import { TOTAL_PAGES } from './data/channels'
 import { useWiiAudio } from './hooks/useWiiAudio'
+import { useGamepad } from './hooks/useGamepad'
 import './App.css'
 
 const KONAMI = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a']
@@ -30,6 +31,8 @@ export default function App() {
   const [openOrigin, setOpenOrigin] = useState(null)
   const allChannelsRef = useRef([])
   const audio = useWiiAudio()
+  useGamepad()
+  const openerRef = useRef(null)
 
   const handleSlotsReady = useCallback((flat) => {
     allChannelsRef.current = flat
@@ -50,6 +53,9 @@ export default function App() {
   const handleBack = useCallback(() => {
     audio.playClick()
     setActiveChannel(null)
+    // The grid is inert while a channel is open; hand focus back to the tile that opened it.
+    const opener = openerRef.current
+    requestAnimationFrame(() => opener?.isConnected && opener.focus())
   }, [audio])
 
   // Konami code: a short rainbow shimmer over the whole menu.
@@ -103,13 +109,14 @@ export default function App() {
 
   function handleSelect(id, channelData, origin) {
     audio.playClick()
+    openerRef.current = document.activeElement
     setOpenOrigin(origin ?? null)
     setActiveChannel(id)
   }
 
   function renderBannerContent(channelId) {
     if (!channelId) return null
-    if (channelId === 'mii-channel') return <AboutBanner />
+    if (channelId === 'mii-channel') return <AboutBanner sfx={audio} />
     if (channelId === 'resume') return <ResumeBanner />
     if (channelId === 'photo-channel') return <PhotoBanner sfx={audio} />
     if (channelId === 'wii-shop') return <ShopBanner />
@@ -152,6 +159,7 @@ export default function App() {
         onHover={audio.playHover}
         page={page}
         onSlotsReady={handleSlotsReady}
+        inert={!!activeChannel}
       />
       <WiiFooter
         page={page}

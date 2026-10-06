@@ -16,10 +16,11 @@ const SKILLS = [
 
 const FALLBACK = `${import.meta.env.BASE_URL}wii/sprites/mii-fullbody.png`
 
-export default function AboutBanner() {
+export default function AboutBanner({ sfx }) {
   const [expression, setExpression] = useState('normal')
   const [failed, setFailed] = useState(false)
   const hovering = useRef(false)
+  const [hop, setHop] = useState(false)
 
   // Preload so expression swaps don't flash a blank frame.
   useEffect(() => {
@@ -76,8 +77,16 @@ export default function AboutBanner() {
       </div>
 
       <img
-        className={styles.fullBody}
+        className={`${styles.fullBody}${hop ? ` ${styles.hop}` : ''}`}
         src={failed ? FALLBACK : miiURL(expression)}
+        onClick={() => {
+          sfx?.playClick?.()
+          setHop(false)
+          requestAnimationFrame(() => setHop(true))
+          setExpression('smile')
+          setTimeout(() => { if (!hovering.current) setExpression('normal') }, 1200)
+        }}
+        onAnimationEnd={() => setHop(false)}
         alt="Full body Mii"
         onMouseEnter={() => { hovering.current = true; setExpression('smile') }}
         onMouseLeave={() => { hovering.current = false; setExpression('normal') }}
