@@ -22,17 +22,39 @@ import { useWiiAudio } from './hooks/useWiiAudio'
 import { useGamepad } from './hooks/useGamepad'
 import './App.css'
 
+const THEME_KEY = 'wii-theme'
+
+// Saved choice wins; otherwise follow the device's light/dark setting.
+function initialDarkMode() {
+  try {
+    const saved = localStorage.getItem(THEME_KEY)
+    if (saved) return saved === 'dark'
+  } catch { /* storage unavailable */ }
+  return window.matchMedia?.('(prefers-color-scheme: dark)').matches ?? false
+}
+
 const KONAMI = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a']
 
 export default function App() {
   const [activeChannel, setActiveChannel] = useState(null)
   const [page, setPage] = useState(0)
-  const [darkMode, setDarkMode] = useState(false)
+  const [darkMode, setDarkMode] = useState(initialDarkMode)
   const [openOrigin, setOpenOrigin] = useState(null)
   const allChannelsRef = useRef([])
   const audio = useWiiAudio()
   useGamepad()
   const openerRef = useRef(null)
+
+  function handleDarkToggle() {
+    audio.playClick()
+    const next = !darkMode
+    setDarkMode(next)
+    try { localStorage.setItem(THEME_KEY, next ? 'dark' : 'light') } catch { /* ignore */ }
+  }
+
+  // The Mii Channel has its own theme music (when sound is on).
+  const { setTheme } = audio
+  useEffect(() => { setTheme(activeChannel === 'mii-channel' ? 'mii' : 'menu') }, [activeChannel, setTheme])
 
   const handleSlotsReady = useCallback((flat) => {
     allChannelsRef.current = flat
@@ -169,7 +191,7 @@ export default function App() {
         audioEnabled={audio.enabled}
         onAudioToggle={audio.toggle}
         darkMode={darkMode}
-        onDarkToggle={() => { audio.playClick(); setDarkMode(d => !d); }}
+        onDarkToggle={handleDarkToggle}
         channelOpen={!!activeChannel}
       />
       <ChannelBanner
