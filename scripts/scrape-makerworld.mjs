@@ -3,7 +3,7 @@
 // Chromium (which passes Cloudflare's bot check, unlike plain curl/fetch)
 // on a schedule via .github/workflows/scrape-makerworld.yml.
 import { chromium } from 'playwright'
-import { writeFile } from 'node:fs/promises'
+import { writeFile, appendFile } from 'node:fs/promises'
 
 const PROFILE_URL = 'https://makerworld.com/en/@Haloman363'
 const OUT_PATH = new URL('../src/data/makerworld-snapshot.json', import.meta.url)
@@ -37,7 +37,19 @@ const browser = await chromium.launch()
 const raw = await fetchNextData(browser)
 await browser.close()
 
-if (!raw) throw new Error(`__NEXT_DATA__ not found after ${MAX_ATTEMPTS} attempts — MakerWorld may be blocking the runner or its page structure changed`)
+// Tell the workflow whether a fresh snapshot was written (see scrape-makerworld.yml).
+const setOutput = (value) =>
+  process.env.GITHUB_OUTPUT ? appendFile(process.env.GITHUB_OUTPUT, `scraped=${value}\n`) : Promise.resolve()
+
+// Cloudflare sometimes serves GitHub's runners a bot-check page that never clears.
+// That's outside our control, so keep the last good snapshot and exit cleanly
+// instead of failing the run. A page that loads but has an unexpected shape still
+// throws below, since that needs a code fix.
+if (!raw) {
+  console.warn(`::warning::MakerWorld bot-check blocked all ${MAX_ATTEMPTS} attempts; keeping the previous snapshot`)
+  await setOutput('false')
+  process.exit(0)
+}
 
 const { userInfo, modelUploadCount, recentDesigns } = JSON.parse(raw).props.pageProps
 
@@ -60,4 +72,5 @@ const snapshot = {
 }
 
 await writeFile(OUT_PATH, JSON.stringify(snapshot, null, 2) + '\n')
+await setOutput('true')
 console.log(`Wrote ${OUT_PATH.pathname}`)

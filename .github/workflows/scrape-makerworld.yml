@@ -20,10 +20,13 @@ jobs:
           cache: npm
       - run: npm ci
       - run: npx playwright install --with-deps chromium
-      - run: node scripts/scrape-makerworld.mjs
+      - name: Scrape MakerWorld profile
+        id: scrape
+        run: node scripts/scrape-makerworld.mjs
       # Snapshots live on their own branch so the daily update doesn't flood
       # master's history. The deploy workflow pulls the latest one at build time.
       - name: Commit snapshot to makerworld-data branch
+        if: steps.scrape.outputs.scraped == 'true'
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
