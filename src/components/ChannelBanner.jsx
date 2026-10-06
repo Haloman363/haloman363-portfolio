@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import styles from './ChannelBanner.module.css'
 
@@ -42,6 +42,26 @@ export default function ChannelBanner({ channelId, origin, onBack, onPrev, onNex
   // (Adjusted during render: while closed the last origin is kept for the exit animation.)
   const [frozenOrigin, setFrozenOrigin] = useState(origin)
   if (isOpen && frozenOrigin !== origin) setFrozenOrigin(origin)
+
+  // Swipe left/right to move between channels on touch screens.
+  const touchStart = useRef(null)
+
+  function handleTouchStart(e) {
+    const t = e.touches[0]
+    touchStart.current = { x: t.clientX, y: t.clientY }
+  }
+
+  function handleTouchEnd(e) {
+    const start = touchStart.current
+    touchStart.current = null
+    if (!start) return
+    const t = e.changedTouches[0]
+    const dx = t.clientX - start.x
+    const dy = t.clientY - start.y
+    if (Math.abs(dx) < 60 || Math.abs(dx) < Math.abs(dy) * 1.5) return
+    if (dx < 0) handleNext()
+    else handlePrev()
+  }
 
   function handlePrev() {
     setDirection(-1)
@@ -111,6 +131,8 @@ export default function ChannelBanner({ channelId, origin, onBack, onPrev, onNex
           <motion.div
             key="viewport"
             className={styles.viewport}
+            onTouchStart={handleTouchStart}
+            onTouchEnd={handleTouchEnd}
             variants={zoomVariants(frozenOrigin)}
             initial="enter"
             animate="center"

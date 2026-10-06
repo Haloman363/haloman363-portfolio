@@ -2,6 +2,7 @@ import { useState, useRef, useCallback, useEffect } from 'react'
 import WiiBackground from './components/WiiBackground'
 import WiiCursor from './components/WiiCursor'
 import WiiFooter from './components/WiiFooter'
+import DesktopHint from './components/DesktopHint'
 import ChannelGrid from './components/ChannelGrid'
 import ChannelBanner from './components/ChannelBanner'
 import AboutBanner from './banners/AboutBanner'
@@ -113,6 +114,7 @@ export default function App() {
     <main className={`wii${darkMode ? ' dark' : ''}`}>
       <WiiBackground darkMode={darkMode} />
       <WiiCursor />
+      <DesktopHint />
       <ChannelGrid
         onSelect={handleSelect}
         onHover={audio.playHover}

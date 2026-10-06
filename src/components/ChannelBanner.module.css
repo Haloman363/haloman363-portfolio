@@ -18,6 +18,7 @@
   left: 0;
   width: 100%;
   height: 80vh;
+  height: 80dvh;
   overflow: hidden;
   z-index: 200;
 }
@@ -75,6 +76,7 @@
 .splashBar {
   position: fixed;
   height: 20vh;
+  height: 20dvh;
   box-sizing: border-box;
   background-color: lightgrey;
   border-top: solid 2px black;
@@ -92,6 +94,7 @@
   text-align: center;
   padding-top: 4.1vh;
   height: 20vh;
+  height: 20dvh;
   box-sizing: border-box;
   display: flex;
   align-items: center;
@@ -220,10 +223,12 @@
 @media only screen and (max-width: 639px) {
   .viewport {
     height: 75vh;
+    height: 75dvh;
   }
 
   .splashBar {
     height: 25vh;
+    height: 25dvh;
   }
 
   .border {
