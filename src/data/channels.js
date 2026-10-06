@@ -35,4 +35,5 @@ export const REFERRAL_LINKS = [
   { name: 'Amazon Prime Visa', desc: 'Prime Visa card referral', href: 'https://www.amazon.com/dp/BT00LN946S?externalReferenceId=7707afa3-9fb6-48a4-aec7-c36c6fcdf8bb', accent: '#00a8e1' },
   { name: 'Venmo', desc: 'Sign up for Venmo with my invite', href: 'https://get.venmo.com/3HrXU3Q5A6b', accent: '#3d95ce' },
   { name: 'PayPal', desc: 'Sign up for PayPal with my referral', href: 'https://py.pl/3NGu1', accent: '#0070e0' },
+  { name: 'US Mobile', desc: 'Mobile plan referral', href: 'https://www.usmobile.com/referrals?referrer=A8A7E8FF&name=Jaymes&utm_campaign=referrals_2026', accent: '#22c55e' },
 ]
