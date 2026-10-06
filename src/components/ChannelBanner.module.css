@@ -73,6 +73,16 @@
   border-radius: 8px 0 0 8px;
 }
 
+/* With a mouse the banners show a real (14px) scrollbar at the right edge; keep the
+   arrow clear of it so the scrollbar can always be grabbed. Touch uses overlay
+   scrollbars and keeps the edge-flush arrow. */
+@media (hover: hover) and (pointer: fine) {
+  .sideArrowRight {
+    right: 14px;
+    border-radius: 8px;
+  }
+}
+
 .splashBar {
   position: fixed;
   height: 20vh;

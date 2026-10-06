@@ -37,6 +37,7 @@ Running list for the portfolio. Check items off as they land. Items marked **(ne
 
 ## Done
 
+- [x] Themed scrollbars (cyan Wii pill, cooler blue in dark mode; Firefox via scrollbar-color) on all 13 scrollable areas; right nav arrow sits clear of the scrollbar on desktop.
 - [x] Photo channel + home-grid pagination (see above).
 - [x] News Channel (see above).
 - [x] Forecast Channel (see above).

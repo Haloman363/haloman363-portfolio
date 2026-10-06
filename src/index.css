@@ -19,6 +19,72 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
+/* Scrollbars: a Wii-cyan pill that reads on both light and dark banners.
+   Chrome/Safari/Edge get the full look via ::-webkit-scrollbar; Firefox (which
+   lacks it) falls back to the standard scrollbar-color properties. Touch
+   devices use overlay scrollbars and ignore all of this. */
+@supports not selector(::-webkit-scrollbar) {
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: #5ac8e8 rgba(127, 127, 127, 0.18);
+  }
+}
+
+::-webkit-scrollbar {
+  width: 14px;
+  height: 14px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(127, 127, 127, 0.16);
+  border-radius: 999px;
+  margin: 8px 0;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #b6ecff 0%, #5ac8e8 100%);
+  border: 3px solid transparent;
+  background-clip: padding-box;
+  border-radius: 999px;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.85);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #d6f6ff 0%, #7ad8ff 100%);
+  background-clip: padding-box;
+}
+
+::-webkit-scrollbar-thumb:active {
+  background: #3aaad0;
+  background-clip: padding-box;
+}
+
+::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
+/* Dark mode: same shape, cooler blue */
+@supports not selector(::-webkit-scrollbar) {
+  .dark * {
+    scrollbar-color: #7ab0f0 rgba(160, 190, 255, 0.16);
+  }
+}
+
+.dark ::-webkit-scrollbar-track {
+  background: rgba(160, 190, 255, 0.14);
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #a9c8f5 0%, #5b8bd0 100%);
+  background-clip: padding-box;
+  box-shadow: inset 0 0 0 1px rgba(200, 220, 255, 0.7);
+}
+
+.dark ::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #c6dcfb 0%, #7ab0f0 100%);
+  background-clip: padding-box;
+}
+
 /* Visible keyboard focus (mouse/touch don't trigger :focus-visible) */
 :focus-visible {
   outline: 3px solid #7ad8ff;
