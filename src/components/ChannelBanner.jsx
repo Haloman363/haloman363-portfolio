@@ -2,6 +2,7 @@ import { useState, useRef } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import styles from './ChannelBanner.module.css'
 import ScrollRail from './ScrollRail'
+import ErrorBoundary from './ErrorBoundary'
 
 const slideVariants = {
   enter: (dir) => ({ x: dir >= 0 ? '100%' : '-100%' }),
@@ -179,7 +180,7 @@ function PanelBody({ children }) {
   return (
     <>
       <div className={styles.content} ref={contentRef}>
-        {children}
+        <ErrorBoundary>{children}</ErrorBoundary>
       </div>
       <ScrollRail rootRef={contentRef} />
     </>

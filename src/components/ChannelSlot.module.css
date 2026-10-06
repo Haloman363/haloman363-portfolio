@@ -16,7 +16,7 @@
 
 /* blank channel: animated spritesheet */
 .channelIcon.blank {
-  background-image: url('/wii/sprites/channel-spritesheet.png');
+  background-image: url('/wii/sprites/channel-spritesheet.webp');
   background-size: calc(100% * 3) 100%;
   animation:
     play 0.3s steps(3) infinite,
