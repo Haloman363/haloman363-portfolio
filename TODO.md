@@ -37,6 +37,12 @@ Running list for the portfolio. Check items off as they land. Items marked **(ne
 
 ## Done
 
+- [x] CI: lint gate before every deploy + `ci.yml` (lint, build, browser smoke test on every push/PR). Smoke test is report-only for now; once it has run reliably on GitHub, make `deploy.yml` depend on it.
+- [x] Error boundary per channel + whole app.
+- [x] Dark mode and sound remembered; dark follows the device setting by default.
+- [x] Mii Channel theme music (crossfades, loads on demand).
+- [x] Vector channel frame (smooth, soft falloff) and ScrollRail scrollbar beside the content.
+- [x] Spritesheet 1.3 MB -> 260 KB WebP.
 - [x] Themed scrollbars (cyan Wii pill, cooler blue in dark mode; Firefox via scrollbar-color) on all 13 scrollable areas; right nav arrow sits clear of the scrollbar on desktop.
 - [x] Photo channel + home-grid pagination (see above).
 - [x] News Channel (see above).

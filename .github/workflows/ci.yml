@@ -1,0 +1,33 @@
+name: CI
+
+# Lint, build and smoke-test (opens every channel, checks tablet/phone layouts).
+# Runs on pull requests and on every push except the data branch. Deploys still run
+# from deploy.yml; this one is the safety net that tells you when something broke.
+on:
+  pull_request:
+  push:
+    branches-ignore: [makerworld-data]
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run lint
+      - run: npm run build
+      - run: npx playwright install --with-deps chromium
+      - name: Smoke test
+        run: |
+          npx vite preview --port 4173 &
+          for i in $(seq 1 30); do curl -sf http://localhost:4173/ >/dev/null && break; sleep 1; done
+          npm run test:smoke
