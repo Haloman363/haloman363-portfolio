@@ -144,3 +144,28 @@ export function defaultUnit() {
   const lang = (typeof navigator !== 'undefined' && navigator.language) || ''
   return /-(US|LR|MM)$/i.test(lang) ? 'f' : 'c'
 }
+
+// Shown when the visitor's location can't be determined: a spread of places with
+// very different weather, picked at random. Curated so names are always right
+// (no extra lookup) and every spot is somewhere interesting.
+export const RANDOM_PLACES = [
+  ['Reykjavik, Iceland', 64.15, -21.94], ['Tromsø, Norway', 69.65, 18.96], ['Longyearbyen, Svalbard', 78.22, 15.65],
+  ['Oslo, Norway', 59.91, 10.75], ['London, UK', 51.51, -0.13], ['Paris, France', 48.86, 2.35],
+  ['Lisbon, Portugal', 38.72, -9.14], ['Istanbul, Türkiye', 41.01, 28.98], ['Moscow, Russia', 55.76, 37.62],
+  ['Yakutsk, Russia', 62.03, 129.73], ['Ulaanbaatar, Mongolia', 47.89, 106.91], ['Tokyo, Japan', 35.68, 139.69],
+  ['Seoul, South Korea', 37.57, 126.98], ['Kathmandu, Nepal', 27.72, 85.32], ['Mumbai, India', 19.08, 72.88],
+  ['Bangkok, Thailand', 13.76, 100.5], ['Singapore', 1.35, 103.82], ['Dubai, UAE', 25.2, 55.27],
+  ['Cairo, Egypt', 30.04, 31.24], ['Marrakesh, Morocco', 31.63, -7.99], ['Lagos, Nigeria', 6.52, 3.38],
+  ['Addis Ababa, Ethiopia', 9.03, 38.74], ['Nairobi, Kenya', -1.29, 36.82], ['Cape Town, South Africa', -33.92, 18.42],
+  ['Perth, Australia', -31.95, 115.86], ['Sydney, Australia', -33.87, 151.21], ['Auckland, New Zealand', -36.85, 174.76],
+  ['Suva, Fiji', -18.14, 178.44], ['Honolulu, Hawaii', 21.31, -157.86], ['Anchorage, Alaska', 61.22, -149.9],
+  ['Vancouver, Canada', 49.28, -123.12], ['Mexico City, Mexico', 19.43, -99.13], ['Havana, Cuba', 23.11, -82.37],
+  ['Quito, Ecuador', -0.18, -78.47], ['Lima, Peru', -12.05, -77.04], ['Rio de Janeiro, Brazil', -22.91, -43.17],
+  ['Buenos Aires, Argentina', -34.6, -58.38], ['Santiago, Chile', -33.45, -70.67], ['Ushuaia, Argentina', -54.8, -68.3],
+].map(([name, lat, lon]) => ({ name, lat, lon }))
+
+// A random spot, never the same one as `exclude` (so "shuffle" always changes it).
+export function randomPlace(exclude) {
+  const pool = exclude ? RANDOM_PLACES.filter(p => p.name !== exclude.name) : RANDOM_PLACES
+  return pool[Math.floor(Math.random() * pool.length)]
+}

@@ -131,6 +131,17 @@
   opacity: 0.95;
 }
 
+.linkBtn {
+  font: inherit;
+  font-weight: 800;
+  color: #fff;
+  background: none;
+  border: 0;
+  padding: 0;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
 .hint {
   display: block;
   margin-top: 6px;

@@ -3,7 +3,7 @@ import { Bubbles } from '../components/BannerParts'
 import parts from '../components/BannerParts.module.css'
 import {
   locateByIP, nameForCoords, searchPlaces, fetchForecast,
-  describe, toF, kmhToMph, defaultUnit,
+  describe, toF, kmhToMph, defaultUnit, randomPlace,
 } from '../data/weather'
 import styles from './ForecastBanner.module.css'
 
@@ -100,7 +100,7 @@ export default function ForecastBanner({ sfx }) {
   const click = sfx?.playClick
 
   const [place, setPlace] = useState(null)        // { lat, lon, name }
-  const [locFailed, setLocFailed] = useState(false)
+  const [random, setRandom] = useState(false)      // true while showing a made-up spot
   const [attempt, setAttempt] = useState(0)        // bump to retry the forecast
   const [forecast, setForecast] = useState(null)   // { key, data?, error? }
   const [unit, setUnit] = useState(defaultUnit)
@@ -115,7 +115,8 @@ export default function ForecastBanner({ sfx }) {
     let cancelled = false
     locateByIP()
       .then(p => { if (!cancelled) setPlace(p) })
-      .catch(() => { if (!cancelled) setLocFailed(true) })
+      // Couldn't find the visitor (blocked lookup, offline service...): show somewhere fun instead.
+      .catch(() => { if (!cancelled) { setPlace(randomPlace()); setRandom(true) } })
     return () => { cancelled = true }
   }, [])
 
@@ -141,6 +142,7 @@ export default function ForecastBanner({ sfx }) {
       async pos => {
         const { latitude: lat, longitude: lon } = pos.coords
         setPlace({ lat, lon, name: 'Your location' })
+        setRandom(false)
         setResults(null)
         const name = await nameForCoords(lat, lon)
         setPlace(p => (p && p.lat === lat && p.lon === lon ? { ...p, name } : p))
@@ -148,6 +150,11 @@ export default function ForecastBanner({ sfx }) {
       () => setGeoError('Location permission was declined. Try searching for a city instead.'),
       { timeout: 10000, maximumAge: 10 * 60 * 1000 }
     )
+  }
+
+  function shuffle() {
+    click?.()
+    setPlace(randomPlace(place))
   }
 
   async function onSearch(e) {
@@ -168,6 +175,7 @@ export default function ForecastBanner({ sfx }) {
   function choose(p) {
     click?.()
     setPlace(p)
+    setRandom(false)
     setResults(null)
     setQuery('')
     setGeoError('')
@@ -192,7 +200,7 @@ export default function ForecastBanner({ sfx }) {
         {/* Location line + controls */}
         <div className={`${styles.where} ${parts.rise}`} style={{ '--i': 1 }}>
           <span className={styles.placeName}>
-            {place ? place.name : locFailed ? 'Where are you?' : 'Finding your area…'}
+            {place ? place.name : 'Finding your area…'}
           </span>
           <div className={styles.controls}>
             <button className={styles.chipBtn} onClick={locateMe} onMouseEnter={hover}>
@@ -223,6 +231,14 @@ export default function ForecastBanner({ sfx }) {
           </button>
         </form>
 
+        {random && (
+          <p className={styles.note}>
+            We couldn’t find your location, so here’s a random spot on the globe.
+            Use your exact location or search for a city to see yours.{' '}
+            <button className={styles.linkBtn} onClick={shuffle} onMouseEnter={hover}>Show me somewhere else</button>
+            <span className={styles.hint}>(An ad or privacy blocker can stop the automatic lookup.)</span>
+          </p>
+        )}
         {geoError && <p className={styles.note} role="alert">{geoError}</p>}
         {searchError && <p className={styles.note} role="alert">Couldn’t search right now. Try again in a moment.</p>}
         {results && (
@@ -238,12 +254,6 @@ export default function ForecastBanner({ sfx }) {
 
         {/* Weather */}
         {loading && <p className={styles.status}>Checking the skies…</p>}
-        {locFailed && !place && (
-          <p className={styles.status}>
-            We couldn’t guess your location. Search for a city or use your exact location above.
-            <span className={styles.hint}>(An ad or privacy blocker can stop the automatic lookup.)</span>
-          </p>
-        )}
         {error && (
           <div className={styles.status} role="alert">
             <p>Couldn’t load the forecast.</p>
