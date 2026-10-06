@@ -1,8 +1,9 @@
 // Weather + location helpers for the Forecast channel.
 // All services are free, keyless and CORS-enabled:
 //   - Open-Meteo            forecast + city search  (https://open-meteo.com)
-//   - GeoJS                 approximate location from the visitor's IP
-//   - BigDataCloud          reverse geocode for browser (GPS) coordinates
+//   - GeoJS / ipwho.is /    approximate location from the visitor's IP (tried in order,
+//     BigDataCloud / ipapi    so one being blocked or down doesn't break the channel)
+//   - BigDataCloud          also reverse-geocodes browser (GPS) coordinates
 
 const TIMEOUT_MS = 10000
 
@@ -14,13 +15,55 @@ async function getJSON(url) {
 
 const joinParts = (...parts) => parts.filter(Boolean).join(', ')
 
+const PROVIDER_TIMEOUT_MS = 6000
+
+// Each provider maps its own response shape onto { lat, lon, name }.
+const IP_PROVIDERS = [
+  {
+    id: 'geojs',
+    url: 'https://get.geojs.io/v1/ip/geo.json',
+    parse: d => ({ lat: parseFloat(d.latitude), lon: parseFloat(d.longitude), name: joinParts(d.city, d.region) || d.country }),
+  },
+  {
+    id: 'ipwho.is',
+    url: 'https://ipwho.is/',
+    parse: d => {
+      if (d.success === false) throw new Error(d.message || 'lookup failed')
+      return { lat: Number(d.latitude), lon: Number(d.longitude), name: joinParts(d.city, d.region) || d.country }
+    },
+  },
+  {
+    // With no coordinates supplied, BigDataCloud locates the caller by IP.
+    id: 'bigdatacloud',
+    url: 'https://api.bigdatacloud.net/data/reverse-geocode-client?localityLanguage=en',
+    parse: d => ({ lat: Number(d.latitude), lon: Number(d.longitude), name: joinParts(d.city || d.locality, d.principalSubdivision) || d.countryName }),
+  },
+  {
+    id: 'ipapi.co',
+    url: 'https://ipapi.co/json/',
+    parse: d => {
+      if (d.error) throw new Error(d.reason || 'lookup failed')
+      return { lat: Number(d.latitude), lon: Number(d.longitude), name: joinParts(d.city, d.region) || d.country_name }
+    },
+  },
+]
+
 // Approximate, city-level location from the visitor's IP. No permission prompt.
+// Providers are tried one at a time (so usually only one service ever sees the
+// request); each failure is logged to the console to make blocked requests easy to spot.
 export async function locateByIP() {
-  const d = await getJSON('https://get.geojs.io/v1/ip/geo.json')
-  const lat = parseFloat(d.latitude)
-  const lon = parseFloat(d.longitude)
-  if (!Number.isFinite(lat) || !Number.isFinite(lon)) throw new Error('No location')
-  return { lat, lon, name: joinParts(d.city, d.region) || d.country || 'Your area' }
+  for (const p of IP_PROVIDERS) {
+    try {
+      const res = await fetch(p.url, { signal: AbortSignal.timeout(PROVIDER_TIMEOUT_MS) })
+      if (!res.ok) throw new Error(`HTTP ${res.status}`)
+      const { lat, lon, name } = p.parse(await res.json())
+      if (!Number.isFinite(lat) || !Number.isFinite(lon)) throw new Error('no coordinates in response')
+      return { lat, lon, name: name || 'Your area' }
+    } catch (err) {
+      console.warn(`[forecast] ${p.id} location lookup failed: ${err.message}`)
+    }
+  }
+  throw new Error('All location providers failed')
 }
 
 // Friendly name for exact coordinates; falls back to a generic label.

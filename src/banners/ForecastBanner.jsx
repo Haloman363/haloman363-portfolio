@@ -241,6 +241,7 @@ export default function ForecastBanner({ sfx }) {
         {locFailed && !place && (
           <p className={styles.status}>
             We couldn’t guess your location. Search for a city or use your exact location above.
+            <span className={styles.hint}>(An ad or privacy blocker can stop the automatic lookup.)</span>
           </p>
         )}
         {error && (

@@ -131,6 +131,14 @@
   opacity: 0.95;
 }
 
+.hint {
+  display: block;
+  margin-top: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  opacity: 0.75;
+}
+
 .now {
   display: flex;
   align-items: center;
