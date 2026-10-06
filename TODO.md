@@ -37,6 +37,8 @@ Running list for the portfolio. Check items off as they land. Items marked **(ne
 
 ## Done
 
+- [x] Nunito self-hosted via @fontsource (4 weights, Latin, ~65 KB) and preloaded; Google Fonts links removed. NB: earlier screenshots in this project used a fallback font because Google Fonts was unreachable from the build sandbox.
+- [x] `npm audit fix`: vite 8.0.3 -> 8.3.3, 0 known vulnerabilities (all were dev-server issues, not the shipped site).
 - [x] CI: lint gate before every deploy + `ci.yml` (lint, build, browser smoke test on every push/PR). Smoke test is report-only for now; once it has run reliably on GitHub, make `deploy.yml` depend on it.
 - [x] Error boundary per channel + whole app.
 - [x] Dark mode and sound remembered; dark follows the device setting by default.
