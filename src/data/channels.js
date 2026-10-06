@@ -25,6 +25,7 @@ export const NAMED_CHANNELS = [
   { id: 'venmo',         label: 'Venmo',               sprite: `${base}wii/sprites/channel-venmo.svg`,      page: 0, slot: 12 },
   { id: 'cool-jaymes-games', label: 'Cool Jaymes Games', sprite: `${base}wii/sprites/channel-coolgames.svg`, page: 0, slot: 13 },
   { id: 'dog-vision',     label: 'Dog Vision',        sprite: `${base}wii/sprites/channel-dogvision.svg`,  page: 0, slot: 14 },
+  { id: 'forecast',       label: 'Forecast',          sprite: `${base}wii/sprites/channel-forecast.svg`,   page: 0, slot: 16 },
   { id: 'dolos21',        label: 'Dolos://21',        sprite: `${base}wii/sprites/channel-dolos21.svg`,    page: 0, slot: 15 },
 ]
 

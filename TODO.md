@@ -1,6 +1,6 @@
 # TODO
 
-Running list for the portfolio. Check items off as they land. Items marked **(needs decision)** are blocked on a choice from Jaymes.
+Running list for the portfolio. Check items off as they land. Items marked **(needs decision)** are blocked on a choice from Jaymes. `[~]` = decided not to do.
 
 ## Needs verification / follow-up
 
@@ -10,14 +10,14 @@ Running list for the portfolio. Check items off as they land. Items marked **(ne
 
 ## Quick wins
 
-- [ ] **Contact channel** ("Message Board" tile): a way to reach me. Resume deliberately omits email, so decide what to publish: email, a contact form, or just LinkedIn/GitHub links. **(needs decision)**
-- [ ] **Startup splash:** optional "Press A to start" screen on first load that plays `sfx-startup.mp3` (also unlocks audio autoplay on mobile). Audio already in `public/wii/audio/`.
+- [~] ~~**Contact channel**~~ Decided against (2026-10-06): not building one.
+- [~] ~~**Startup splash**~~ Decided against (2026-10-06): no click-through gate on first load.
 - [x] **Keyboard navigation:** arrow keys move between tiles, Enter/Space opens, Escape goes back. (Gamepad API support not done.)
 - [x] **Easter eggs:** Konami code (rainbow shimmer) and clicking the date to show the time. (Mii click not done.)
 
 ## Medium
 
-- [ ] **Forecast Channel:** weather tile for Logan, UT (needs a free no-key weather API; check CORS). **(needs decision: location / API)**
+- [x] **Forecast Channel:** shipped. Finds the visitor's approximate location from their IP (GeoJS, no prompt), with "Use my exact location" (browser GPS + BigDataCloud reverse geocode), city search (Open-Meteo geocoding), °F/°C toggle (defaults by locale), current conditions + 5-day outlook. Only tested with mocked APIs because the build sandbox can't reach them, so **verify once against the live site** (check the browser console for CORS/rate-limit errors from geojs.io / open-meteo.com / bigdatacloud.net). GeoJS/BigDataCloud are free tiers with no SLA; swap if they get flaky.
 - [ ] **News Channel:** latest GitHub commits / MakerWorld uploads as a live feed.
 - [ ] **Photo / 3D print gallery:** `src/banners/PhotoBanner.jsx` exists but isn't wired into `channels.js`. Needs photos. **(needs decision: which photos)**
 - [ ] **Mii Plaza visitor wall:** wandering Miis on the home screen, one per recent visitor. Needs a tiny backend, which the spec currently rules out. **(needs decision)**
@@ -35,6 +35,7 @@ Running list for the portfolio. Check items off as they land. Items marked **(ne
 
 ## Done
 
+- [x] Forecast Channel (see above).
 - [x] Keyboard nav, focus rings, 44px phone tap targets, reduced motion, share image, easter eggs (see ticked items above).
 
 - [x] Real README; removed unused Vite template assets; plan docs marked implemented.
