@@ -1,16 +1,45 @@
-# React + Vite
+# haloman363 portfolio
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A personal portfolio styled as the Nintendo Wii Menu. Each "channel" tile opens a banner for a different part of my work: resume, GitHub projects, MakerWorld models, LinkedIn, referrals and more.
 
-Currently, two official plugins are available:
+**Live site:** https://www.jaymesbunce.com (served from GitHub Pages, see `public/CNAME`)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Stack
 
-## React Compiler
+- React 19 + Vite
+- Framer Motion for animation
+- CSS Modules for styling
+- Playwright (dev only) for the MakerWorld scraper
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Getting started
 
-## Expanding the ESLint configuration
+```bash
+npm ci
+npm run dev      # start the dev server
+npm run build    # production build into dist/
+npm run preview  # serve the production build locally
+npm run lint     # ESLint
+```
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Project layout
+
+| Path | Purpose |
+| --- | --- |
+| `src/components/` | Wii shell: background, cursor, header, footer, channel grid and slots |
+| `src/banners/` | One banner component per channel |
+| `src/data/channels.js` | Channel definitions and grid slot assignments |
+| `src/data/makerworld-snapshot.json` | Generated MakerWorld stats (do not edit by hand) |
+| `src/hooks/` | Cursor physics and audio hooks |
+| `public/wii/` | Sprites and audio |
+| `public/resume/` | Resume PDF and photo |
+| `scripts/scrape-makerworld.mjs` | Scrapes public MakerWorld profile stats |
+| `docs/superpowers/` | Design spec and implementation plans |
+
+## Automation
+
+- **Deploy** (`.github/workflows/deploy.yml`): pushes to `master` build the site and publish it to GitHub Pages.
+- **MakerWorld stats** (`.github/workflows/scrape-makerworld.yml`): runs daily, scrapes the profile and commits an updated `makerworld-snapshot.json`. These are the frequent `chore: update MakerWorld stats snapshot` commits.
+
+## Scope
+
+Desktop-first by design. There is no backend or database, and mobile/responsive layout is not currently supported (see `docs/superpowers/specs/`).

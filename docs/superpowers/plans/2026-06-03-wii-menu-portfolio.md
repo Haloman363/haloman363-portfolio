@@ -1,5 +1,7 @@
 # Wii Menu Portfolio Implementation Plan
 
+> **Status:** Implemented. Checkboxes ticked retroactively during a repo cleanup.
+
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
 **Goal:** Rebuild the portfolio site ground-up as a pixel-faithful Nintendo Wii System Menu with channel grid navigation, animated background, custom Wii Remote cursor, audio toggle, and full-screen channel banners for each portfolio section.
@@ -81,13 +83,13 @@
 - Create: `public/wii/audio/` (directory + files)
 - Create: `public/wii/sprites/` (directory + files)
 
-- [ ] **Step 1: Create asset directories**
+- [x] **Step 1: Create asset directories**
 
 ```bash
 mkdir -p public/wii/audio public/wii/sprites
 ```
 
-- [ ] **Step 2: Download Mii Channel BGM from Internet Archive**
+- [x] **Step 2: Download Mii Channel BGM from Internet Archive**
 
 Go to https://archive.org/details/wiichannelsoundtracks and download the Mii Channel theme track. Save it as `public/wii/audio/mii-channel-theme.mp3`.
 
@@ -97,7 +99,7 @@ curl -L "https://archive.org/download/wiichannelsoundtracks/Mii%20Channel.mp3" \
   -o public/wii/audio/mii-channel-theme.mp3
 ```
 
-- [ ] **Step 3: Download Wii SFX from The Sounds Resource**
+- [x] **Step 3: Download Wii SFX from The Sounds Resource**
 
 Go to https://sounds.spriters-resource.com/wii/wiimenu/ — download:
 - The channel hover blip sound → `public/wii/audio/sfx-hover.wav`
@@ -106,7 +108,7 @@ Go to https://sounds.spriters-resource.com/wii/wiimenu/ — download:
 
 If the site requires individual download, use the browser. These are small WAV files.
 
-- [ ] **Step 4: Download channel icon sprites from The Spriters Resource**
+- [x] **Step 4: Download channel icon sprites from The Spriters Resource**
 
 Go to https://www.spriters-resource.com/wii/wiimenu/ — download individual channel icon PNGs:
 - Mii Channel icon → `public/wii/sprites/channel-mii.png`
@@ -116,11 +118,11 @@ Go to https://www.spriters-resource.com/wii/wiimenu/ — download individual cha
 - Left arrow button → `public/wii/sprites/arrow-left.png`
 - Right arrow button → `public/wii/sprites/arrow-right.png`
 
-- [ ] **Step 5: Download cursor sprite**
+- [x] **Step 5: Download cursor sprite**
 
 From the same Spriters Resource page, download the Wii Remote hand cursor PNG → `public/wii/sprites/cursor-hand.png`
 
-- [ ] **Step 6: Create a placeholder Mii avatar**
+- [x] **Step 6: Create a placeholder Mii avatar**
 
 Create a simple 64×64 white square PNG as a placeholder until you have a real avatar:
 ```bash
@@ -131,14 +133,14 @@ convert -size 64x64 xc:white -fill "#cccccc" -draw "roundrectangle 4,4 60,60 8,8
 cp src/assets/hero.png public/wii/sprites/mii-avatar-placeholder.png
 ```
 
-- [ ] **Step 7: Verify all assets present**
+- [x] **Step 7: Verify all assets present**
 
 ```bash
 ls public/wii/audio/ public/wii/sprites/
 ```
 Expected: all 4 audio files and all 7+ sprite files listed.
 
-- [ ] **Step 8: Commit**
+- [x] **Step 8: Commit**
 
 ```bash
 git add public/wii/
@@ -155,7 +157,7 @@ git commit -m "feat: add Wii asset files (audio, sprites)"
 - Modify: `src/App.css`
 - Modify: `src/App.jsx`
 
-- [ ] **Step 1: Update `index.html` to add Nunito font**
+- [x] **Step 1: Update `index.html` to add Nunito font**
 
 Replace the contents of `index.html` with:
 
@@ -179,7 +181,7 @@ Replace the contents of `index.html` with:
 </html>
 ```
 
-- [ ] **Step 2: Replace `src/index.css` with Wii globals**
+- [x] **Step 2: Replace `src/index.css` with Wii globals**
 
 ```css
 *, *::before, *::after {
@@ -210,7 +212,7 @@ body {
 }
 ```
 
-- [ ] **Step 3: Replace `src/App.css` with Wii shell layout**
+- [x] **Step 3: Replace `src/App.css` with Wii shell layout**
 
 ```css
 .wii {
@@ -223,7 +225,7 @@ body {
 }
 ```
 
-- [ ] **Step 4: Replace `src/App.jsx` with minimal Wii shell (no old imports)**
+- [x] **Step 4: Replace `src/App.jsx` with minimal Wii shell (no old imports)**
 
 ```jsx
 import { useState } from 'react'
@@ -242,7 +244,7 @@ export default function App() {
 }
 ```
 
-- [ ] **Step 5: Delete old components and pages**
+- [x] **Step 5: Delete old components and pages**
 
 ```bash
 rm src/components/MirrorPatches.jsx src/components/MirrorPatches.module.css
@@ -254,14 +256,14 @@ rm src/pages/Work.jsx src/pages/Work.module.css
 rm src/pages/Links.jsx src/pages/Links.module.css
 ```
 
-- [ ] **Step 6: Run dev server and verify it starts without errors**
+- [x] **Step 6: Run dev server and verify it starts without errors**
 
 ```bash
 npm run dev
 ```
 Expected: Vite server starts, browser shows white text "Wii shell — activeChannel: none" on blue background. No console errors.
 
-- [ ] **Step 7: Commit**
+- [x] **Step 7: Commit**
 
 ```bash
 git add -A
@@ -275,7 +277,7 @@ git commit -m "feat: scaffold Wii shell, remove old design"
 **Files:**
 - Create: `src/data/channels.js`
 
-- [ ] **Step 1: Create `src/data/channels.js`**
+- [x] **Step 1: Create `src/data/channels.js`**
 
 ```js
 export const GITHUB_USER = 'Haloman363'
@@ -361,7 +363,7 @@ export const REFERRAL_LINKS = [
 ]
 ```
 
-- [ ] **Step 2: Commit**
+- [x] **Step 2: Commit**
 
 ```bash
 git add src/data/channels.js
@@ -376,7 +378,7 @@ git commit -m "feat: add channel data definitions"
 - Create: `src/components/WiiBackground.jsx`
 - Create: `src/components/WiiBackground.module.css`
 
-- [ ] **Step 1: Create `src/components/WiiBackground.module.css`**
+- [x] **Step 1: Create `src/components/WiiBackground.module.css`**
 
 ```css
 .canvas {
@@ -389,7 +391,7 @@ git commit -m "feat: add channel data definitions"
 }
 ```
 
-- [ ] **Step 2: Create `src/components/WiiBackground.jsx`**
+- [x] **Step 2: Create `src/components/WiiBackground.jsx`**
 
 ```jsx
 import { useEffect, useRef } from 'react'
@@ -479,7 +481,7 @@ export default function WiiBackground() {
 }
 ```
 
-- [ ] **Step 3: Wire WiiBackground into App and verify**
+- [x] **Step 3: Wire WiiBackground into App and verify**
 
 In `src/App.jsx`:
 
@@ -502,14 +504,14 @@ export default function App() {
 }
 ```
 
-- [ ] **Step 4: Run dev server and verify**
+- [x] **Step 4: Run dev server and verify**
 
 ```bash
 npm run dev
 ```
 Expected: Blue radial gradient background with ~25 slowly floating translucent bubbles. Text visible on top. No console errors.
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ```bash
 git add src/components/WiiBackground.jsx src/components/WiiBackground.module.css src/App.jsx
@@ -525,7 +527,7 @@ git commit -m "feat: add Wii animated bubble background"
 - Create: `src/components/WiiCursor.jsx`
 - Create: `src/components/WiiCursor.module.css`
 
-- [ ] **Step 1: Create `src/hooks/useCursorPhysics.js`**
+- [x] **Step 1: Create `src/hooks/useCursorPhysics.js`**
 
 ```js
 import { useEffect, useRef, useState } from 'react'
@@ -569,7 +571,7 @@ export function useCursorPhysics() {
 }
 ```
 
-- [ ] **Step 2: Create `src/components/WiiCursor.module.css`**
+- [x] **Step 2: Create `src/components/WiiCursor.module.css`**
 
 ```css
 .cursor {
@@ -599,7 +601,7 @@ export function useCursorPhysics() {
 }
 ```
 
-- [ ] **Step 3: Create `src/components/WiiCursor.jsx`**
+- [x] **Step 3: Create `src/components/WiiCursor.jsx`**
 
 ```jsx
 import { useCursorPhysics } from '../hooks/useCursorPhysics'
@@ -621,7 +623,7 @@ export default function WiiCursor() {
 }
 ```
 
-- [ ] **Step 4: Add WiiCursor to App**
+- [x] **Step 4: Add WiiCursor to App**
 
 ```jsx
 import { useState } from 'react'
@@ -644,14 +646,14 @@ export default function App() {
 }
 ```
 
-- [ ] **Step 5: Run dev server and verify**
+- [x] **Step 5: Run dev server and verify**
 
 ```bash
 npm run dev
 ```
 Expected: Standard cursor is hidden. Custom hand cursor appears at mouse position. Moving the mouse quickly causes the cursor to tilt in the direction of motion, then settle back upright.
 
-- [ ] **Step 6: Commit**
+- [x] **Step 6: Commit**
 
 ```bash
 git add src/hooks/useCursorPhysics.js src/components/WiiCursor.jsx src/components/WiiCursor.module.css src/App.jsx
@@ -665,7 +667,7 @@ git commit -m "feat: add custom Wii Remote cursor with tilt physics"
 **Files:**
 - Create: `src/hooks/useWiiAudio.js`
 
-- [ ] **Step 1: Create `src/hooks/useWiiAudio.js`**
+- [x] **Step 1: Create `src/hooks/useWiiAudio.js`**
 
 ```js
 import { useRef, useState, useCallback } from 'react'
@@ -713,7 +715,7 @@ export function useWiiAudio() {
 }
 ```
 
-- [ ] **Step 2: Commit**
+- [x] **Step 2: Commit**
 
 ```bash
 git add src/hooks/useWiiAudio.js
@@ -728,7 +730,7 @@ git commit -m "feat: add Wii audio hook (BGM + SFX)"
 - Create: `src/components/WiiHeader.jsx`
 - Create: `src/components/WiiHeader.module.css`
 
-- [ ] **Step 1: Create `src/components/WiiHeader.module.css`**
+- [x] **Step 1: Create `src/components/WiiHeader.module.css`**
 
 ```css
 .header {
@@ -767,7 +769,7 @@ git commit -m "feat: add Wii audio hook (BGM + SFX)"
 }
 ```
 
-- [ ] **Step 2: Create `src/components/WiiHeader.jsx`**
+- [x] **Step 2: Create `src/components/WiiHeader.jsx`**
 
 ```jsx
 import { useState, useEffect } from 'react'
@@ -808,7 +810,7 @@ export default function WiiHeader({ audioEnabled, onAudioToggle }) {
 }
 ```
 
-- [ ] **Step 3: Wire WiiHeader into App**
+- [x] **Step 3: Wire WiiHeader into App**
 
 ```jsx
 import { useState } from 'react'
@@ -835,14 +837,14 @@ export default function App() {
 }
 ```
 
-- [ ] **Step 4: Run dev server and verify**
+- [x] **Step 4: Run dev server and verify**
 
 ```bash
 npm run dev
 ```
 Expected: Top bar shows mute icon on left and live clock updating every second on right. Clicking speaker icon toggles the icon between 🔊 and 🔇. If audio files are present, BGM plays when toggled on.
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ```bash
 git add src/components/WiiHeader.jsx src/components/WiiHeader.module.css src/App.jsx
@@ -857,7 +859,7 @@ git commit -m "feat: add WiiHeader with live clock and audio toggle"
 - Create: `src/components/WiiFooter.jsx`
 - Create: `src/components/WiiFooter.module.css`
 
-- [ ] **Step 1: Create `src/components/WiiFooter.module.css`**
+- [x] **Step 1: Create `src/components/WiiFooter.module.css`**
 
 ```css
 .footer {
@@ -889,7 +891,7 @@ git commit -m "feat: add WiiHeader with live clock and audio toggle"
 }
 ```
 
-- [ ] **Step 2: Create `src/components/WiiFooter.jsx`**
+- [x] **Step 2: Create `src/components/WiiFooter.jsx`**
 
 ```jsx
 import styles from './WiiFooter.module.css'
@@ -908,7 +910,7 @@ export default function WiiFooter() {
 }
 ```
 
-- [ ] **Step 3: Wire WiiFooter into App**
+- [x] **Step 3: Wire WiiFooter into App**
 
 ```jsx
 import { useState } from 'react'
@@ -950,14 +952,14 @@ Update `src/App.css` to make the layout fill vertically:
 }
 ```
 
-- [ ] **Step 4: Run dev server and verify**
+- [x] **Step 4: Run dev server and verify**
 
 ```bash
 npm run dev
 ```
 Expected: Avatar circle and "JAYMES" label in bottom-left. Layout fills full viewport height with header at top and footer at bottom.
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ```bash
 git add src/components/WiiFooter.jsx src/components/WiiFooter.module.css src/App.jsx
@@ -972,7 +974,7 @@ git commit -m "feat: add WiiFooter Mii bar"
 - Create: `src/components/ChannelSlot.jsx`
 - Create: `src/components/ChannelSlot.module.css`
 
-- [ ] **Step 1: Create `src/components/ChannelSlot.module.css`**
+- [x] **Step 1: Create `src/components/ChannelSlot.module.css`**
 
 ```css
 .slot {
@@ -1063,7 +1065,7 @@ git commit -m "feat: add WiiFooter Mii bar"
 }
 ```
 
-- [ ] **Step 2: Create `src/components/ChannelSlot.jsx`**
+- [x] **Step 2: Create `src/components/ChannelSlot.jsx`**
 
 ```jsx
 import styles from './ChannelSlot.module.css'
@@ -1117,7 +1119,7 @@ export default function ChannelSlot({ channel, onSelect, onHover }) {
 }
 ```
 
-- [ ] **Step 3: Commit**
+- [x] **Step 3: Commit**
 
 ```bash
 git add src/components/ChannelSlot.jsx src/components/ChannelSlot.module.css
@@ -1132,7 +1134,7 @@ git commit -m "feat: add ChannelSlot tile component"
 - Create: `src/components/ChannelGrid.jsx`
 - Create: `src/components/ChannelGrid.module.css`
 
-- [ ] **Step 1: Create `src/components/ChannelGrid.module.css`**
+- [x] **Step 1: Create `src/components/ChannelGrid.module.css`**
 
 ```css
 .gridWrap {
@@ -1206,7 +1208,7 @@ git commit -m "feat: add ChannelSlot tile component"
 }
 ```
 
-- [ ] **Step 2: Create `src/components/ChannelGrid.jsx`**
+- [x] **Step 2: Create `src/components/ChannelGrid.jsx`**
 
 ```jsx
 import { useState, useEffect, useCallback } from 'react'
@@ -1340,7 +1342,7 @@ export default function ChannelGrid({ onSelect, onHover }) {
 }
 ```
 
-- [ ] **Step 3: Wire ChannelGrid into App**
+- [x] **Step 3: Wire ChannelGrid into App**
 
 ```jsx
 import { useState } from 'react'
@@ -1373,14 +1375,14 @@ export default function App() {
 }
 ```
 
-- [ ] **Step 4: Run dev server and verify**
+- [x] **Step 4: Run dev server and verify**
 
 ```bash
 npm run dev
 ```
 Expected: 4×3 grid of channel tiles visible inside a rounded frame. Named channels show sprite + label. Repo channels show language dot + repo name. Empty slots are dim. Left/right arrows and page dots visible. Hovering tiles scales them up. Clicking a tile logs its ID (check console via `console.log` temporarily or verify state with React DevTools). Keyboard arrows switch pages.
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ```bash
 git add src/components/ChannelGrid.jsx src/components/ChannelGrid.module.css src/App.jsx
@@ -1395,7 +1397,7 @@ git commit -m "feat: add ChannelGrid with GitHub API integration and pagination"
 - Create: `src/components/ChannelBanner.jsx`
 - Create: `src/components/ChannelBanner.module.css`
 
-- [ ] **Step 1: Create `src/components/ChannelBanner.module.css`**
+- [x] **Step 1: Create `src/components/ChannelBanner.module.css`**
 
 ```css
 .overlay {
@@ -1436,7 +1438,7 @@ git commit -m "feat: add ChannelGrid with GitHub API integration and pagination"
 }
 ```
 
-- [ ] **Step 2: Create `src/components/ChannelBanner.jsx`**
+- [x] **Step 2: Create `src/components/ChannelBanner.jsx`**
 
 ```jsx
 import { AnimatePresence, motion } from 'framer-motion'
@@ -1472,7 +1474,7 @@ export default function ChannelBanner({ channelId, onBack, children }) {
 }
 ```
 
-- [ ] **Step 3: Wire ChannelBanner into App with a placeholder content switcher**
+- [x] **Step 3: Wire ChannelBanner into App with a placeholder content switcher**
 
 ```jsx
 import { useState } from 'react'
@@ -1516,14 +1518,14 @@ export default function App() {
 }
 ```
 
-- [ ] **Step 4: Run dev server and verify**
+- [x] **Step 4: Run dev server and verify**
 
 ```bash
 npm run dev
 ```
 Expected: Clicking any channel tile triggers a zoom-expand animation covering the full screen, showing the channel ID as text. Clicking "← Back" collapses back to grid with a reverse zoom. No console errors.
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ```bash
 git add src/components/ChannelBanner.jsx src/components/ChannelBanner.module.css src/App.jsx
@@ -1538,7 +1540,7 @@ git commit -m "feat: add ChannelBanner full-screen overlay with zoom animation"
 - Create: `src/banners/AboutBanner.jsx`
 - Create: `src/banners/AboutBanner.module.css`
 
-- [ ] **Step 1: Create `src/banners/AboutBanner.module.css`**
+- [x] **Step 1: Create `src/banners/AboutBanner.module.css`**
 
 ```css
 .about {
@@ -1640,7 +1642,7 @@ git commit -m "feat: add ChannelBanner full-screen overlay with zoom animation"
 }
 ```
 
-- [ ] **Step 2: Create `src/banners/AboutBanner.jsx`**
+- [x] **Step 2: Create `src/banners/AboutBanner.jsx`**
 
 ```jsx
 import styles from './AboutBanner.module.css'
@@ -1694,7 +1696,7 @@ export default function AboutBanner() {
 }
 ```
 
-- [ ] **Step 3: Commit**
+- [x] **Step 3: Commit**
 
 ```bash
 git add src/banners/AboutBanner.jsx src/banners/AboutBanner.module.css
@@ -1709,7 +1711,7 @@ git commit -m "feat: add AboutBanner (Mii Channel)"
 - Create: `src/banners/PhotoBanner.jsx`
 - Create: `src/banners/PhotoBanner.module.css`
 
-- [ ] **Step 1: Create `src/banners/PhotoBanner.module.css`**
+- [x] **Step 1: Create `src/banners/PhotoBanner.module.css`**
 
 ```css
 .photo {
@@ -1755,7 +1757,7 @@ git commit -m "feat: add AboutBanner (Mii Channel)"
 }
 ```
 
-- [ ] **Step 2: Create `src/banners/PhotoBanner.jsx`**
+- [x] **Step 2: Create `src/banners/PhotoBanner.jsx`**
 
 ```jsx
 import styles from './PhotoBanner.module.css'
@@ -1775,7 +1777,7 @@ export default function PhotoBanner() {
 }
 ```
 
-- [ ] **Step 3: Commit**
+- [x] **Step 3: Commit**
 
 ```bash
 git add src/banners/PhotoBanner.jsx src/banners/PhotoBanner.module.css
@@ -1790,7 +1792,7 @@ git commit -m "feat: add PhotoBanner (Photo Channel)"
 - Create: `src/banners/RepoBanner.jsx`
 - Create: `src/banners/RepoBanner.module.css`
 
-- [ ] **Step 1: Create `src/banners/RepoBanner.module.css`**
+- [x] **Step 1: Create `src/banners/RepoBanner.module.css`**
 
 ```css
 .repo {
@@ -1879,7 +1881,7 @@ git commit -m "feat: add PhotoBanner (Photo Channel)"
 }
 ```
 
-- [ ] **Step 2: Create `src/banners/RepoBanner.jsx`**
+- [x] **Step 2: Create `src/banners/RepoBanner.jsx`**
 
 ```jsx
 import styles from './RepoBanner.module.css'
@@ -1916,7 +1918,7 @@ export default function RepoBanner({ channel }) {
 }
 ```
 
-- [ ] **Step 3: Commit**
+- [x] **Step 3: Commit**
 
 ```bash
 git add src/banners/RepoBanner.jsx src/banners/RepoBanner.module.css
@@ -1933,7 +1935,7 @@ git commit -m "feat: add RepoBanner (GitHub repo template)"
 - Create: `src/banners/LinkedInBanner.jsx` + `.module.css`
 - Create: `src/banners/VenmoBanner.jsx` + `.module.css`
 
-- [ ] **Step 1: Create `src/banners/ShopBanner.module.css`**
+- [x] **Step 1: Create `src/banners/ShopBanner.module.css`**
 
 ```css
 .shop {
@@ -2016,7 +2018,7 @@ git commit -m "feat: add RepoBanner (GitHub repo template)"
 }
 ```
 
-- [ ] **Step 2: Create `src/banners/ShopBanner.jsx`**
+- [x] **Step 2: Create `src/banners/ShopBanner.jsx`**
 
 ```jsx
 import styles from './ShopBanner.module.css'
@@ -2050,7 +2052,7 @@ export default function ShopBanner() {
 }
 ```
 
-- [ ] **Step 3: Create `src/banners/MakerWorldBanner.module.css`**
+- [x] **Step 3: Create `src/banners/MakerWorldBanner.module.css`**
 
 ```css
 .mw {
@@ -2095,7 +2097,7 @@ export default function ShopBanner() {
 .cta:hover { opacity: 0.85; }
 ```
 
-- [ ] **Step 4: Create `src/banners/MakerWorldBanner.jsx`**
+- [x] **Step 4: Create `src/banners/MakerWorldBanner.jsx`**
 
 ```jsx
 import styles from './MakerWorldBanner.module.css'
@@ -2118,7 +2120,7 @@ export default function MakerWorldBanner() {
 }
 ```
 
-- [ ] **Step 5: Create `src/banners/LinkedInBanner.module.css`**
+- [x] **Step 5: Create `src/banners/LinkedInBanner.module.css`**
 
 ```css
 .li {
@@ -2161,7 +2163,7 @@ export default function MakerWorldBanner() {
 .cta:hover { opacity: 0.9; }
 ```
 
-- [ ] **Step 6: Create `src/banners/LinkedInBanner.jsx`**
+- [x] **Step 6: Create `src/banners/LinkedInBanner.jsx`**
 
 ```jsx
 import styles from './LinkedInBanner.module.css'
@@ -2184,7 +2186,7 @@ export default function LinkedInBanner() {
 }
 ```
 
-- [ ] **Step 7: Create `src/banners/VenmoBanner.module.css`**
+- [x] **Step 7: Create `src/banners/VenmoBanner.module.css`**
 
 ```css
 .venmo {
@@ -2228,7 +2230,7 @@ export default function LinkedInBanner() {
 .cta:hover { opacity: 0.9; }
 ```
 
-- [ ] **Step 8: Create `src/banners/VenmoBanner.jsx`**
+- [x] **Step 8: Create `src/banners/VenmoBanner.jsx`**
 
 ```jsx
 import styles from './VenmoBanner.module.css'
@@ -2251,7 +2253,7 @@ export default function VenmoBanner() {
 }
 ```
 
-- [ ] **Step 9: Commit**
+- [x] **Step 9: Commit**
 
 ```bash
 git add src/banners/
@@ -2265,7 +2267,7 @@ git commit -m "feat: add ShopBanner, MakerWorldBanner, LinkedInBanner, VenmoBann
 **Files:**
 - Modify: `src/App.jsx`
 
-- [ ] **Step 1: Replace `src/App.jsx` with final wired version**
+- [x] **Step 1: Replace `src/App.jsx` with final wired version**
 
 This passes the full `channel` object to banners that need it (RepoBanner needs the channel data), and routes by `activeChannel` id:
 
@@ -2335,7 +2337,7 @@ export default function App() {
 }
 ```
 
-- [ ] **Step 2: Update ChannelSlot to pass full channel object to onSelect**
+- [x] **Step 2: Update ChannelSlot to pass full channel object to onSelect**
 
 In `src/components/ChannelSlot.jsx`, change the `handleClick` function:
 
@@ -2345,13 +2347,13 @@ function handleClick() {
 }
 ```
 
-- [ ] **Step 3: Update ChannelGrid to forward channel object to onSelect**
+- [x] **Step 3: Update ChannelGrid to forward channel object to onSelect**
 
 In `src/components/ChannelGrid.jsx`, the `onSelect` prop already receives `id` from ChannelSlot. Update to pass through the channel object too. The `onSelect` callback in ChannelGrid currently receives `(id)` from ChannelSlot and passes it up to App. Since ChannelSlot now calls `onSelect(channel.id, channel)`, ChannelGrid just needs to forward both args:
 
 In `src/components/ChannelGrid.jsx`, the `<ChannelSlot>` receives `onSelect={onSelect}` — no change needed there since the prop is forwarded directly. The signature just flows through.
 
-- [ ] **Step 4: Run dev server and verify all banners**
+- [x] **Step 4: Run dev server and verify all banners**
 
 ```bash
 npm run dev
@@ -2366,7 +2368,7 @@ Test each channel:
 - Click "Venmo" (page 2) → blue-ish banner with @JaymesBunce handle
 - Click "← Back" on each → zoom-out returns to grid
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ```bash
 git add src/App.jsx src/components/ChannelSlot.jsx
@@ -2382,7 +2384,7 @@ git commit -m "feat: wire all banners into App — full portfolio complete"
 - Modify: `src/components/ChannelSlot.module.css`
 - Modify: `src/index.css`
 
-- [ ] **Step 1: Add "locked" visual to empty slots in ChannelSlot.module.css**
+- [x] **Step 1: Add "locked" visual to empty slots in ChannelSlot.module.css**
 
 Add to the existing `src/components/ChannelSlot.module.css`:
 
@@ -2408,7 +2410,7 @@ if (!channel) {
 }
 ```
 
-- [ ] **Step 2: Ensure arrow buttons hide when at first/last page**
+- [x] **Step 2: Ensure arrow buttons hide when at first/last page**
 
 In `src/components/ChannelGrid.module.css`, add:
 
@@ -2419,7 +2421,7 @@ In `src/components/ChannelGrid.module.css`, add:
 }
 ```
 
-- [ ] **Step 3: Touch device: restore pointer events on buttons**
+- [x] **Step 3: Touch device: restore pointer events on buttons**
 
 In `src/index.css`, ensure touch users can click (cursor is auto on touch). Add at the bottom:
 
@@ -2431,7 +2433,7 @@ In `src/index.css`, ensure touch users can click (cursor is auto on touch). Add 
 }
 ```
 
-- [ ] **Step 4: Run dev server and do a final visual QA pass**
+- [x] **Step 4: Run dev server and do a final visual QA pass**
 
 ```bash
 npm run dev
@@ -2442,7 +2444,7 @@ Check:
 - On a touch-simulated viewport (Chrome DevTools device toolbar): standard cursor visible, all buttons tappable
 - No layout overflow or scrollbars on the main grid view
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ```bash
 git add src/components/ChannelSlot.jsx src/components/ChannelSlot.module.css src/components/ChannelGrid.module.css src/index.css
@@ -2455,25 +2457,25 @@ git commit -m "feat: polish — empty slot indicator, disabled arrows, touch fal
 
 **Files:** None created — verification only.
 
-- [ ] **Step 1: Run production build**
+- [x] **Step 1: Run production build**
 
 ```bash
 npm run build
 ```
 Expected: Build completes with no errors. Output in `dist/`.
 
-- [ ] **Step 2: Preview the production build**
+- [x] **Step 2: Preview the production build**
 
 ```bash
 npm run preview
 ```
 Expected: Site loads at `http://localhost:4173`. All channels open correctly. Audio toggle works. Cursor visible.
 
-- [ ] **Step 3: Check console for errors**
+- [x] **Step 3: Check console for errors**
 
 Open browser DevTools → Console. Expected: No errors. Warnings about missing audio/sprite files are acceptable if assets were not downloaded yet (Task 1), but no JS errors.
 
-- [ ] **Step 4: Final commit**
+- [x] **Step 4: Final commit**
 
 ```bash
 git add -A

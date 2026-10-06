@@ -1,5 +1,7 @@
 # Settings Popout Menu Implementation Plan
 
+> **Status:** Implemented. Checkboxes ticked retroactively during a repo cleanup.
+
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
 **Goal:** Replace the decorative mail button in the footer corner with a functional settings icon that opens a popout menu containing the sound and dark mode toggles, removing the two floating fixed-position buttons.
@@ -15,7 +17,7 @@
 **Files:**
 - Modify: `src/components/WiiFooter.jsx`
 
-- [ ] **Step 1: Add `useState` for `settingsOpen` and a `useRef` for click-outside detection**
+- [x] **Step 1: Add `useState` for `settingsOpen` and a `useRef` for click-outside detection**
 
 In `WiiFooter.jsx`, update the imports and add state. The full updated top of the file:
 
@@ -34,7 +36,7 @@ export default function WiiFooter({ audioEnabled, onAudioToggle, darkMode, onDar
   const settingsRef = useRef(null)
 ```
 
-- [ ] **Step 2: Add click-outside handler to close the menu**
+- [x] **Step 2: Add click-outside handler to close the menu**
 
 Inside the component, after the existing `useEffect` for the date clock, add:
 
@@ -51,7 +53,7 @@ Inside the component, after the existing `useEffect` for the date clock, add:
   }, [settingsOpen])
 ```
 
-- [ ] **Step 3: Replace the mail button div with a clickable settings button**
+- [x] **Step 3: Replace the mail button div with a clickable settings button**
 
 Find this in the JSX:
 
@@ -129,11 +131,11 @@ Wait — the `rightButtonContainer` div already wraps this. The `ref` goes on th
         </div>
 ```
 
-- [ ] **Step 4: Remove the two floating buttons from JSX**
+- [x] **Step 4: Remove the two floating buttons from JSX**
 
 Delete the `{!channelOpen && <button className={styles.audioButton} ...>}` block and the `{!channelOpen && <button className={styles.darkButton} ...>}` block entirely. The return should end at `</>` with only the `bottomSection` div remaining (no floating buttons).
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ```bash
 git add src/components/WiiFooter.jsx
@@ -147,7 +149,7 @@ git commit -m "feat: add settings button state and popout menu JSX"
 **Files:**
 - Modify: `src/components/WiiFooter.module.css`
 
-- [ ] **Step 1: Replace `.mailButton` rule with `.settingsButton`**
+- [x] **Step 1: Replace `.mailButton` rule with `.settingsButton`**
 
 Find:
 
@@ -182,7 +184,7 @@ Replace with:
 }
 ```
 
-- [ ] **Step 2: Add `.settingsMenu` and `.settingsMenuItem` styles**
+- [x] **Step 2: Add `.settingsMenu` and `.settingsMenuItem` styles**
 
 Add after the `.settingsButton` rule:
 
@@ -244,7 +246,7 @@ Add after the `.settingsButton` rule:
 }
 ```
 
-- [ ] **Step 3: Remove the `.audioButton` and `.darkButton` rule blocks and all their variants**
+- [x] **Step 3: Remove the `.audioButton` and `.darkButton` rule blocks and all their variants**
 
 Delete these CSS blocks entirely (including their `:hover` and `:global(.dark)` variants):
 - `.audioButton { ... }`
@@ -258,7 +260,7 @@ Also remove `.audioButton` and `.darkButton` references in the responsive media 
 - In `@media only screen and (max-width: 1023px)`: remove the `.audioButton, .darkButton { ... }`, `.audioButton svg, .darkButton svg { ... }`, `.audioButton { left: 8px; }`, `.darkButton { right: 8px; }` rules
 - In `@media only screen and (max-width: 639px)`: remove the `.audioButton, .darkButton { ... }`, `.audioButton svg, .darkButton svg { ... }`, `.audioButton { left: 2px; }`, `.darkButton { right: 2px; }` rules
 
-- [ ] **Step 4: Update responsive media query references from `.mailButton` to `.settingsButton`**
+- [x] **Step 4: Update responsive media query references from `.mailButton` to `.settingsButton`**
 
 In `@media only screen and (max-height: 718px)`:
 
@@ -290,7 +292,7 @@ Replace with:
   }
 ```
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ```bash
 git add src/components/WiiFooter.module.css
@@ -307,7 +309,7 @@ git commit -m "feat: swap mail sprite for settings icon, add popout menu styles,
 
 > Check whether the header still uses its audio toggle props after this change — if `WiiHeader` receives `audioEnabled`/`onAudioToggle` but no longer renders a button, those props can be removed from the component signature (and the call site in `App.jsx`).
 
-- [ ] **Step 1: Simplify `WiiHeader` to remove the audio button**
+- [x] **Step 1: Simplify `WiiHeader` to remove the audio button**
 
 Replace the entire file content with:
 
@@ -342,7 +344,7 @@ export default function WiiHeader() {
 }
 ```
 
-- [ ] **Step 2: Remove unused audio props from `App.jsx` WiiHeader call**
+- [x] **Step 2: Remove unused audio props from `App.jsx` WiiHeader call**
 
 In `src/App.jsx`, find:
 
@@ -354,7 +356,7 @@ Verify `WiiHeader` is not rendered in `App.jsx` at all (it is imported but check
 
 Actually — check the current `App.jsx`: `WiiHeader` is imported but not present in the JSX render. No change needed in `App.jsx`.
 
-- [ ] **Step 3: Commit**
+- [x] **Step 3: Commit**
 
 ```bash
 git add src/components/WiiHeader.jsx
@@ -365,13 +367,13 @@ git commit -m "chore: remove unused audio toggle from WiiHeader"
 
 ### Task 4: Verify in browser
 
-- [ ] **Step 1: Start dev server**
+- [x] **Step 1: Start dev server**
 
 ```bash
 npm run dev
 ```
 
-- [ ] **Step 2: Verify the following in the browser**
+- [x] **Step 2: Verify the following in the browser**
 
 1. Bottom-right footer corner shows the settings icon (not the mail icon)
 2. Clicking the settings button opens a popout menu above it with "Sound on/off" and "Light/Dark mode" items
@@ -383,7 +385,7 @@ npm run dev
 8. The two floating circle buttons (top-left audio, top-right dark mode) are gone
 9. Responsive: on small screens the popout still appears (may be partially clipped — acceptable for now)
 
-- [ ] **Step 3: Stop dev server and commit if all checks pass**
+- [x] **Step 3: Stop dev server and commit if all checks pass**
 
 ```bash
 git add -p  # stage any fixup changes if needed
