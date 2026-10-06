@@ -8,16 +8,36 @@ import { writeFile } from 'node:fs/promises'
 const PROFILE_URL = 'https://makerworld.com/en/@Haloman363'
 const OUT_PATH = new URL('../src/data/makerworld-snapshot.json', import.meta.url)
 
-const browser = await chromium.launch()
-const page = await browser.newPage({
-  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
-})
-await page.goto(PROFILE_URL, { waitUntil: 'domcontentloaded' })
+const MAX_ATTEMPTS = 3
 
-const raw = await page.evaluate(() => document.getElementById('__NEXT_DATA__')?.textContent)
+// The profile sometimes comes back as a bot-check interstitial (which clears
+// itself after a few seconds) or a transient error page. Wait for the data blob
+// to appear and retry with a fresh page before giving up.
+async function fetchNextData(browser) {
+  for (let attempt = 1; attempt <= MAX_ATTEMPTS; attempt++) {
+    const page = await browser.newPage({
+      userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+    })
+    try {
+      await page.goto(PROFILE_URL, { waitUntil: 'domcontentloaded', timeout: 45_000 })
+      await page.waitForFunction(() => document.getElementById('__NEXT_DATA__'), null, { timeout: 25_000 })
+      return await page.evaluate(() => document.getElementById('__NEXT_DATA__').textContent)
+    } catch (err) {
+      const title = await page.title().catch(() => '?')
+      console.warn(`Attempt ${attempt}/${MAX_ATTEMPTS} failed (page title: "${title}"): ${err.message.split('\n')[0]}`)
+    } finally {
+      await page.close()
+    }
+    if (attempt < MAX_ATTEMPTS) await new Promise(r => setTimeout(r, attempt * 10_000))
+  }
+  return null
+}
+
+const browser = await chromium.launch()
+const raw = await fetchNextData(browser)
 await browser.close()
 
-if (!raw) throw new Error('__NEXT_DATA__ not found — MakerWorld page structure may have changed')
+if (!raw) throw new Error(`__NEXT_DATA__ not found after ${MAX_ATTEMPTS} attempts — MakerWorld may be blocking the runner or its page structure changed`)
 
 const { userInfo, modelUploadCount, recentDesigns } = JSON.parse(raw).props.pageProps
 
