@@ -7,6 +7,7 @@ on:
 
 permissions:
   contents: write
+  actions: write
 
 jobs:
   scrape:
@@ -20,9 +21,30 @@ jobs:
       - run: npm ci
       - run: npx playwright install --with-deps chromium
       - run: node scripts/scrape-makerworld.mjs
-      - run: |
+      # Snapshots live on their own branch so the daily update doesn't flood
+      # master's history. The deploy workflow pulls the latest one at build time.
+      - name: Commit snapshot to makerworld-data branch
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          cp src/data/makerworld-snapshot.json "$RUNNER_TEMP/snapshot.json"
+          git checkout -- src/data/makerworld-snapshot.json
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add src/data/makerworld-snapshot.json
-          git diff --staged --quiet || git commit -m "chore: update MakerWorld stats snapshot"
-          git push
+          if git ls-remote --exit-code --heads origin makerworld-data >/dev/null; then
+            git fetch origin makerworld-data
+            git checkout -B makerworld-data origin/makerworld-data
+          else
+            git checkout --orphan makerworld-data
+            git rm -rf --quiet .
+          fi
+          cp "$RUNNER_TEMP/snapshot.json" makerworld-snapshot.json
+          git add makerworld-snapshot.json
+          if git diff --staged --quiet; then
+            echo "Snapshot unchanged"
+            exit 0
+          fi
+          git commit -m "chore: update MakerWorld stats snapshot"
+          git push origin makerworld-data
+          # Pushes made with GITHUB_TOKEN don't trigger workflows, so redeploy explicitly.
+          gh workflow run deploy.yml --ref master

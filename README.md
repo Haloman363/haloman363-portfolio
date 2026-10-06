@@ -38,7 +38,7 @@ npm run lint     # ESLint
 ## Automation
 
 - **Deploy** (`.github/workflows/deploy.yml`): pushes to `master` build the site and publish it to GitHub Pages.
-- **MakerWorld stats** (`.github/workflows/scrape-makerworld.yml`): runs daily, scrapes the profile and commits an updated `makerworld-snapshot.json`. These are the frequent `chore: update MakerWorld stats snapshot` commits.
+- **MakerWorld stats** (`.github/workflows/scrape-makerworld.yml`): runs daily, scrapes the profile and commits the snapshot to the `makerworld-data` branch (keeping `master` history clean), then triggers a redeploy. The deploy workflow copies the latest snapshot from that branch into `src/data/` at build time. The copy committed on `master` is only a fallback.
 
 ## Scope
 

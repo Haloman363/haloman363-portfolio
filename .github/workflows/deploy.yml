@@ -19,6 +19,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      # Use the latest scraped MakerWorld stats if the data branch exists;
+      # otherwise the snapshot committed on master is used as a fallback.
+      - name: Fetch latest MakerWorld snapshot
+        run: |
+          if git fetch --depth=1 origin makerworld-data; then
+            git show FETCH_HEAD:makerworld-snapshot.json > src/data/makerworld-snapshot.json
+          fi
       - uses: actions/setup-node@v4
         with:
           node-version: 22
