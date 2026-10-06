@@ -16,6 +16,7 @@ import VenmoBanner from './banners/VenmoBanner'
 import CoolGamesBanner from './banners/CoolGamesBanner'
 import ArtifactBanner from './banners/ArtifactBanner'
 import ForecastBanner from './banners/ForecastBanner'
+import NewsBanner from './banners/NewsBanner'
 import { useWiiAudio } from './hooks/useWiiAudio'
 import './App.css'
 
@@ -116,6 +117,7 @@ export default function App() {
     if (channelId === 'linkedin') return <LinkedInBanner sfx={audio} />
     if (channelId === 'venmo') return <VenmoBanner sfx={audio} />
     if (channelId === 'cool-jaymes-games') return <CoolGamesBanner sfx={audio} />
+    if (channelId === 'news') return <NewsBanner sfx={audio} />
     if (channelId === 'forecast') return <ForecastBanner sfx={audio} />
     if (channelId === 'dog-vision') return (
       <ArtifactBanner

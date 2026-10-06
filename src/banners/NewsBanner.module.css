@@ -1,0 +1,152 @@
+.news {
+  height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  background: linear-gradient(165deg, #23406b 0%, #14263f 60%, #0d1829 100%);
+  color: #fff;
+  padding: 44px 48px 32px;
+  padding-left: calc(48px + var(--arrow-inset, 0px));
+  padding-right: calc(48px + var(--arrow-inset, 0px));
+  box-sizing: border-box;
+}
+
+.inner {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.head { text-align: center; }
+
+.title {
+  font-family: 'Nunito', sans-serif;
+  font-weight: 800;
+  font-size: 32px;
+  color: #fbbf24;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
+}
+
+.sub { font-size: 14px; opacity: 0.8; margin-top: 2px; }
+
+.sectionTitle {
+  font-family: 'Nunito', sans-serif;
+  font-weight: 800;
+  font-size: 13px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #fbbf24;
+  margin-bottom: 10px;
+  padding-bottom: 6px;
+  border-bottom: 2px solid rgba(251, 191, 36, 0.35);
+}
+
+.list, .models { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+
+.item, .model {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 14px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 14px;
+  color: inherit;
+  text-decoration: none;
+  transition: background 0.15s, transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.item:hover, .model:hover {
+  background: rgba(255, 255, 255, 0.16);
+  transform: translateX(3px);
+}
+
+.icon {
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.12);
+  color: #7ad8ff;
+}
+
+.item[data-kind='star'] .icon { color: #fbbf24; }
+.item[data-kind='pr'] .icon { color: #86efac; }
+.item[data-kind='release'] .icon { color: #f9a8d4; }
+.item[data-kind='repo'] .icon { color: #c4b5fd; }
+.item[data-kind='issue'] .icon { color: #fda4af; }
+
+.text, .modelText {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.itemTitle {
+  font-weight: 800;
+  font-size: 15px;
+  overflow-wrap: anywhere;
+}
+
+.detail {
+  font-size: 13px;
+  opacity: 0.72;
+  overflow-wrap: anywhere;
+}
+
+.when {
+  flex-shrink: 0;
+  font-size: 12px;
+  font-weight: 700;
+  opacity: 0.6;
+  white-space: nowrap;
+}
+
+.cover {
+  width: 56px;
+  height: 56px;
+  border-radius: 10px;
+  object-fit: cover;
+  background: rgba(255, 255, 255, 0.1);
+  flex-shrink: 0;
+}
+
+.asOf { margin-top: 8px; font-size: 11px; opacity: 0.55; text-align: right; }
+
+.empty { font-size: 14px; opacity: 0.85; line-height: 1.5; }
+.empty a { color: #7ad8ff; }
+
+.skeleton {
+  height: 52px;
+  border-color: transparent;
+  background: linear-gradient(90deg, rgba(255,255,255,0.06) 0%, rgba(255,255,255,0.14) 50%, rgba(255,255,255,0.06) 100%);
+  background-size: 200% 100%;
+  animation: shimmer 1.4s linear infinite;
+}
+
+@keyframes shimmer {
+  from { background-position: 200% 0; }
+  to   { background-position: -200% 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .skeleton { animation: none; }
+  .item:hover, .model:hover { transform: none; }
+}
+
+@media only screen and (max-width: 639px) {
+  .news {
+    padding: 28px 14px 24px;
+    padding-left: calc(14px + var(--arrow-inset, 0px));
+    padding-right: calc(14px + var(--arrow-inset, 0px));
+  }
+  .title { font-size: 26px; }
+  .item, .model { padding: 9px 10px; gap: 9px; }
+  .itemTitle { font-size: 14px; }
+  .when { align-self: flex-start; font-size: 11px; }
+}

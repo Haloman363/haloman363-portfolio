@@ -18,7 +18,7 @@ Running list for the portfolio. Check items off as they land. Items marked **(ne
 ## Medium
 
 - [x] **Forecast Channel:** shipped. Finds the visitor's approximate location from their IP (GeoJS, no prompt), with "Use my exact location" (browser GPS + BigDataCloud reverse geocode), city search (Open-Meteo geocoding), °F/°C toggle (defaults by locale), current conditions + 5-day outlook. Only tested with mocked APIs because the build sandbox can't reach them, so **verify once against the live site** (check the browser console for CORS/rate-limit errors from geojs.io / open-meteo.com / bigdatacloud.net). GeoJS/BigDataCloud are free tiers with no SLA; swap if they get flaky.
-- [ ] **News Channel:** latest GitHub commits / MakerWorld uploads as a live feed.
+- [x] **News Channel:** shipped. Live feed of public GitHub activity (pushes, new repos, stars, PRs, issues, releases) from `/users/Haloman363/events/public`, cached 10 min per session (unauthenticated API = 60 req/hr/IP, and the GitHub channel uses 2 more), plus latest MakerWorld prints from the snapshot. Hides repos in `EXCLUDED_REPOS`. Tested only against mocked API responses: **verify once on the live site** that real events render sensibly (GitHub has been trimming the `commits` array from push events; the code falls back to a commit count).
 - [ ] **Photo / 3D print gallery:** `src/banners/PhotoBanner.jsx` exists but isn't wired into `channels.js`. Needs photos. **(needs decision: which photos)**
 - [ ] **Mii Plaza visitor wall:** wandering Miis on the home screen, one per recent visitor. Needs a tiny backend, which the spec currently rules out. **(needs decision)**
 - [ ] **Settings channel:** expand the wrench menu (volume, reduce motion, theme picker).
@@ -26,6 +26,7 @@ Running list for the portfolio. Check items off as they land. Items marked **(ne
 
 ## Polish and housekeeping
 
+- [ ] **Home grid is full (12/12 channels).** `ChannelGrid.jsx` only builds one page of 12 and `TOTAL_PAGES = 1` in `App.jsx`. The next new channel needs a second page (page dots/arrows already exist in the footer) or replacing a tile.
 - [x] **Footer buttons on phones:** sound/settings buttons render ~28px; enlarge the tap target to 44px without changing the look.
 - [ ] **Tablet spacing:** the 3-column grid has large gaps between rows; consider larger tiles.
 - [x] **Open-channel zoom on phones:** `zoomVariants` in `ChannelBanner.jsx` assumes an 80% viewport height, phones use 75%, so the zoom origin is slightly off.
@@ -35,6 +36,7 @@ Running list for the portfolio. Check items off as they land. Items marked **(ne
 
 ## Done
 
+- [x] News Channel (see above).
 - [x] Forecast Channel (see above).
 - [x] Keyboard nav, focus rings, 44px phone tap targets, reduced motion, share image, easter eggs (see ticked items above).
 
