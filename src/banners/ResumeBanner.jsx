@@ -115,7 +115,7 @@ export default function ResumeBanner() {
         {tab === 'Summary' && (
           <div className={styles.summary}>
             <p className={styles.summaryText}>
-              System Administrator with 5+ years of IT experience in Windows, Mac, and Linux administration,
+              System Administrator with 6+ years of IT experience in Windows, Mac, and Linux administration,
               networking, cloud services (Google Workspace, O365), and automation (Ansible, Docker, PowerShell).
               Skilled at deploying secure infrastructure, managing enterprise systems, and streamlining IT
               operations. Actively seeking to contribute technical expertise to a growing IT team.
