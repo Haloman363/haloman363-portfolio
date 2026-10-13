@@ -56,12 +56,24 @@ const SKILLS = [
 ]
 
 const CERTIFICATIONS = [
-  { name: 'Claude Code in Action', issuer: 'Anthropic', date: 'Feb 2026' },
-  { name: 'Introduction to Agent Skills', issuer: 'Anthropic', date: 'Mar 2026' },
-  { name: 'Introduction to Claude Cowork', issuer: 'Anthropic', date: 'Mar 2026' },
-  { name: 'Claude 101', issuer: 'Anthropic', date: 'Mar 2026' },
-  { name: 'AI Fluency Framework & Foundations', issuer: 'Anthropic', date: 'Mar 2026' },
+  { name: 'AI for App Deployment', issuer: 'Google', date: 'Oct 2026' },
+  { name: 'AI for Content Creation', issuer: 'Google', date: 'Oct 2026' },
+  { name: 'AI for Writing and Communicating', issuer: 'Google', date: 'Oct 2026' },
+  { name: 'AI for Research and Insights', issuer: 'Google', date: 'Oct 2026' },
+  { name: 'AI for Brainstorming and Planning', issuer: 'Google', date: 'Oct 2026' },
+  { name: 'AI Fundamentals', issuer: 'Google', date: 'Oct 2026' },
+  { name: 'AI for App Building', issuer: 'Google', date: 'Oct 2026' },
+  { name: 'Claude Platform 101', issuer: 'Anthropic', date: 'Sep 2026' },
+  { name: 'Introduction to Model Context Protocol', issuer: 'Anthropic', date: 'Sep 2026' },
+  { name: 'Claude Code 101', issuer: 'Anthropic', date: 'Sep 2026' },
   { name: 'Introduction to Subagents', issuer: 'Anthropic', date: 'Mar 2026' },
+  { name: 'AI Fluency Framework & Foundations', issuer: 'Anthropic', date: 'Mar 2026' },
+  { name: 'Claude 101', issuer: 'Anthropic', date: 'Mar 2026' },
+  { name: 'Introduction to Claude Cowork', issuer: 'Anthropic', date: 'Mar 2026' },
+  { name: 'Introduction to Agent Skills', issuer: 'Anthropic', date: 'Mar 2026' },
+  { name: 'Claude Code in Action', issuer: 'Anthropic', date: 'Feb 2026' },
+  { name: 'TestOut Network Pro', issuer: 'TestOut Corporation', date: 'Apr 2020' },
+  { name: 'TestOut Client Pro', issuer: 'TestOut Corporation', date: 'Jul 2019' },
 ]
 
 const INTERESTS = [
