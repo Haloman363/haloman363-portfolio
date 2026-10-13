@@ -2,6 +2,15 @@
 
 Running list for the portfolio. Check items off as they land. Items marked **(needs decision)** are blocked on a choice from Jaymes. `[~]` = decided not to do.
 
+## Ideas / next up
+
+- [ ] **Refine the empty space in the channels:** several channels leave a lot of unused room; tighten layouts or fill it with something useful.
+- [ ] **Make Mii more interactive and fun across pages:** give the Mii things to do beyond the About channel.
+- [ ] **Playful interactivity:** e.g. the Mii knocks over my cert badges and asks the visitor to help put them back, but the "help" makes it worse.
+- [ ] **Keep LinkedIn, the React resume and the PDF in sync:** certs, summary and experience currently get copied by hand into `ResumeBanner.jsx` and the resume PDF. Consider one shared data source (and a script that regenerates the PDF) so they can't drift.
+- [ ] **Add logo icons/badges for certificates** (Anthropic, Google, TestOut) on the Certifications tab.
+- [ ] **Show off artifacts:** show off my Claude artifacts somewhere on the site.
+
 ## Needs verification / follow-up
 
 - [ ] **MakerWorld data-branch pipeline is untested.** Every manual scrape run on 2026-10-06 was blocked by Cloudflare ("Just a moment..."), so the "Commit snapshot to `makerworld-data` branch" step has never actually run. Check the next scheduled run (daily 13:00 UTC): a `makerworld-data` branch should appear and trigger a deploy. If MakerWorld keeps blocking GitHub's runners, options are (a) accept stale stats, (b) run the scraper from a home machine and push to `makerworld-data`, (c) try a less detectable browser mode (judgment call).
