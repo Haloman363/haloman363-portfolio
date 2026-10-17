@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import styles from './ResumeBanner.module.css'
 import { PROFILE, EDUCATION, EXPERIENCE, SKILLS, CERTIFICATIONS, INTERESTS } from '../data/resume'
 import CertBadge from '../components/CertBadge'
@@ -25,6 +25,11 @@ const messOf = (i, chaos) => {
 export default function ResumeBanner({ sfx }) {
   const [tab, setTab] = useState('Summary')
   const [chaos, setChaos] = useState(0)
+  // Each badge has its own mess level so the Mii can knock them one at a time.
+  const [levels, setLevels] = useState(() => CERTIFICATIONS.map(() => 0))
+  const cardEls = useRef([])
+  const knock = (i, level) => setLevels(ls => ls.map((l, j) => (j === i ? level : l)))
+  const plan = next => CERTIFICATIONS.map((_, i) => i).filter(i => messOf(i, next) !== messOf(i, levels[i]))
 
   return (
     <div className={styles.resume}>
@@ -122,16 +127,17 @@ export default function ResumeBanner({ sfx }) {
                   <span className={styles.certDate}>{c.date}</span>
                 </>
               )
-              const cardStyle = { transform: messOf(i, chaos) }
+              const cardStyle = { transform: messOf(i, levels[i]) }
+              const setRef = el => { cardEls.current[i] = el }
               return c.url ? (
-                <a key={c.name} className={`${styles.certCard} ${styles.certLink}`} href={c.url} style={cardStyle}
+                <a key={c.name} className={`${styles.certCard} ${styles.certLink}`} href={c.url} style={cardStyle} ref={setRef}
                   target="_blank" rel="noopener noreferrer" title="Verify credential">{body}</a>
               ) : (
-                <div key={c.name} className={styles.certCard} style={cardStyle}>{body}</div>
+                <div key={c.name} className={styles.certCard} style={cardStyle} ref={setRef}>{body}</div>
               )
             })}
             </div>
-            <CertMii chaos={chaos} onChaos={setChaos} sfx={sfx} />
+            <CertMii chaos={chaos} levels={levels} plan={plan} cardEls={cardEls} onKnock={knock} onSettle={setChaos} sfx={sfx} />
           </>
         )}
 
