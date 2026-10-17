@@ -139,7 +139,7 @@ export default function App() {
   function renderBannerContent(channelId) {
     if (!channelId) return null
     if (channelId === 'mii-channel') return <AboutBanner sfx={audio} />
-    if (channelId === 'resume') return <ResumeBanner />
+    if (channelId === 'resume') return <ResumeBanner sfx={audio} />
     if (channelId === 'photo-channel') return <PhotoBanner sfx={audio} />
     if (channelId === 'wii-shop') return <ShopBanner />
     if (channelId === 'check-mii-out') return <MakerWorldBanner />

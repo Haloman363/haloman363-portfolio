@@ -2,13 +2,29 @@ import { useState } from 'react'
 import styles from './ResumeBanner.module.css'
 import { PROFILE, EDUCATION, EXPERIENCE, SKILLS, CERTIFICATIONS, INTERESTS } from '../data/resume'
 import CertBadge from '../components/CertBadge'
+import CertMii from '../components/CertMii'
 
 const TABS = ['Summary', 'Experience', 'Education', 'Skills', 'Certifications', 'Interests']
 
 const RESUME_PDF = `${import.meta.env.BASE_URL}resume/Jaymes-Bunce-Resume.pdf`
 
-export default function ResumeBanner() {
+// Deterministic 0-1 pseudo-random per card, so the mess is the same every run (and testable).
+const rand = (i, salt) => ((i * 9301 + salt * 49297) % 233280) / 233280
+const SHARE = [0, 0.35, 0.65, 1]    // fraction of cards disturbed at each chaos level
+const TILT = [0, 10, 24, 40]        // max rotation, degrees
+const DROP = [0, 6, 28, 60]         // downward shove, px
+const SPREAD = [0, 8, 20, 40]       // sideways shove, px
+const messOf = (i, chaos) => {
+  if (rand(i, 1) >= SHARE[chaos]) return undefined
+  const x = (rand(i, 2) - 0.5) * SPREAD[chaos]
+  const y = DROP[chaos] * (0.5 + rand(i, 3))
+  const r = (rand(i, 4) - 0.5) * TILT[chaos]
+  return `translate(${x}px, ${y}px) rotate(${r}deg)`
+}
+
+export default function ResumeBanner({ sfx }) {
   const [tab, setTab] = useState('Summary')
+  const [chaos, setChaos] = useState(0)
 
   return (
     <div className={styles.resume}>
@@ -93,8 +109,9 @@ export default function ResumeBanner() {
         )}
 
         {tab === 'Certifications' && (
-          <div className={styles.certs}>
-            {CERTIFICATIONS.map(c => {
+          <>
+            <div className={styles.certs}>
+            {CERTIFICATIONS.map((c, i) => {
               const body = (
                 <>
                   <CertBadge issuer={c.issuer} />
@@ -105,14 +122,17 @@ export default function ResumeBanner() {
                   <span className={styles.certDate}>{c.date}</span>
                 </>
               )
+              const cardStyle = { transform: messOf(i, chaos) }
               return c.url ? (
-                <a key={c.name} className={`${styles.certCard} ${styles.certLink}`} href={c.url}
+                <a key={c.name} className={`${styles.certCard} ${styles.certLink}`} href={c.url} style={cardStyle}
                   target="_blank" rel="noopener noreferrer" title="Verify credential">{body}</a>
               ) : (
-                <div key={c.name} className={styles.certCard}>{body}</div>
+                <div key={c.name} className={styles.certCard} style={cardStyle}>{body}</div>
               )
             })}
-          </div>
+            </div>
+            <CertMii chaos={chaos} onChaos={setChaos} sfx={sfx} />
+          </>
         )}
 
         {tab === 'Interests' && (

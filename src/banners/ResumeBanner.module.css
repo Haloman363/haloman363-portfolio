@@ -261,6 +261,14 @@
   padding: 12px 18px;
 }
 
+.certCard {
+  transition: transform 0.45s cubic-bezier(0.3, 1.6, 0.5, 1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .certCard { transition: none; }
+}
+
 .certText {
   flex: 1;
   min-width: 0;
@@ -269,12 +277,11 @@
 .certLink {
   text-decoration: none;
   color: inherit;
-  transition: border-color 0.15s, transform 0.15s;
+  transition: border-color 0.15s;
 }
 
 .certLink:hover {
   border-color: #1a6ca8;
-  transform: translateX(2px);
 }
 
 .certName {
