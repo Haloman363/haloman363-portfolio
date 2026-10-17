@@ -9,6 +9,7 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "test:smoke": "node scripts/smoke-test.mjs",
+    "resume:pdf": "node scripts/build-resume-pdf.mjs",
     "check": "npm run lint && npm run build"
   },
   "dependencies": {
