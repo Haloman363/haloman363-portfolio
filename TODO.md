@@ -8,7 +8,7 @@ Running list for the portfolio. Check items off as they land. Items marked **(ne
 - [ ] **Make Mii more interactive and fun across pages:** give the Mii things to do beyond the About channel.
 - [ ] **Playful interactivity:** e.g. the Mii knocks over my cert badges and asks the visitor to help put them back, but the "help" makes it worse.
 - [x] **Keep LinkedIn, the React resume and the PDF in sync:** resume content now lives in `src/data/resume.js`; the Resume channel reads it and `npm run resume:pdf` regenerates the PDF from it. Still manual: copying changes from LinkedIn into that file.
-- [x] **Add logo icons/badges for certificates:** round issuer badges (original glyphs, not the real logos) on the Certifications tab, which is now a grid; Anthropic certs link to their verify pages. Google/TestOut have no verify URL yet.
+- [x] **Add logo icons/badges for certificates:** issuer logo tiles (Anthropic and Google use the simple-icons marks; TestOut still a "T" placeholder, since testout.com now serves CompTIA branding, so it needs a proper logo file in `src/assets/issuers/`) on the Certifications tab, which is now a grid; Anthropic certs link to their verify pages. Google/TestOut have no verify URL yet.
 - [ ] **Show off artifacts:** show off my Claude artifacts somewhere on the site.
 
 ## Needs verification / follow-up
