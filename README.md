@@ -2,7 +2,7 @@
 
 A personal portfolio styled as the Nintendo Wii Menu. Each "channel" tile opens a banner for a different part of my work: resume, GitHub projects, MakerWorld models, LinkedIn, referrals and more.
 
-**Live site:** https://www.jaymesbunce.com (served from GitHub Pages, see `public/CNAME`)
+**Live site:** https://www.haloman.meme (served from GitHub Pages, see `public/CNAME`)
 
 ## Stack
 

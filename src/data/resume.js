@@ -6,7 +6,7 @@
 export const PROFILE = {
   name: 'Jaymes Bunce',
   location: 'Logan, UT (Ready to Relocate)',
-  site: 'https://www.jaymesbunce.com',
+  site: 'https://www.haloman.meme',
   summary:
     'System Administrator with 6+ years of IT experience in Windows, Mac, and Linux administration, ' +
     'networking, cloud services (Google Workspace, O365), and automation (Ansible, Docker, PowerShell). ' +
