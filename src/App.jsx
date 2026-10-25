@@ -168,6 +168,16 @@ export default function App() {
         titleFont="'Courier New', monospace"
       />
     )
+    if (channelId === 'app-manager') return (
+      <ArtifactBanner
+        title="App Manager"
+        sub="One list of everything installed on your Linux desktop, with a checkbox and a Remove button"
+        href="https://appmanager.haloman.meme"
+        bg="#1c3f73"
+        accent="#7ab0f0"
+        cta="Open website ↗"
+      />
+    )
     return null
   }
 

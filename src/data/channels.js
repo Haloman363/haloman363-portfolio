@@ -32,6 +32,7 @@ export const NAMED_CHANNELS = [
   { id: 'forecast',       label: 'Forecast',          sprite: `${base}wii/sprites/channel-forecast.svg`,   page: 0, slot: 16 },
   { id: 'news',           label: 'News',              sprite: `${base}wii/sprites/channel-news.svg`,       page: 0, slot: 17 },
   { id: 'dolos21',        label: 'Dolos://21',        sprite: `${base}wii/sprites/channel-dolos21.svg`,    page: 0, slot: 15 },
+  { id: 'app-manager',   label: 'App Manager',       sprite: `${base}wii/sprites/channel-appmanager.svg`, page: 0, slot: 16 },
 ]
 
 // Dormant until there's at least one image in src/photos/.
