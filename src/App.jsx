@@ -210,7 +210,7 @@ export default function App() {
         onSlotsReady={handleSlotsReady}
         inert={!!activeChannel}
       />
-      <MenuMii ref={miiRef} darkMode={darkMode} channelOpen={!!activeChannel} sfx={audio} />
+      <MenuMii ref={miiRef} darkMode={darkMode} channelOpen={!!activeChannel} channelId={activeChannel} sfx={audio} />
       <PageArrows page={page} totalPages={totalPages} onPrev={prevPage} onNext={nextPage} hidden={!!activeChannel} />
       <WiiFooter
         page={page}

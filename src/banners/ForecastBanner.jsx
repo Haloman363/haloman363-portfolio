@@ -5,6 +5,7 @@ import {
   locateByIP, nameForCoords, searchPlaces, fetchForecast,
   describe, toF, kmhToMph, defaultUnit, randomPlace,
 } from '../data/weather'
+import { miiReact, weatherReaction } from '../data/miiLines'
 import styles from './ForecastBanner.module.css'
 
 function WeatherIcon({ kind, night = false, size = 64 }) {
@@ -187,6 +188,13 @@ export default function ForecastBanner({ sfx }) {
   const loading = place && !current
   const desc = data ? describe(data.current.code) : null
   const [skyTop, skyBottom] = desc ? skyFor(desc.kind, data.current.isDay) : ['#5aa9e6', '#2f78bf']
+
+  // The Mii comments on the weather once it loads (and again for each new place).
+  useEffect(() => {
+    if (!data) return
+    const r = weatherReaction(describe(data.current.code).kind, data.current.temp)
+    miiReact(r.say, r.act)
+  }, [data])
 
   const temp = c => Math.round(unit === 'f' ? toF(c) : c)
   const wind = k => (unit === 'f' ? `${Math.round(kmhToMph(k))} mph` : `${Math.round(k)} km/h`)

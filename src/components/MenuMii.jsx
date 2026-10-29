@@ -2,6 +2,7 @@ import { useEffect, useImperativeHandle, useRef, useState } from 'react'
 import { animate, motion, useMotionValue } from 'framer-motion'
 import useAliveMii from '../hooks/useAliveMii'
 import { CERTIFICATIONS, EXPERIENCE } from '../data/resume'
+import { CHATTER as CHANNEL_LINES, OPENERS } from '../data/miiLines'
 import MiiView from './MiiView'
 import styles from './MenuMii.module.css'
 
@@ -69,7 +70,7 @@ function floorY(channelOpen) {
 }
 
 // `ref.cue(name)` lets App trigger a reaction from the event handler that caused it.
-export default function MenuMii({ channelOpen, darkMode, sfx, ref }) {
+export default function MenuMii({ channelOpen, channelId, darkMode, sfx, ref }) {
   const [walkYaw, setWalkYaw] = useState(null)
   const walking = useRef(false)
   const [line, setLine] = useState(greeting)
@@ -88,6 +89,7 @@ export default function MenuMii({ channelOpen, darkMode, sfx, ref }) {
   const pokes = useRef(0)
   const lineTimer = useRef()
   const askTimer = useRef()
+  const lastReact = useRef(0)
   const [choices, setChoices] = useState([])
   const asking = useRef(false)
   const certs = useRef(null) // the Certifications tab's handle while it's open
@@ -174,13 +176,32 @@ export default function MenuMii({ channelOpen, darkMode, sfx, ref }) {
     return () => clearTimeout(t)
   }, [channelOpen, mii.asleep]) // eslint-disable-line react-hooks/exhaustive-deps
 
+  // Each channel gets its own greeting just after the generic "Ooh!", and banners can ask him
+  // to comment on what they loaded (`mii:react`).
+  useEffect(() => {
+    const o = OPENERS[channelId]
+    if (!o) return undefined
+    const t = setTimeout(() => { if (!touring.current && Date.now() - lastReact.current > 1500) { mii.act(o.act); say(o.say, 2500) } }, 1100)
+    return () => clearTimeout(t)
+  }, [channelId]) // eslint-disable-line react-hooks/exhaustive-deps
+  useEffect(() => {
+    const onReact = e => {
+      if (touring.current || dragging.current) return
+      lastReact.current = Date.now()
+      mii.act(e.detail.act)
+      say(e.detail.say, 3000)
+    }
+    window.addEventListener('mii:react', onReact)
+    return () => window.removeEventListener('mii:react', onReact)
+  })
+
   // Chatter now and then, without waiting to be poked.
   useEffect(() => {
     let t
     const chat = () => {
       t = setTimeout(() => {
         if (!dragging.current && !touring.current) {
-          const pool = [...CHATTER, ...FACTS, ...(channelOpen ? CHANNEL_CHATTER : MENU_CHATTER)]
+          const pool = [...CHATTER, ...FACTS, ...(channelOpen ? [...CHANNEL_CHATTER, ...(CHANNEL_LINES[channelId] ?? [])] : MENU_CHATTER)]
           if (mii.asleep) say('Zzz...', 4000)
           else say(pool[Math.floor(Math.random() * pool.length)], 3500)
         }

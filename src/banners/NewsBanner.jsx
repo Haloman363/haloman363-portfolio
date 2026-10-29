@@ -3,6 +3,7 @@ import parts from '../components/BannerParts.module.css'
 import snapshot from '../data/makerworld-snapshot.json'
 import { fetchGitHubEvents, buildNews, timeAgo } from '../data/news'
 import { GITHUB_USER } from '../data/channels'
+import { miiReact } from '../data/miiLines'
 import styles from './NewsBanner.module.css'
 
 // Tiny glyphs, one per kind of event.
@@ -38,7 +39,11 @@ export default function NewsBanner({ sfx }) {
   useEffect(() => {
     const controller = new AbortController()
     fetchGitHubEvents(controller.signal)
-      .then(events => setItems(buildNews(events)))
+      .then(events => {
+        const news = buildNews(events)
+        setItems(news)
+        if (news.length) miiReact(`${news.length} fresh headlines!`, 'wave')
+      })
       .catch(err => {
         if (err.name === 'AbortError') return
         setError(err.message === 'rate-limited' ? 'rate-limited' : 'failed')
