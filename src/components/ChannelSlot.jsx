@@ -89,7 +89,11 @@ export default function ChannelSlot({ channel, onSelect, onHover, style }) {
     >
       <div className={styles.face} ref={faceRef}>
         {channel.sprite ? (
-          <img src={blink ? blinkSprite : channel.sprite} alt="" />
+          <>
+            <img src={channel.sprite} alt="" />
+            {/* Stacked rather than swapped: changing an <img>'s src flashes a blank/broken frame. */}
+            {blinkSprite && <img className={styles.blinkFrame} src={blinkSprite} alt="" style={{ opacity: blink ? 1 : 0 }} />}
+          </>
         ) : (
           <div className={styles.textInner}>
             <span className={styles.textLabel}>{channel.label}</span>

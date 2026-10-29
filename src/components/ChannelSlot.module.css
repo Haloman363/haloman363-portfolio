@@ -180,6 +180,12 @@
   object-fit: cover;
 }
 
+.face > img.blinkFrame {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
 /* text-only tile */
 .textInner {
   position: absolute;
