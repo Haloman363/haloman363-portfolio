@@ -45,7 +45,7 @@ function FooterBar() {
   )
 }
 
-export default function WiiFooter({ audioEnabled, onAudioToggle, darkMode, onDarkToggle, channelOpen, page, onPrev, onNext, totalPages, notificationCount }) {
+export default function WiiFooter({ audioEnabled, onAudioToggle, darkMode, onDarkToggle, miiOn, onMiiToggle, channelOpen, page, onPrev, onNext, totalPages, notificationCount }) {
   const [settingsOpen, setSettingsOpen] = useState(false)
   const settingsRef = useRef(null)
   const settingsMenuRef = useRef(null)
@@ -184,6 +184,13 @@ export default function WiiFooter({ audioEnabled, onAudioToggle, darkMode, onDar
               </svg>
             )}
             <span>{darkMode ? 'Light mode' : 'Dark mode'}</span>
+          </button>
+          <button className={styles.settingsMenuItem} onClick={onMiiToggle}>
+            <svg viewBox="0 0 24 24" width="28" height="28" fill="none">
+              <circle cx="12" cy="9" r="6" fill={miiOn ? '#5a8a6a' : '#888'} />
+              <path d="M4 22c0-4.4 3.6-7 8-7s8 2.6 8 7z" fill={miiOn ? '#5a8a6a' : '#888'} />
+            </svg>
+            <span>{miiOn ? 'Hide Mii' : 'Show Mii'}</span>
           </button>
         </div>
       )}

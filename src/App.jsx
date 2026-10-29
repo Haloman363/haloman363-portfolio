@@ -26,6 +26,7 @@ import { useGamepad } from './hooks/useGamepad'
 import './App.css'
 
 const THEME_KEY = 'wii-theme'
+const MII_KEY = 'wii-mii'
 
 // Saved choice wins; otherwise light, whatever the device setting.
 function initialDarkMode() {
@@ -51,6 +52,16 @@ export default function App() {
   useGamepad()
   const openerRef = useRef(null)
   const miiRef = useRef(null)
+  const [miiOn, setMiiOn] = useState(() => { try { return localStorage.getItem(MII_KEY) !== 'off' } catch { return true } })
+
+  // Hiding sends him off-screen first; showing him again replays the walk-in.
+  async function handleMiiToggle() {
+    audio.playClick()
+    const next = !miiOn
+    try { localStorage.setItem(MII_KEY, next ? 'on' : 'off') } catch { /* ignore */ }
+    if (!next) await miiRef.current?.leave()
+    setMiiOn(next)
+  }
 
   function handleDarkToggle() {
     audio.playClick()
@@ -210,7 +221,7 @@ export default function App() {
         onSlotsReady={handleSlotsReady}
         inert={!!activeChannel}
       />
-      <MenuMii ref={miiRef} darkMode={darkMode} channelOpen={!!activeChannel} channelId={activeChannel} sfx={audio} />
+      {miiOn && <MenuMii ref={miiRef} onDismiss={handleMiiToggle} darkMode={darkMode} channelOpen={!!activeChannel} channelId={activeChannel} sfx={audio} />}
       <PageArrows page={page} totalPages={totalPages} onPrev={prevPage} onNext={nextPage} hidden={!!activeChannel} />
       <WiiFooter
         page={page}
@@ -221,6 +232,8 @@ export default function App() {
         onAudioToggle={handleAudioToggle}
         darkMode={darkMode}
         onDarkToggle={handleDarkToggle}
+        miiOn={miiOn}
+        onMiiToggle={handleMiiToggle}
         channelOpen={!!activeChannel}
       />
       <ChannelBanner

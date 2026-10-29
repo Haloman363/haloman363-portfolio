@@ -70,7 +70,7 @@ function floorY(channelOpen) {
 }
 
 // `ref.cue(name)` lets App trigger a reaction from the event handler that caused it.
-export default function MenuMii({ channelOpen, channelId, darkMode, sfx, ref }) {
+export default function MenuMii({ channelOpen, channelId, darkMode, sfx, onDismiss, ref }) {
   const [walkYaw, setWalkYaw] = useState(null)
   const walking = useRef(false)
   const [line, setLine] = useState(null)
@@ -376,6 +376,21 @@ export default function MenuMii({ channelOpen, channelId, darkMode, sfx, ref }) 
     return () => window.removeEventListener('mii:certs-tab', onTab)
   })
 
+  // Waves goodbye and walks off the nearer screen edge (App unmounts him afterwards).
+  const leave = async () => {
+    if (calm() || !walker.current) return
+    touring.current = true
+    xAnim.current?.stop()
+    mii.act('wave', 900)
+    show('Bye!', 900)
+    await wait(900)
+    const o = origin()
+    const right = o.cx + x.get() > window.innerWidth / 2
+    const to = (right ? window.innerWidth + 100 : -100) - o.cx
+    setWalkYaw(right ? 24 : -24)
+    await animate(x, to, { duration: Math.abs(to - x.get()) / 200, ease: 'easeIn' }).then(() => {}, () => {})
+  }
+
   // Press T on the menu for the tour.
   useEffect(() => {
     const onKey = e => {
@@ -385,7 +400,7 @@ export default function MenuMii({ channelOpen, channelId, darkMode, sfx, ref }) 
     window.addEventListener('keydown', onKey)
     return () => window.removeEventListener('keydown', onKey)
   })
-  useImperativeHandle(ref, () => ({ cue: name => CUES[name]?.(), visit, tour }))
+  useImperativeHandle(ref, () => ({ cue: name => CUES[name]?.(), visit, tour, leave }))
 
   // Let go: he's thrown a little, then gravity drops him back on the floor with a bounce.
   const land = vx => {
@@ -430,6 +445,8 @@ export default function MenuMii({ channelOpen, channelId, darkMode, sfx, ref }) 
           say(POKES[pokes.current % POKES.length], 2000)
         }}
       >
+        <button className={styles.dismiss} aria-label="Send the Mii away" title="Send the Mii away"
+          onPointerDown={e => e.stopPropagation()} onClick={() => onDismiss?.()}>&times;</button>
         {line && (
           <div className={`${styles.bubble}${choices.length ? ` ${styles.ask}` : ''}`} role="status" onPointerDown={e => e.stopPropagation()}>
             {line}

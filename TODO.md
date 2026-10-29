@@ -11,6 +11,7 @@ Already in: open/close, dark mode and sound reactions, time-of-day greeting, Kon
 - [x] Throw physics: bounce off screen edges, squish on landing
 - [x] Chatter pulls real portfolio facts
 - [x] Guided tour: press T on the menu (Mii walks tile to tile)
+- [x] Dismiss the Mii: settings Hide/Show Mii plus a hover x on him; remembered in localStorage
 - [ ] Footstep and voice blips tied to the sound toggle **(needs sound assets)**
 - [x] Shirt colour follows theme
 - [x] Verify dance, jack and spin in motion (frame strips 2026-10-29: all read well; jack arms only reach horizontal because raised arms hide behind the head)
