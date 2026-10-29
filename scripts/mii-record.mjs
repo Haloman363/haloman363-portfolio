@@ -14,8 +14,13 @@ const SCENARIOS = {
   // POSE=swat: stands the menu Mii still and plays one pose (dev builds expose window.__mii).
   async pose(page) {
     await page.waitForTimeout(1500)
+    await page.evaluate(() => { window.__miiHold = true }) // stop wandering and idle antics
+    await page.waitForTimeout(5000) // let a stroll in progress finish
     await page.evaluate(p => window.__mii.act(p, 2500), process.env.POSE ?? 'swat')
+    const b = await page.locator('canvas').last().boundingBox()
     await page.waitForTimeout(3000)
+    // crop around where he stands, unless CROP overrides
+    return `320:300:${Math.max(0, Math.round(b.x + b.width / 2 - 160))}:${Math.max(0, Math.round(b.y + b.height - 260))}`
   },
   async certs(page) {
     await click(page, page.getByRole('button', { name: /Open Resume/i }))
@@ -34,7 +39,7 @@ const ctx = await browser.newContext({ viewport: SIZE, recordVideo: { dir: out, 
 const page = await ctx.newPage()
 await page.goto(URL)
 await page.waitForTimeout(3500)
-await SCENARIOS[scenario](page)
+const autoCrop = await SCENARIOS[scenario](page)
 await ctx.close() // flushes the video
 await browser.close()
 
@@ -42,6 +47,6 @@ const webm = readdirSync(out).find(f => f.endsWith('.webm'))
 renameSync(`${out}/${webm}`, `${out}/run.webm`)
 // 12 frames per sheet (4x3), cropped to the content panel, each 460px wide, stamped with its time.
 execFileSync('ffmpeg', ['-y', '-loglevel', 'error', '-i', `${out}/run.webm`, '-vf',
-  `fps=${fps},crop=${process.env.CROP ?? '1400:420:0:340'},scale=460:-1,drawtext=text='%{pts\\:hms}':x=6:y=6:fontsize=18:fontcolor=red:box=1:boxcolor=white@0.8,tile=4x3`,
+  `fps=${fps},crop=${process.env.CROP ?? autoCrop ?? '1400:420:0:340'},scale=460:-1,drawtext=text='%{pts\\:hms}':x=6:y=6:fontsize=18:fontcolor=red:box=1:boxcolor=white@0.8,tile=4x3`,
   `${out}/sheet-%02d.png`], { stdio: 'inherit' })
 console.log(readdirSync(out).filter(f => f.endsWith('.png')).map(f => `${out}/${f}`).join('\n'))

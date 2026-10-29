@@ -138,7 +138,7 @@ export default function MenuMii({ channelOpen, darkMode, sfx, ref }) {
     let live = true
     const stroll = async () => {
       if (!live) return
-      if (!dragging.current && !touring.current && !mii.asleep && walker.current) {
+      if (!dragging.current && !touring.current && !window.__miiHold && !mii.asleep && walker.current) {
         const target = onFloor(SIDE + Math.random() * (window.innerWidth - 2 * SIDE))
         walking.current = true
         setWalkYaw(target.x < x.get() ? -24 : 24)
@@ -160,7 +160,7 @@ export default function MenuMii({ channelOpen, darkMode, sfx, ref }) {
     let t
     const antics = () => {
       t = setTimeout(() => {
-        if (!dragging.current && !walking.current && !touring.current && !mii.asleep) {
+        if (!dragging.current && !walking.current && !touring.current && !window.__miiHold && !mii.asleep) {
           const a = pick(IDLE_ACTS)
           mii.act(a)
           if (a === 'wave') say('Hi there!', 2000)

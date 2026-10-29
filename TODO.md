@@ -13,7 +13,7 @@ Already in: open/close, dark mode and sound reactions, time-of-day greeting, Kon
 - [x] Guided tour: press T on the menu (Mii walks tile to tile)
 - [ ] Footstep and voice blips tied to the sound toggle **(needs sound assets)**
 - [x] Shirt colour follows theme
-- [ ] Verify dance, jack and spin in motion
+- [x] Verify dance, jack and spin in motion (frame strips 2026-10-29: all read well; jack arms only reach horizontal because raised arms hide behind the head)
 - [ ] Self-host the body glb if MiiJS terms matter
 - [x] Cert-dusting gag rebuilt on the 3D Mii (2026-10-29, reworked: he offers in his own bubble, climbs to each badge, winds up and shoves it, cards spring/wobble, then he drops back to the floor; `mii:certs-tab` handle from the banner, `src/data/certMess.js`)
 
