@@ -4,7 +4,7 @@ import { webgl } from '../mii3d/webgl'
 
 // Draws the Mii from useAliveMii as a live 3D model, or as the 2D renderer PNG when WebGL
 // or the glTF is unavailable. three.js loads on demand so it stays out of the main bundle.
-export default function MiiView({ mii, className = '', alt = '', ...rest }) {
+export default function MiiView({ mii, dark = false, className = '', alt = '', ...rest }) {
   const [fallback, setFallback] = useState(!webgl)
   const canvas = useRef(null)
   const scene = useRef(null)
@@ -23,7 +23,7 @@ export default function MiiView({ mii, className = '', alt = '', ...rest }) {
     return () => { dead = true; scene.current?.dispose(); scene.current = null }
   }, [fallback])
 
-  useEffect(() => { scene.current?.set({ expression: face, asleep, walkDir, pose }) }, [face, asleep, walkDir, pose, fallback])
+  useEffect(() => { scene.current?.set({ expression: face, asleep, walkDir, pose, dark }) }, [face, asleep, walkDir, pose, dark, fallback])
 
   // Head follows the pointer smoothly (the hook's bucketed yaw is only for the 2D frames).
   useEffect(() => {

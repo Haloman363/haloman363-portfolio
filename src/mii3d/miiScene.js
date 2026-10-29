@@ -11,7 +11,7 @@ import { POSES } from './poses'
 // only serves heads; the body is MiiJS's miiMaleBody.glb, hosted in public/wii/models).
 // The body plays its own idle clip; the head is a separate group that follows the neck bone
 // so it can look at the cursor. Body units are ~11 tall to the neck, head units (FFL) ~90.
-const SHIRT = '#2f55b8'
+const SHIRT = { light: '#2f55b8', dark: '#6f93ea' } // the shirt follows the site theme
 const PANTS = '#74767c'
 // Proportions follow WheelWizard's renderer (GPL-3.0, TeamWheelWizard/WheelWizard,
 // MiiBodyModel.cs): the head mesh sits at the neck bone unscaled while the body is 7x its
@@ -78,8 +78,10 @@ export function createMiiScene(canvas, { calm = false } = {}) {
   let neck
   let limbs = [] // [bone, sign]: thighs and arms swung on top of the idle clip
   let bones = {} // arms, thighs and chest that poses move
+  const shirts = []
+  const tint = () => shirts.forEach(m => m.color.set(s.dark ? SHIRT.dark : SHIRT.light))
   let stride = 0 // 0 standing .. 1 full walk
-  const s = { look: { x: 0, y: 0 }, walkDir: 0, asleep: false, expression: 'normal', pose: null }
+  const s = { look: { x: 0, y: 0 }, walkDir: 0, asleep: false, expression: 'normal', pose: null, dark: false }
   let poseT = 0
   let facing = 0
   const aim = { x: 0, y: 0 }
@@ -95,7 +97,8 @@ export function createMiiScene(canvas, { calm = false } = {}) {
       o.material = o.material.clone()
       o.material.vertexColors = false
       o.material.metalness = 0
-      o.material.color = new Color(o.name.includes('pants') ? PANTS : SHIRT)
+      o.material.color = new Color(o.name.includes('pants') ? PANTS : SHIRT.light)
+      if (!o.name.includes('pants')) shirts.push(o.material)
       o.frustumCulled = false
     })
     rig.scale.copy(BODY_SCALE)
@@ -111,6 +114,7 @@ export function createMiiScene(canvas, { calm = false } = {}) {
     mixer = new AnimationMixer(rig)
     mixer.clipAction(gltf.animations[0]).play()
     mixer.update(0)
+    tint()
   })
 
   function setSize() {
@@ -193,6 +197,7 @@ export function createMiiScene(canvas, { calm = false } = {}) {
     set(next) {
       if (next.pose !== undefined && next.pose !== s.pose) poseT = 0
       Object.assign(s, next)
+      if (next.dark !== undefined) tint()
       if (next.expression) showExpression(next.expression)
     },
     dispose() {

@@ -1,35 +1,43 @@
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
+import { motion } from 'framer-motion'
+import { messOf } from '../data/certMess'
 import styles from './ResumeBanner.module.css'
 import { PROFILE, EDUCATION, EXPERIENCE, SKILLS, CERTIFICATIONS, INTERESTS } from '../data/resume'
 import CertBadge from '../components/CertBadge'
-import CertMii from '../components/CertMii'
 
 const TABS = ['Summary', 'Experience', 'Education', 'Skills', 'Certifications', 'Interests']
 
 const RESUME_PDF = `${import.meta.env.BASE_URL}resume/Jaymes-Bunce-Resume.pdf`
 
-// Deterministic 0-1 pseudo-random per card, so the mess is the same every run (and testable).
-const rand = (i, salt) => ((i * 9301 + salt * 49297) % 233280) / 233280
-const SHARE = [0, 0.35, 0.65, 1]    // fraction of cards disturbed at each chaos level
-const TILT = [0, 10, 24, 40]        // max rotation, degrees
-const DROP = [0, 6, 28, 60]         // downward shove, px
-const SPREAD = [0, 8, 20, 40]       // sideways shove, px
-const messOf = (i, chaos) => {
-  if (rand(i, 1) >= SHARE[chaos]) return undefined
-  const x = (rand(i, 2) - 0.5) * SPREAD[chaos]
-  const y = DROP[chaos] * (0.5 + rand(i, 3))
-  const r = (rand(i, 4) - 0.5) * TILT[chaos]
-  return `translate(${x}px, ${y}px) rotate(${r}deg)`
-}
-
-export default function ResumeBanner({ sfx }) {
+export default function ResumeBanner() {
   const [tab, setTab] = useState('Summary')
-  const [chaos, setChaos] = useState(0)
-  // Each badge has its own mess level so the Mii can knock them one at a time.
   const [levels, setLevels] = useState(() => CERTIFICATIONS.map(() => 0))
+  const levelsRef = useRef(levels)
   const cardEls = useRef([])
-  const knock = (i, level) => setLevels(ls => ls.map((l, j) => (j === i ? level : l)))
-  const plan = next => CERTIFICATIONS.map((_, i) => i).filter(i => messOf(i, next) !== messOf(i, levels[i]))
+  useEffect(() => { levelsRef.current = levels }, [levels])
+
+  // On the Certifications tab the site Mii may offer to "help" with the badges. He gets this
+  // handle (via MenuMii's `mii:certs-tab` listener) to walk to cards and knock them.
+  useEffect(() => {
+    if (tab !== 'Certifications') return undefined
+    const set = (i, level) => setLevels(ls => ls.map((l, j) => (j === i ? level : l)))
+    const api = {
+      el: i => cardEls.current[i],
+      set,
+      targets: next => CERTIFICATIONS.map((_, i) => i)
+        .filter(i => JSON.stringify(messOf(i, next)) !== JSON.stringify(messOf(i, levelsRef.current[i]))),
+      reset: async () => {
+        for (let i = 0; i < levelsRef.current.length; i++) {
+          if (levelsRef.current[i]) { set(i, 0); await new Promise(r => setTimeout(r, 70)) }
+        }
+      },
+    }
+    window.dispatchEvent(new CustomEvent('mii:certs-tab', { detail: api }))
+    return () => {
+      window.dispatchEvent(new CustomEvent('mii:certs-tab', { detail: null }))
+      setLevels(ls => ls.map(() => 0))
+    }
+  }, [tab])
 
   return (
     <div className={styles.resume}>
@@ -119,8 +127,7 @@ export default function ResumeBanner({ sfx }) {
         )}
 
         {tab === 'Certifications' && (
-          <>
-            <div className={styles.certs}>
+          <div className={styles.certs}>
             {CERTIFICATIONS.map((c, i) => {
               const body = (
                 <>
@@ -132,18 +139,20 @@ export default function ResumeBanner({ sfx }) {
                   <span className={styles.certDate}>{c.date}</span>
                 </>
               )
-              const cardStyle = { transform: messOf(i, levels[i]) }
-              const setRef = el => { cardEls.current[i] = el }
+              // Knocked cards spring to their new spot, so they wobble before they settle.
+              const motionProps = {
+                ref: el => { cardEls.current[i] = el },
+                animate: messOf(i, levels[i]) ?? { x: 0, y: 0, rotate: 0 },
+                transition: { type: 'spring', stiffness: 220, damping: 9, mass: 0.8 },
+              }
               return c.url ? (
-                <a key={c.name} className={`${styles.certCard} ${styles.certLink}`} href={c.url} style={cardStyle} ref={setRef}
-                  target="_blank" rel="noopener noreferrer" title="Verify credential">{body}</a>
+                <motion.a key={c.name} className={`${styles.certCard} ${styles.certLink}`} href={c.url}
+                  target="_blank" rel="noopener noreferrer" title="Verify credential" {...motionProps}>{body}</motion.a>
               ) : (
-                <div key={c.name} className={styles.certCard} style={cardStyle} ref={setRef}>{body}</div>
+                <motion.div key={c.name} className={styles.certCard} {...motionProps}>{body}</motion.div>
               )
             })}
-            </div>
-            <CertMii chaos={chaos} levels={levels} plan={plan} cardEls={cardEls} onKnock={knock} onSettle={setChaos} sfx={sfx} />
-          </>
+          </div>
         )}
 
         {tab === 'Interests' && (

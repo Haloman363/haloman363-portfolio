@@ -155,7 +155,7 @@ export default function App() {
   function renderBannerContent(channelId) {
     if (!channelId) return null
     if (channelId === 'mii-channel') return <AboutBanner />
-    if (channelId === 'resume') return <ResumeBanner sfx={audio} />
+    if (channelId === 'resume') return <ResumeBanner />
     if (channelId === 'photo-channel') return <PhotoBanner sfx={audio} />
     if (channelId === 'wii-shop') return <ShopBanner />
     if (channelId === 'check-mii-out') return <MakerWorldBanner />
@@ -204,13 +204,13 @@ export default function App() {
       <DesktopHint />
       <ChannelGrid
         onSelect={handleSelect}
-        onHover={audio.playHover}
+        onHover={el => { audio.playHover(); miiRef.current?.visit(el) }}
         page={page}
         singleList={phone}
         onSlotsReady={handleSlotsReady}
         inert={!!activeChannel}
       />
-      <MenuMii ref={miiRef} channelOpen={!!activeChannel} sfx={audio} />
+      <MenuMii ref={miiRef} darkMode={darkMode} channelOpen={!!activeChannel} sfx={audio} />
       <PageArrows page={page} totalPages={totalPages} onPrev={prevPage} onNext={nextPage} hidden={!!activeChannel} />
       <WiiFooter
         page={page}

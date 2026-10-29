@@ -36,6 +36,19 @@ export const POSES = {
     const k = Math.min(t / 0.9, 1)
     return { spin: ease(k) * Math.PI * 2, rootY: S(k * Math.PI) * 1.8, aL: { z: 0.9 }, aR: { z: -0.9 } }
   },
+  dizzy: t => ({
+    headZ: S(t * 5) * 0.35, headX: 0.15, rootRot: S(t * 4) * 0.4, rootY: -0.1,
+    aL: { z: 0.8 + S(t * 5) * 0.3 }, aR: { z: -0.8 - S(t * 5 + 1) * 0.3 },
+  }),
+  // Wind up, hold a beat, then a quick shove with his left arm (toward the viewer's right);
+  // the hit lands at ~0.6s, so callers knock whatever he hits then.
+  swat: t => {
+    if (t < 0.45) {
+      const k = ease(t / 0.45)
+      return { aL: { z: 0.3 + k * 1.8, x: -0.2 * k }, chest: { x: -0.12 * k }, rootRot: -0.2 * k, headY: -0.2 }
+    }
+    return { aL: { z: 0.7, x: -0.9 }, chest: { x: 0.3 }, rootRot: 0.35, headX: 0.1, headY: -0.2 }
+  },
   lookAround: t => ({ headY: S(t * 2.2) * 0.9, headX: -0.05 }),
   // Dangling from the cursor while being carried.
   held: t => ({
@@ -55,6 +68,8 @@ export const ACTS = {
   bow: { mood: 'smile', ms: 1400 },
   jack: { mood: 'smile_open_mouth', ms: 2200 },
   spin: { mood: 'surprise', ms: 1000 },
+  swat: { mood: 'smile_open_mouth', ms: 1300 },
+  dizzy: { mood: 'frustrated', ms: 3000 },
   lookAround: { mood: null, ms: 2800 },
   held: { mood: 'surprise', ms: 0 },
 }

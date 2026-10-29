@@ -47,8 +47,8 @@ export default function ChannelSlot({ channel, onSelect, onHover, style }) {
     })
   }
 
-  function handleMouseEnter() {
-    onHover?.()
+  function handleMouseEnter(e) {
+    onHover?.(e.currentTarget)
   }
 
   // Tilt toward the pointer. Written straight to CSS vars so mousemove doesn't

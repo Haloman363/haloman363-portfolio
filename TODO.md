@@ -2,11 +2,26 @@
 
 Running list for the portfolio. Check items off as they land. Items marked **(needs decision)** are blocked on a choice from Jaymes. `[~]` = decided not to do.
 
+## Mii roadmap (2026-10-29)
+
+Already in: open/close, dark mode and sound reactions, time-of-day greeting, Konami dance, hidden-tab render pause.
+
+- [x] Hover a channel tile: Mii walks under it and looks at it
+- [x] Click Mii 5 times: dizzy
+- [x] Throw physics: bounce off screen edges, squish on landing
+- [x] Chatter pulls real portfolio facts
+- [x] Guided tour: press T on the menu (Mii walks tile to tile)
+- [ ] Footstep and voice blips tied to the sound toggle **(needs sound assets)**
+- [x] Shirt colour follows theme
+- [ ] Verify dance, jack and spin in motion
+- [ ] Self-host the body glb if MiiJS terms matter
+- [x] Cert-dusting gag rebuilt on the 3D Mii (2026-10-29, reworked: he offers in his own bubble, climbs to each badge, winds up and shoves it, cards spring/wobble, then he drops back to the floor; `mii:certs-tab` handle from the banner, `src/data/certMess.js`)
+
 ## Ideas / next up
 
 - [ ] **Refine the empty space in the channels:** several channels leave a lot of unused room; tighten layouts or fill it with something useful. (Certifications tab done; the rest still to review.)
 - [ ] **Make Mii more interactive and fun across pages:** give the Mii things to do beyond the About channel.
-- [x] **Playful interactivity:** on the Certifications tab the Mii offers to dust the badges, knocks them askew, and each "help" makes it worse (3 levels) until "Put it all back". Built in `CertMii.jsx`; the Mii physically walks to each badge it knocks (up to 5, the rest get a chain reaction), idles with a breathing bob and blinks, hops when clicked, and walks home after. Not yet verified: the Mii's `surprise`/`sorrow` expressions against the live renderer (sandbox can't reach it; falls back to the sprite if the image fails). More gags could go on other tabs/channels.
+- [x] **Playful interactivity (rebuilt 2026-10-29 on the 3D Mii):** on the Certifications tab the Mii offers to dust the badges, knocks them askew, and each "help" makes it worse (3 levels) until "Put it all back". Built in `CertMii.jsx`; the Mii physically walks to each badge it knocks (up to 5, the rest get a chain reaction), idles with a breathing bob and blinks, hops when clicked, and walks home after. Not yet verified: the Mii's `surprise`/`sorrow` expressions against the live renderer (sandbox can't reach it; falls back to the sprite if the image fails). More gags could go on other tabs/channels.
 - [x] **Keep LinkedIn, the React resume and the PDF in sync:** resume content now lives in `src/data/resume.js`; the Resume channel reads it and `npm run resume:pdf` regenerates the PDF from it. Still manual: copying changes from LinkedIn into that file.
 - [x] **Add logo icons/badges for certificates:** issuer logo tiles (Anthropic and Google use the simple-icons marks; TestOut still a "T" placeholder, since testout.com now serves CompTIA branding, so it needs a proper logo file in `src/assets/issuers/`) on the Certifications tab, which is now a grid; Anthropic certs link to their verify pages. Google/TestOut have no verify URL yet.
 - [ ] **Show off artifacts:** show off my Claude artifacts somewhere on the site.
