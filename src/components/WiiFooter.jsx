@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import styles from './WiiFooter.module.css'
 
 const DAYS = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat']
@@ -9,6 +9,40 @@ function formatDate(d) {
 
 function formatTime(d) {
   return d.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' })
+}
+
+// The title bar's curved edge. Drawn at 1:1 pixels from the measured size: each end curve is
+// 380 design units (u) wide with a flat run between, and u comes from the bar's own height
+// (110u), so it follows the CSS scale exactly.
+function FooterBar() {
+  const ref = useRef(null)
+  const [size, setSize] = useState({ w: 0, h: 0 })
+
+  useLayoutEffect(() => {
+    const el = ref.current
+    const measure = () => setSize(prev => {
+      const w = el.clientWidth, h = el.clientHeight
+      return prev.w === w && prev.h === h ? prev : { w, h }
+    })
+    measure()
+    const ro = new ResizeObserver(measure)
+    ro.observe(el)
+    return () => ro.disconnect()
+  }, [])
+
+  const { w, h } = size
+  const u = h / 110
+  const x = n => +(n * u).toFixed(2)
+  // Left curve, flat run, then the mirror image on the right.
+  const edge = w && `M0,${x(3)} C${x(90)},${x(3)} ${x(150)},${x(35)} ${x(210)},${x(65)} C${x(270)},${x(95)} ${x(290)},${x(102)} ${x(380)},${x(103)} ` +
+    `L${w - x(380)},${x(103)} C${w - x(290)},${x(102)} ${w - x(270)},${x(95)} ${w - x(210)},${x(65)} C${w - x(150)},${x(35)} ${w - x(90)},${x(3)} ${w},${x(3)}`
+
+  return (
+    <svg ref={ref} className={styles.bar} viewBox={`0 0 ${w} ${h}`} aria-hidden="true">
+      {w > 0 && <path className={styles.waveFill} d={`${edge} L${w},0 L0,0 Z`} />}
+      {w > 0 && <path className={styles.waveLine} d={edge} />}
+    </svg>
+  )
 }
 
 export default function WiiFooter({ audioEnabled, onAudioToggle, darkMode, onDarkToggle, channelOpen, page, onPrev, onNext, totalPages, notificationCount }) {
@@ -58,6 +92,7 @@ export default function WiiFooter({ audioEnabled, onAudioToggle, darkMode, onDar
   return (
     <div className={styles.bottomSection}>
       <div className={styles.bottomTitle}>
+        <FooterBar />
         <span className={styles.bottomTitleText}>Jaymes Menu</span>
       </div>
 

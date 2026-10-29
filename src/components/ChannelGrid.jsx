@@ -49,7 +49,7 @@ function handleArrowNav(e) {
   }
 }
 
-export default function ChannelGrid({ onSelect, onHover, page, onSlotsReady, inert }) {
+export default function ChannelGrid({ onSelect, onHover, page, singleList, onSlotsReady, inert }) {
   const slots = useMemo(() => buildSlots(NAMED_CHANNELS), [])
 
   useEffect(() => {
@@ -64,12 +64,15 @@ export default function ChannelGrid({ onSelect, onHover, page, onSlotsReady, ine
   // slot also carries its row-major index as a CSS `order`, so the tablet
   // breakpoint (which flattens .col via display:contents and grid auto-flow)
   // still reads left-to-right, top-to-bottom regardless of DOM order.
-  const cols = Array.from({ length: COLS }, (_, ci) =>
-    Array.from({ length: ROWS }, (_, ri) => {
-      const rowMajorIndex = ri * COLS + ci
-      return { channel: currentSlots[rowMajorIndex], order: rowMajorIndex }
-    })
-  )
+  // Phone: every channel in one column, no pages and no empty placeholders.
+  const cols = singleList
+    ? [NAMED_CHANNELS.slice().sort((a, b) => a.slot - b.slot).map((channel, order) => ({ channel, order }))]
+    : Array.from({ length: COLS }, (_, ci) =>
+        Array.from({ length: ROWS }, (_, ri) => {
+          const rowMajorIndex = ri * COLS + ci
+          return { channel: currentSlots[rowMajorIndex], order: rowMajorIndex }
+        })
+      )
 
   return (
     <div className={styles.topSection} onKeyDown={handleArrowNav} inert={inert}>

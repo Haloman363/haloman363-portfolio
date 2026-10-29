@@ -1,43 +1,62 @@
+/* The whole footer is built from one unit, --u (1px at the 219px design height), that shrinks
+   with the viewport so the bar, title, buttons and dots always scale together. */
 .bottomSection {
-  height: 219px;
-  background: #d2d6db;
-  background-image: url('/wii/sprites/bottom-bg.png');
-  background-repeat: repeat-x;
+  --u: min(1px, 0.0694vw, calc(0.2vh - 0.75px));
+  height: calc(219 * var(--u));
+  background: linear-gradient(#b6b7bc 0%, #c2c3c7 20%, #ccccd1 40%, #d1d1da 60%, #d6d9dd 100%);
   position: relative;
   flex-shrink: 0;
   z-index: 10;
 }
 
 :global(.dark) .bottomSection {
-  background: #06122f;
-  background-image: url('/wii/sprites/bottom-bg-dark.png');
+  background: linear-gradient(#060c2e, #0c112a);
 }
 
+/* The bar is one SVG path rebuilt in pixels whenever the footer resizes (see FooterBar), so the
+   curve ends are always the same size in --u units and the joins can never drift apart. */
 .bottomTitle {
-  background-image: url('/wii/sprites/bottom-title.webp');
-  width: 100%;
-  height: 220px;
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: 100% 100%;
+  --bar-fill: #ececec;
+  --bar-line: #4cb8e4;
+  --sw: max(2px, calc(5 * var(--u)));
   position: relative;
+  width: 100%;
+  height: calc(110 * var(--u));
+  filter: drop-shadow(0 calc(6 * var(--u)) calc(10 * var(--u)) rgba(70, 70, 90, 0.4));
 }
 
 :global(.dark) .bottomTitle {
-  background-image: url('/wii/sprites/bottom-title-dark.webp');
+  --bar-fill: #0c1232;
+  --bar-line: #4a96c8;
+}
+
+.bar {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  overflow: visible;
+}
+
+.waveFill { fill: var(--bar-fill); }
+.waveLine {
+  fill: none;
+  stroke: var(--bar-line);
+  stroke-width: var(--sw);
 }
 
 .bottomTitleText {
   position: absolute;
-  top: 8px;
+  top: calc(8 * var(--u));
   left: 0;
   width: 100%;
   text-align: center;
   white-space: nowrap;
   font-family: 'Wii', 'FOT-RodinNTLGPro-DB', 'Arial Rounded MT Bold', sans-serif;
-  font-size: 54px;
+  font-size: max(14px, calc(54 * var(--u)));
   font-weight: bold;
-  letter-spacing: -1px;
+  letter-spacing: -0.02em;
   color: #36c1ec;
 }
 
@@ -45,91 +64,53 @@
   color: #6fc0e2;
 }
 
-.leftButtonContainer {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-}
-
-.leftButton {
-  position: absolute;
-  bottom: 42px;
-  left: 0;
-  width: 185px;
-  height: 135px;
-  background: #f5f7fa;
-  border: 2px solid #e1e4e9;
-  border-left: none;
-  border-radius: 0 67px 67px 0;
-  box-shadow: 2px 0 8px rgba(0,0,0,0.06);
-}
-
-:global(.dark) .leftButton {
-  background: #5a73a0;
-  border-color: #82a0d2;
-}
-
-.wiiButton {
-  width: 100px;
-  height: 100px;
-  position: absolute;
-  bottom: 62px;
-  left: 60px;
-  background: radial-gradient(circle at 38% 32%, #f0f0f2 0%, #d8d9dd 45%, #b8babe 100%);
-  border: 3px solid #5ac8e8;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: none;
-  padding: 0;
-  z-index: 999;
-  box-shadow: 0 0 0 2px rgba(90, 200, 232, 0.35), 0 4px 12px rgba(0,0,0,0.25);
-  font-family: 'Wii', 'FOT-RodinNTLGPro-DB', 'Arial Rounded MT Bold', sans-serif;
-  font-size: 28px;
-  font-weight: bold;
-  color: #888;
-  letter-spacing: -1px;
-}
-
-:global(.dark) .wiiButton {
-  background: radial-gradient(circle at 38% 32%, #c8d8f0 0%, #8aaace 45%, #4a6a9e 100%);
-  border-color: #7ab0f0;
-  box-shadow: 0 0 0 2px rgba(120, 170, 240, 0.5), 0 4px 16px rgba(0,0,60,0.5);
-}
-
+.leftButtonContainer,
 .rightButtonContainer {
   position: absolute;
   bottom: 0;
-  right: 0;
+}
+
+.leftButtonContainer { left: 0; }
+.rightButtonContainer { right: 0; }
+
+.leftButton,
+.rightButton {
+  position: absolute;
+  bottom: calc(42 * var(--u));
+  width: calc(185 * var(--u));
+  height: calc(135 * var(--u));
+  background: #f5f7fa;
+  border: max(1px, calc(2 * var(--u))) solid #e1e4e9;
+}
+
+.leftButton {
+  left: 0;
+  border-left: none;
+  border-radius: 0 calc(67 * var(--u)) calc(67 * var(--u)) 0;
+  box-shadow: calc(2 * var(--u)) 0 calc(8 * var(--u)) rgba(0,0,0,0.06);
 }
 
 .rightButton {
-  position: absolute;
-  bottom: 42px;
   right: 0;
-  width: 185px;
-  height: 135px;
-  background: #f5f7fa;
-  border: 2px solid #e1e4e9;
   border-right: none;
-  border-radius: 67px 0 0 67px;
-  box-shadow: -2px 0 8px rgba(0,0,0,0.06);
+  border-radius: calc(67 * var(--u)) 0 0 calc(67 * var(--u));
+  box-shadow: calc(-2 * var(--u)) 0 calc(8 * var(--u)) rgba(0,0,0,0.06);
 }
 
+:global(.dark) .leftButton,
 :global(.dark) .rightButton {
   background: #5a73a0;
   border-color: #82a0d2;
 }
 
+.wiiButton,
 .settingsButton {
-  width: 100px;
-  height: 100px;
+  width: calc(100 * var(--u));
+  height: calc(100 * var(--u));
   position: absolute;
-  bottom: 62px;
-  right: 60px;
+  bottom: calc(62 * var(--u));
   background: radial-gradient(circle at 38% 32%, #f0f0f2 0%, #d8d9dd 45%, #b8babe 100%);
-  border: 3px solid #5ac8e8;
+  border: max(1.5px, calc(3 * var(--u))) solid #5ac8e8;
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -137,13 +118,24 @@
   cursor: none;
   padding: 0;
   z-index: 999;
-  box-shadow: 0 0 0 2px rgba(90, 200, 232, 0.35), 0 4px 12px rgba(0,0,0,0.25);
+  box-sizing: border-box;
+  box-shadow: 0 0 0 calc(2 * var(--u)) rgba(90, 200, 232, 0.35), 0 calc(4 * var(--u)) calc(12 * var(--u)) rgba(0,0,0,0.25);
 }
 
+.wiiButton { left: calc(60 * var(--u)); }
+.settingsButton { right: calc(60 * var(--u)); }
+
+.wiiButton svg,
+.settingsButton svg {
+  width: 44%;
+  height: 44%;
+}
+
+:global(.dark) .wiiButton,
 :global(.dark) .settingsButton {
   background: radial-gradient(circle at 38% 32%, #c8d8f0 0%, #8aaace 45%, #4a6a9e 100%);
   border-color: #7ab0f0;
-  box-shadow: 0 0 0 2px rgba(120, 170, 240, 0.5), 0 4px 16px rgba(0,0,60,0.5);
+  box-shadow: 0 0 0 calc(2 * var(--u)) rgba(120, 170, 240, 0.5), 0 calc(4 * var(--u)) calc(16 * var(--u)) rgba(0,0,60,0.5);
 }
 
 .notificationBadge {
@@ -168,23 +160,31 @@
 
 .pageDots {
   position: absolute;
-  bottom: 88px;
+  bottom: calc(88 * var(--u));
   left: 50%;
   transform: translateX(-50%);
   display: flex;
-  gap: 10px;
+  gap: max(8px, calc(10 * var(--u)));
   z-index: 3;
 }
 
 .pageDot {
-  width: 10px;
-  height: 10px;
+  position: relative;
+  width: max(6px, calc(10 * var(--u)));
+  height: max(6px, calc(10 * var(--u)));
   border-radius: 50%;
   padding: 0;
   border: none;
   cursor: none;
   background: rgba(132, 134, 138, 0.35);
   transition: background 200ms, transform 200ms;
+}
+
+/* Larger invisible tap area. */
+.pageDot::after {
+  content: '';
+  position: absolute;
+  inset: -12px -6px;
 }
 
 .pageDot:hover {
@@ -210,8 +210,8 @@
 
 .settingsMenu {
   position: absolute;
-  bottom: 175px;
-  right: 20px;
+  bottom: calc(100% + 8px);
+  right: 16px;
   background: rgba(255, 255, 255, 0.92);
   border: 2px solid #b0b8c8;
   border-radius: 12px;
@@ -272,181 +272,39 @@
   transform: scale(1.1);
 }
 
+/* Keep corner buttons at least ~44px to tap even when the footer is small. */
+.cornerButton::after {
+  content: '';
+  position: absolute;
+  inset: calc(-1 * max(0px, (44px - 100 * var(--u)) / 2));
+}
+
 .date {
   position: absolute;
   color: #84868a;
   font-family: 'Asap', 'Nunito', sans-serif;
-  bottom: 32px;
+  bottom: calc(32 * var(--u));
   left: 50%;
   transform: translate(-50%, 0);
-  font-size: 40px;
-  letter-spacing: -1px;
+  font-size: max(13px, calc(40 * var(--u)));
+  letter-spacing: -0.02em;
+  white-space: nowrap;
 }
 
-@media only screen and (max-height: 718px) {
-  .bottomSection {
-    height: 130px;
-    background-image: url('/wii/sprites/mini-bottom-bg.png');
-  }
-
-  :global(.dark) .bottomSection {
-    background-image: url('/wii/sprites/mini-bottom-bg-dark.png');
-  }
-
-  .leftButtonContainer {
-    transform: scale(0.6);
-    transform-origin: left;
-  }
-
-  .rightButtonContainer {
-    transform: scale(0.6);
-    transform-origin: right;
-  }
-
-  .leftButton, .rightButton {
-    bottom: 180px;
-  }
-
-  .wiiButton, .settingsButton {
-    bottom: 197px;
-  }
-
-  .bottomTitle {
-    transform-origin: top;
-    transform: scale(0.65);
-  }
-
-  .date {
-    font-size: 22px;
-    bottom: 17px;
-  }
-}
-
-/* Tablet footer */
-@media only screen and (max-width: 1023px) and (min-width: 640px) {
-  .bottomSection {
-    height: 120px;
-    background-image: url('/wii/sprites/mini-bottom-bg.png');
-    overflow: hidden;
-  }
-
-  :global(.dark) .bottomSection {
-    background-image: url('/wii/sprites/mini-bottom-bg-dark.png');
-  }
-
-  .bottomTitle {
-    height: 120px;
-    background-size: 100% 100%;
-    background-position: center top;
-  }
-
-  .bottomTitleText {
-    transform: scale(0.545);
-    transform-origin: top center;
-  }
-
-  .leftButtonContainer {
-    transform: scale(0.55);
-    transform-origin: bottom left;
-  }
-
-  .rightButtonContainer {
-    transform: scale(0.55);
-    transform-origin: bottom right;
-  }
-
-  .leftButton, .rightButton {
-    bottom: 42px;
-  }
-
-  .wiiButton, .settingsButton {
-    bottom: 62px;
-  }
-
-  .date {
-    font-size: 22px;
-    bottom: 16px;
-  }
-
-  .settingsMenu {
-    position: fixed;
-    bottom: 90px;
-    right: 16px;
-  }
-}
-
-/* Phone footer */
+/* Phone: a roomier footer than pure proportional scaling gives (about 100-120px). The footer
+   geometry itself is identical to desktop; only the unit changes. */
 @media only screen and (max-width: 639px) {
   .bottomSection {
-    height: 56px;
-    background-image: url('/wii/sprites/mini-bottom-bg.png');
-    flex-shrink: 0;
-    overflow: hidden;
+    --u: clamp(0.42px, 0.13vw, 0.55px);
   }
 
-  :global(.dark) .bottomSection {
-    background-image: url('/wii/sprites/mini-bottom-bg-dark.png');
-  }
-
-  .bottomTitle {
-    height: 56px;
-    background-size: 100% 100%;
-    background-position: center top;
-  }
-
+  /* Narrower bar: a slightly smaller title keeps it clear of the curve. */
   .bottomTitleText {
-    transform: scale(0.255);
-    transform-origin: top center;
-  }
-
-  /* Scale buttons down to fit the 56px footer — origin anchors to bottom corner */
-  .leftButtonContainer {
-    display: block;
-    transform: scale(0.24);
-    transform-origin: bottom left;
-  }
-
-  .rightButtonContainer {
-    display: block;
-    transform: scale(0.24);
-    transform-origin: bottom right;
-  }
-
-  .date {
-    font-size: 12px;
-    bottom: 6px;
-  }
-
-  /* The footer clips overflow here, so the dots sit in the gap between the
-     title and the date, with a larger invisible tap area. */
-  .pageDots {
-    bottom: 22px;
-    gap: 14px;
-  }
-
-  .pageDot {
-    position: relative;
-    width: 8px;
-    height: 8px;
-  }
-
-  .pageDot::after {
-    content: '';
-    position: absolute;
-    inset: -14px -8px;
-  }
-
-  /* The scaled-down corner buttons are ~24px; extend the tap area to ~44px
-     (inset is in pre-scale px) without changing how they look. */
-  .cornerButton::after {
-    content: '';
-    position: absolute;
-    inset: -42px;
+    font-size: calc(42 * var(--u));
+    top: calc(10 * var(--u));
   }
 
   .settingsMenu {
-    position: fixed;
-    bottom: 66px;
     right: 8px;
     min-width: 140px;
     font-size: 13px;

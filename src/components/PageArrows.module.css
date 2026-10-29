@@ -1,0 +1,68 @@
+.arrow {
+  position: fixed;
+  top: 42%;
+  transform: translateY(-50%);
+  width: clamp(40px, 4.4vw, 64px);
+  aspect-ratio: 1;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  border: 3px solid #5ac8e8;
+  background: radial-gradient(circle at 38% 32%, #f0f0f2 0%, #d8d9dd 45%, #b8babe 100%);
+  box-shadow: 0 0 14px rgba(90, 200, 232, 0.6);
+  cursor: none;
+  z-index: 20;
+  animation: nudge 1.6s ease-in-out infinite;
+}
+
+.arrow svg {
+  width: 53%;
+  height: 53%;
+  fill: none;
+  stroke: #5a8aa8;
+  stroke-width: 4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.arrow:hover {
+  box-shadow: 0 0 22px rgba(90, 200, 232, 0.95);
+}
+
+.left { left: 0.4vw; }
+.right { right: 0.4vw; }
+
+:global(.dark) .arrow {
+  background: radial-gradient(circle at 38% 32%, #c8d8f0 0%, #8aaace 45%, #4a6a9e 100%);
+  border-color: #7ab0f0;
+  box-shadow: 0 0 14px rgba(122, 176, 240, 0.6);
+}
+
+:global(.dark) .arrow svg { stroke: #1d3358; }
+
+@keyframes nudge {
+  0%, 100% { margin: 0; }
+  50% { margin: 0 0 0 6px; }
+}
+
+.left { animation-name: nudgeLeft; }
+@keyframes nudgeLeft {
+  0%, 100% { margin: 0; }
+  50% { margin: 0 6px 0 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .arrow { animation: none; }
+}
+
+@media only screen and (max-width: 1023px) {
+  .arrow { border-width: 2px; }
+  .left { left: 2px; }
+  .right { right: 2px; }
+}
+
+@media only screen and (max-width: 639px) {
+  .arrow { top: 40%; }
+}

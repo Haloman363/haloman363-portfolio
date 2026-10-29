@@ -18,19 +18,21 @@ import ArtifactBanner from './banners/ArtifactBanner'
 import ForecastBanner from './banners/ForecastBanner'
 import NewsBanner from './banners/NewsBanner'
 import { TOTAL_PAGES } from './data/channels'
+import PageArrows from './components/PageArrows'
+import useIsPhone from './hooks/useIsPhone'
 import { useWiiAudio } from './hooks/useWiiAudio'
 import { useGamepad } from './hooks/useGamepad'
 import './App.css'
 
 const THEME_KEY = 'wii-theme'
 
-// Saved choice wins; otherwise follow the device's light/dark setting.
+// Saved choice wins; otherwise light, whatever the device setting.
 function initialDarkMode() {
   try {
     const saved = localStorage.getItem(THEME_KEY)
     if (saved) return saved === 'dark'
   } catch { /* storage unavailable */ }
-  return window.matchMedia?.('(prefers-color-scheme: dark)').matches ?? false
+  return false
 }
 
 const KONAMI = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a']
@@ -38,6 +40,9 @@ const KONAMI = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'Ar
 export default function App() {
   const [activeChannel, setActiveChannel] = useState(null)
   const [page, setPage] = useState(0)
+  // Phones get one continuous scrolling list instead of pages.
+  const phone = useIsPhone()
+  const totalPages = phone ? 1 : TOTAL_PAGES
   const [darkMode, setDarkMode] = useState(initialDarkMode)
   const [openOrigin, setOpenOrigin] = useState(null)
   const allChannelsRef = useRef([])
@@ -67,10 +72,10 @@ export default function App() {
   }, [audio, page])
 
   const nextPage = useCallback(() => {
-    if (page >= TOTAL_PAGES - 1) return
+    if (page >= totalPages - 1) return
     audio.playPageTurn(1)
     setPage(page + 1)
-  }, [audio, page])
+  }, [audio, page, totalPages])
 
   const handleBack = useCallback(() => {
     audio.playClick()
@@ -190,14 +195,16 @@ export default function App() {
         onSelect={handleSelect}
         onHover={audio.playHover}
         page={page}
+        singleList={phone}
         onSlotsReady={handleSlotsReady}
         inert={!!activeChannel}
       />
+      <PageArrows page={page} totalPages={totalPages} onPrev={prevPage} onNext={nextPage} hidden={!!activeChannel} />
       <WiiFooter
         page={page}
         onPrev={prevPage}
         onNext={nextPage}
-        totalPages={TOTAL_PAGES}
+        totalPages={totalPages}
         audioEnabled={audio.enabled}
         onAudioToggle={audio.toggle}
         darkMode={darkMode}
