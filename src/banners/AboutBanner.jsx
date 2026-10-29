@@ -1,10 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
 import styles from './AboutBanner.module.css'
-import { miiURL } from '../data/mii'
-
-// ponytail: idle blink + hover smile is all the "alive" this needs.
-// Add cursor-follow (characterYRotate) only if it still feels static.
-const EXPRESSIONS = ['normal', 'blink', 'smile']
 
 const SKILLS = [
   { label: 'Python',       pct: 85, color: '#3572A5' },
@@ -14,35 +8,7 @@ const SKILLS = [
   { label: 'Rust',         pct: 40, color: '#dea584' },
 ]
 
-const FALLBACK = `${import.meta.env.BASE_URL}wii/sprites/mii-fullbody.png`
-
-export default function AboutBanner({ sfx }) {
-  const [expression, setExpression] = useState('normal')
-  const [failed, setFailed] = useState(false)
-  const hovering = useRef(false)
-  const [hop, setHop] = useState(false)
-
-  // Preload so expression swaps don't flash a blank frame.
-  useEffect(() => {
-    EXPRESSIONS.forEach(e => { new Image().src = miiURL(e) })
-  }, [])
-
-  // Blink on a loose interval, but never while hovering (hover owns the smile).
-  useEffect(() => {
-    let blinkTimer
-    const schedule = () => {
-      blinkTimer = setTimeout(() => {
-        if (!hovering.current) {
-          setExpression('blink')
-          setTimeout(() => { if (!hovering.current) setExpression('normal') }, 150)
-        }
-        schedule()
-      }, 3000 + Math.random() * 3000)
-    }
-    schedule()
-    return () => clearTimeout(blinkTimer)
-  }, [])
-
+export default function AboutBanner() {
   return (
     <div className={styles.about}>
       <div className={styles.content}>
@@ -76,24 +42,6 @@ export default function AboutBanner({ sfx }) {
         </div>
       </div>
 
-      <img
-        className={`${styles.fullBody}${hop ? ` ${styles.hop}` : ''}`}
-        src={failed ? FALLBACK : miiURL(expression)}
-        onClick={() => {
-          sfx?.playClick?.()
-          setHop(false)
-          requestAnimationFrame(() => setHop(true))
-          setExpression('smile')
-          setTimeout(() => { if (!hovering.current) setExpression('normal') }, 1200)
-        }}
-        onAnimationEnd={() => setHop(false)}
-        alt="Full body Mii"
-        onMouseEnter={() => { hovering.current = true; setExpression('smile') }}
-        onMouseLeave={() => { hovering.current = false; setExpression('normal') }}
-        // Renderer is a third party; if it's down, stay on the sprite for good
-        // rather than retrying (and re-breaking) on every blink.
-        onError={() => setFailed(true)}
-      />
     </div>
   )
 }

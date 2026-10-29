@@ -56,53 +56,6 @@
   to { transform: translateY(calc(-100vh - 140px)); }
 }
 
-/* Mii + speech bubble */
-.mii {
-  position: absolute;
-  right: calc(var(--arrow-inset, 0px) + 12px);
-  bottom: 0;
-  display: flex;
-  align-items: flex-end;
-  gap: 4px;
-  pointer-events: none;
-}
-
-.speech {
-  position: relative;
-  margin: 0 0 90px;
-  max-width: 150px;
-  padding: 10px 14px;
-  background: #fff;
-  color: #333;
-  border-radius: 16px;
-  font-family: 'Nunito', sans-serif;
-  font-weight: 800;
-  font-size: 14px;
-  line-height: 1.25;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
-  animation: rise 0.6s 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) both;
-}
-
-.speech::after {
-  content: '';
-  position: absolute;
-  right: -8px;
-  bottom: 14px;
-  border: 8px solid transparent;
-  border-left-color: #fff;
-  border-right: 0;
-}
-
-.miiImg {
-  height: 190px;
-  width: auto;
-  filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.3));
-}
-
-@media only screen and (max-width: 1099px) {
-  .mii { display: none; }
-}
-
 @media (prefers-reduced-motion: reduce) {
-  .rise, .bubble, .speech { animation: none; }
+  .rise, .bubble { animation: none; }
 }

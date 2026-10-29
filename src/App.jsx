@@ -18,6 +18,7 @@ import ArtifactBanner from './banners/ArtifactBanner'
 import ForecastBanner from './banners/ForecastBanner'
 import NewsBanner from './banners/NewsBanner'
 import { TOTAL_PAGES } from './data/channels'
+import MenuMii from './components/MenuMii'
 import PageArrows from './components/PageArrows'
 import useIsPhone from './hooks/useIsPhone'
 import { useWiiAudio } from './hooks/useWiiAudio'
@@ -49,12 +50,19 @@ export default function App() {
   const audio = useWiiAudio()
   useGamepad()
   const openerRef = useRef(null)
+  const miiRef = useRef(null)
 
   function handleDarkToggle() {
     audio.playClick()
     const next = !darkMode
     setDarkMode(next)
+    miiRef.current?.cue(next ? 'dark' : 'light')
     try { localStorage.setItem(THEME_KEY, next ? 'dark' : 'light') } catch { /* ignore */ }
+  }
+
+  function handleAudioToggle() {
+    miiRef.current?.cue(audio.enabled ? 'soundOff' : 'soundOn')
+    audio.toggle()
   }
 
   // The Mii Channel has its own theme music (when sound is on).
@@ -80,6 +88,7 @@ export default function App() {
   const handleBack = useCallback(() => {
     audio.playClick()
     setActiveChannel(null)
+    miiRef.current?.cue('back')
     // The grid is inert while a channel is open; hand focus back to the tile that opened it.
     const opener = openerRef.current
     requestAnimationFrame(() => opener?.isConnected && opener.focus())
@@ -110,6 +119,7 @@ export default function App() {
         if (konamiProgress.current === KONAMI.length) {
           konamiProgress.current = 0
           audio.playSelect()
+          miiRef.current?.cue('party')
           setParty(true)
           setTimeout(() => setParty(false), 5000)
         }
@@ -136,6 +146,7 @@ export default function App() {
 
   function handleSelect(id, channelData, origin) {
     audio.playClick()
+    miiRef.current?.cue('open')
     openerRef.current = document.activeElement
     setOpenOrigin(origin ?? null)
     setActiveChannel(id)
@@ -143,7 +154,7 @@ export default function App() {
 
   function renderBannerContent(channelId) {
     if (!channelId) return null
-    if (channelId === 'mii-channel') return <AboutBanner sfx={audio} />
+    if (channelId === 'mii-channel') return <AboutBanner />
     if (channelId === 'resume') return <ResumeBanner sfx={audio} />
     if (channelId === 'photo-channel') return <PhotoBanner sfx={audio} />
     if (channelId === 'wii-shop') return <ShopBanner />
@@ -199,6 +210,7 @@ export default function App() {
         onSlotsReady={handleSlotsReady}
         inert={!!activeChannel}
       />
+      <MenuMii ref={miiRef} channelOpen={!!activeChannel} sfx={audio} />
       <PageArrows page={page} totalPages={totalPages} onPrev={prevPage} onNext={nextPage} hidden={!!activeChannel} />
       <WiiFooter
         page={page}
@@ -206,7 +218,7 @@ export default function App() {
         onNext={nextPage}
         totalPages={totalPages}
         audioEnabled={audio.enabled}
-        onAudioToggle={audio.toggle}
+        onAudioToggle={handleAudioToggle}
         darkMode={darkMode}
         onDarkToggle={handleDarkToggle}
         channelOpen={!!activeChannel}

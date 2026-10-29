@@ -1,4 +1,4 @@
-import { Bubbles, MiiBubble } from '../components/BannerParts'
+import { Bubbles } from '../components/BannerParts'
 import parts from '../components/BannerParts.module.css'
 import styles from './VenmoBanner.module.css'
 
@@ -36,7 +36,6 @@ export default function VenmoBanner({ sfx }) {
         </a>
       </div>
 
-      <MiiBubble text="Venmo me for pizza!" />
     </div>
   )
 }

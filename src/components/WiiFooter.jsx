@@ -90,7 +90,7 @@ export default function WiiFooter({ audioEnabled, onAudioToggle, darkMode, onDar
   }
 
   return (
-    <div className={styles.bottomSection}>
+    <div data-wii-footer className={styles.bottomSection}>
       <div className={styles.bottomTitle}>
         <FooterBar />
         <span className={styles.bottomTitleText}>Jaymes Menu</span>

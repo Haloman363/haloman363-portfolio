@@ -1,5 +1,3 @@
-import { useState } from 'react'
-import { miiURL } from '../data/mii'
 import styles from './BannerParts.module.css'
 
 // Slow-drifting Wii-menu style bubbles. Parent must be position: relative;
@@ -24,19 +22,6 @@ export function Bubbles() {
           style={{ left: b.left, width: b.size, height: b.size, animationDuration: `${b.dur}s`, animationDelay: `${b.delay}s` }}
         />
       ))}
-    </div>
-  )
-}
-
-// The site Mii with a speech bubble, pinned to the bottom-right of the banner.
-// The renderer is a third party, so vanish quietly if it's down.
-export function MiiBubble({ text }) {
-  const [ok, setOk] = useState(true)
-  if (!ok) return null
-  return (
-    <div className={styles.mii}>
-      <p className={styles.speech}>{text}</p>
-      <img className={styles.miiImg} src={miiURL('smile')} alt="" aria-hidden="true" onError={() => setOk(false)} />
     </div>
   )
 }

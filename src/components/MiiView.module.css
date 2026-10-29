@@ -1,0 +1,13 @@
+/* Same portrait proportions as the renderer's all_body_sugar PNG. */
+.view {
+  display: block;
+  aspect-ratio: 0.75;
+  cursor: pointer;
+}
+
+.canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+  filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.25));
+}

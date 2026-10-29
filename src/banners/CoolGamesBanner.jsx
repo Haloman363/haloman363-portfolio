@@ -1,4 +1,3 @@
-import { MiiBubble } from '../components/BannerParts'
 import parts from '../components/BannerParts.module.css'
 import styles from './CoolGamesBanner.module.css'
 
@@ -65,7 +64,6 @@ export default function CoolGamesBanner({ sfx }) {
         </a>
       </div>
 
-      <MiiBubble text="Play something!" />
     </div>
   )
 }

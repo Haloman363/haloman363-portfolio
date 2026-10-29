@@ -1,4 +1,4 @@
-import { Bubbles, MiiBubble } from '../components/BannerParts'
+import { Bubbles } from '../components/BannerParts'
 import parts from '../components/BannerParts.module.css'
 import styles from './LinkedInBanner.module.css'
 
@@ -61,7 +61,6 @@ export default function LinkedInBanner({ sfx }) {
         </a>
       </div>
 
-      <MiiBubble text="Let's connect!" />
     </div>
   )
 }
