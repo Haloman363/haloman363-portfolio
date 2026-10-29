@@ -37,6 +37,11 @@ export default function ResumeBanner({ sfx }) {
         <div>
           <h1 className={styles.name}>{PROFILE.name}</h1>
           <p className={styles.tagline}>System Administrator &middot; Logan, UT (Ready to Relocate)</p>
+          <p className={styles.links}>
+            <a href={PROFILE.linkedin} target="_blank" rel="noopener noreferrer">{PROFILE.linkedin.replace('https://www.', '')}</a>
+            {' · '}
+            <a href={PROFILE.site} target="_blank" rel="noopener noreferrer">{PROFILE.site.replace('https://', '')}</a>
+          </p>
         </div>
         <a className={styles.download} href={RESUME_PDF} download target="_blank" rel="noopener noreferrer">
           Download Resume ↓

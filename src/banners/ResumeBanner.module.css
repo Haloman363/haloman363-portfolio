@@ -36,6 +36,15 @@
   font-weight: 600;
 }
 
+.links {
+  font-size: 13px;
+  color: #444;
+}
+
+.links a {
+  color: inherit;
+}
+
 .download {
   flex-shrink: 0;
   display: inline-block;
@@ -339,7 +348,8 @@
     font-size: 22px;
   }
 
-  .tagline {
+  .tagline,
+  .links {
     font-size: 12px;
   }
 
