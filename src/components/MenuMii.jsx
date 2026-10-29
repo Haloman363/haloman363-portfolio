@@ -90,6 +90,8 @@ export default function MenuMii({ channelOpen, channelId, darkMode, sfx, onDismi
   const lineTimer = useRef()
   const askTimer = useRef()
   const lastReact = useRef(0)
+  // Resolves once he can be drawn, so the first-load walk-in doesn't play on a blank canvas.
+  const [drawn] = useState(() => { let done; const p = new Promise(r => { done = r }); return { p, done } })
   const asleepRef = useRef(false) // the stroll timer's closure outlives renders, so it reads this
   const [choices, setChoices] = useState([])
   const asking = useRef(false)
@@ -131,7 +133,10 @@ export default function MenuMii({ channelOpen, channelId, darkMode, sfx, onDismi
         x.set(-100 - origin().cx)
         touring.current = true
         setWalkYaw(24)
-        animate(x, t.x, { duration: Math.abs(t.x - x.get()) / 150, ease: 'easeOut' }).then(() => {
+        Promise.race([drawn.p, wait(4000)]).then(() => {
+          setWalkYaw(24)
+          return animate(x, t.x, { duration: Math.abs(t.x - x.get()) / 150, ease: 'easeOut' })
+        }).then(() => {
           setWalkYaw(null)
           touring.current = false
           show(greeting(), 3000)
@@ -453,7 +458,7 @@ export default function MenuMii({ channelOpen, channelId, darkMode, sfx, onDismi
             {choices.map(c => <button key={c.label} className={styles.choice} onClick={() => c.run()}>{c.label}</button>)}
           </div>
         )}
-        <MiiView mii={mii} dark={darkMode} className={styles.mii} />
+        <MiiView mii={mii} dark={darkMode} onReady={drawn.done} className={styles.mii} />
       </motion.div>
     </div>
   )

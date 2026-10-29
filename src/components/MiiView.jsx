@@ -4,11 +4,14 @@ import { webgl } from '../mii3d/webgl'
 
 // Draws the Mii from useAliveMii as a live 3D model, or as the 2D renderer PNG when WebGL
 // or the glTF is unavailable. three.js loads on demand so it stays out of the main bundle.
-export default function MiiView({ mii, dark = false, className = '', alt = '', ...rest }) {
+export default function MiiView({ mii, dark = false, onReady, className = '', alt = '', ...rest }) {
   const [fallback, setFallback] = useState(!webgl)
+  useEffect(() => { if (fallback) onReady?.() }, [fallback]) // eslint-disable-line react-hooks/exhaustive-deps
   const canvas = useRef(null)
   const scene = useRef(null)
   const { face, asleep, walkDir, pose, ref } = mii
+  const latest = useRef(null)
+  latest.current = { expression: face, asleep, walkDir, pose, dark }
 
   useEffect(() => {
     if (fallback) return undefined
@@ -18,10 +21,11 @@ export default function MiiView({ mii, dark = false, className = '', alt = '', .
       const calm = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches
       const s = createMiiScene(canvas.current, { calm })
       scene.current = s
-      s.ready.catch(() => !dead && setFallback(true))
+      s.set(latest.current) // state that changed while three.js was still loading
+      s.ready.then(() => !dead && onReady?.(), () => !dead && setFallback(true))
     }).catch(() => !dead && setFallback(true))
     return () => { dead = true; scene.current?.dispose(); scene.current = null }
-  }, [fallback])
+  }, [fallback]) // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => { scene.current?.set({ expression: face, asleep, walkDir, pose, dark }) }, [face, asleep, walkDir, pose, dark, fallback])
 
