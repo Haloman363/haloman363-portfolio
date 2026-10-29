@@ -21,6 +21,10 @@ const BUILD = 38
 const HEIGHT = 112
 const bx = (BUILD * (HEIGHT * 0.003671875 + 0.4)) / 128 + HEIGHT * 0.001796875 + 0.4
 const BODY_SCALE = new Vector3(bx, HEIGHT * 0.006015625 + 0.5, bx)
+// Walk cadence follows how fast he really moves, so his feet don't skate: one leg cycle
+// (two steps) covers STRIDE screen px (leg ~45px, swing 0.6 rad). Tune STRIDE if feet slide.
+const STRIDE = 100
+const MAX_CADENCE = 18 // rad/s; beyond this he just covers more ground per step
 const FRAME = { top: 25.5, bottom: -0.5 } // world y range kept in view
 
 const loader = new GLTFLoader()
@@ -81,6 +85,7 @@ export function createMiiScene(canvas, { calm = false } = {}) {
   const shirts = []
   const tint = () => shirts.forEach(m => m.color.set(s.dark ? SHIRT.dark : SHIRT.light))
   let stride = 0 // 0 standing .. 1 full walk
+  let pace = 0 // smoothed screen speed, px/s
   const s = { look: { x: 0, y: 0 }, walkDir: 0, asleep: false, expression: 'normal', pose: null, dark: false }
   let poseT = 0
   let facing = 0
@@ -146,12 +151,14 @@ export function createMiiScene(canvas, { calm = false } = {}) {
     const dt = Math.min(0.05, (now - lastTick) / 1000)
     lastTick = now
     const moving = s.walkDir !== 0 && !calm
-    if (moving) phase += dt * 9
+    pace = damp(pace, s.getSpeed ? s.getSpeed() : 0, 10, dt)
+    if (moving) phase += dt * Math.min(MAX_CADENCE, s.getSpeed ? (pace * Math.PI * 2) / STRIDE : 9)
     const look = calm ? { x: 0, y: 0 } : s.look
 
     if (mixer && !calm) mixer.update(dt * (s.asleep ? 0.4 : 1))
     facing = damp(facing, moving ? s.walkDir * 0.9 : 0, 6, dt)
-    stride = damp(stride, moving ? 1 : 0, 10, dt)
+    // Standing still (the ends of an eased walk) stops the legs instead of shuffling.
+    stride = damp(stride, moving ? (s.getSpeed ? Math.min(1, pace / 20) : 1) : 0, 10, dt)
     const swing = new Quaternion()
     for (const [bone, k] of limbs) {
       bone.quaternion.premultiply(swing.setFromAxisAngle(AXIS_X, Math.sin(phase) * stride * 0.6 * k))

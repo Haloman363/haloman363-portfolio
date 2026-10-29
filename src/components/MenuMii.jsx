@@ -79,6 +79,8 @@ export default function MenuMii({ channelOpen, channelId, darkMode, sfx, onDismi
   const walker = useRef(null)
   const x = useMotionValue(0)
   const y = useMotionValue(0)
+  // Screen speed of his feet (px/s); the 3D walk cycle is paced by it.
+  const [getSpeed] = useState(() => () => Math.hypot(x.getVelocity(), y.getVelocity()))
   const sx = useMotionValue(1)
   const sy = useMotionValue(1)
   const taps = useRef([])
@@ -458,7 +460,7 @@ export default function MenuMii({ channelOpen, channelId, darkMode, sfx, onDismi
             {choices.map(c => <button key={c.label} className={styles.choice} onClick={() => c.run()}>{c.label}</button>)}
           </div>
         )}
-        <MiiView mii={mii} dark={darkMode} onReady={drawn.done} className={styles.mii} />
+        <MiiView mii={mii} dark={darkMode} onReady={drawn.done} getSpeed={getSpeed} className={styles.mii} />
       </motion.div>
     </div>
   )

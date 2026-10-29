@@ -4,14 +4,14 @@ import { webgl } from '../mii3d/webgl'
 
 // Draws the Mii from useAliveMii as a live 3D model, or as the 2D renderer PNG when WebGL
 // or the glTF is unavailable. three.js loads on demand so it stays out of the main bundle.
-export default function MiiView({ mii, dark = false, onReady, className = '', alt = '', ...rest }) {
+export default function MiiView({ mii, dark = false, onReady, getSpeed, className = '', alt = '', ...rest }) {
   const [fallback, setFallback] = useState(!webgl)
   useEffect(() => { if (fallback) onReady?.() }, [fallback]) // eslint-disable-line react-hooks/exhaustive-deps
   const canvas = useRef(null)
   const scene = useRef(null)
   const { face, asleep, walkDir, pose, ref } = mii
   const latest = useRef(null)
-  latest.current = { expression: face, asleep, walkDir, pose, dark }
+  latest.current = { expression: face, asleep, walkDir, pose, dark, getSpeed }
 
   useEffect(() => {
     if (fallback) return undefined
@@ -27,7 +27,7 @@ export default function MiiView({ mii, dark = false, onReady, className = '', al
     return () => { dead = true; scene.current?.dispose(); scene.current = null }
   }, [fallback]) // eslint-disable-line react-hooks/exhaustive-deps
 
-  useEffect(() => { scene.current?.set({ expression: face, asleep, walkDir, pose, dark }) }, [face, asleep, walkDir, pose, dark, fallback])
+  useEffect(() => { scene.current?.set({ expression: face, asleep, walkDir, pose, dark, getSpeed }) }, [face, asleep, walkDir, pose, dark, getSpeed, fallback])
 
   // Head follows the pointer smoothly (the hook's bucketed yaw is only for the 2D frames).
   useEffect(() => {
