@@ -1,6 +1,6 @@
 // Records a scripted run of the dev site, then cuts it into contact sheets so motion can be
 // read as a row of frames. Set PLAYWRIGHT_CHROMIUM_PATH (see CLAUDE.md). Needs `npm run dev` on :5173 (or pass URL) and ffmpeg.
-//   [CROP=w:h:x:y] node scripts/mii-record.mjs <scenario> [outDir] [fps]    scenarios: certs, pose
+//   [CROP=w:h:x:y] node scripts/mii-record.mjs <scenario> [outDir] [fps]    scenarios: certs, pose, intro
 import { chromium } from 'playwright'
 import { execFileSync } from 'node:child_process'
 import { mkdirSync, readdirSync, renameSync, rmSync } from 'node:fs'
@@ -11,6 +11,8 @@ const SIZE = { width: 1400, height: 900 }
 const click = (page, loc) => loc.evaluate(el => el.click())
 
 const SCENARIOS = {
+  // the intro walk-in (the 3.5s load wait already covers its start, so just record on)
+  async intro(page) { await page.waitForTimeout(4000) },
   // POSE=swat: stands the menu Mii still and plays one pose (dev builds expose window.__mii).
   async pose(page) {
     await page.waitForTimeout(1500)

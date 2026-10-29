@@ -73,7 +73,7 @@ function floorY(channelOpen) {
 export default function MenuMii({ channelOpen, channelId, darkMode, sfx, ref }) {
   const [walkYaw, setWalkYaw] = useState(null)
   const walking = useRef(false)
-  const [line, setLine] = useState(greeting)
+  const [line, setLine] = useState(null)
   const mii = useAliveMii({ forcedYaw: walkYaw })
   const layer = useRef(null)
   const walker = useRef(null)
@@ -114,10 +114,7 @@ export default function MenuMii({ channelOpen, channelId, darkMode, sfx, ref }) 
     return { x: clampX(fx) - o.cx, y: floorY(channelOpen) - o.fy }
   }
 
-  useEffect(() => {
-    lineTimer.current = setTimeout(() => setLine(null), 3000) // the greeting
-    return () => clearTimeout(lineTimer.current)
-  }, [])
+  useEffect(() => () => clearTimeout(lineTimer.current), [])
 
   // Stand on the floor from the start, and fall (or hop up) to the new floor when a channel
   // opens or closes.
@@ -125,10 +122,25 @@ export default function MenuMii({ channelOpen, channelId, darkMode, sfx, ref }) 
     const id = requestAnimationFrame(() => {
       if (!walker.current) return
       const t = onFloor(origin().cx + x.get())
-      x.set(t.x)
-      if (calm() || !placed.current) y.set(t.y)
-      else drop(y, t.y)
+      const first = !placed.current
       placed.current = true
+      if (first && !calm()) {
+        // First load: he starts off the left edge and walks in to his spot, then greets you.
+        y.set(t.y)
+        x.set(-100 - origin().cx)
+        touring.current = true
+        setWalkYaw(24)
+        animate(x, t.x, { duration: Math.abs(t.x - x.get()) / 150, ease: 'easeOut' }).then(() => {
+          setWalkYaw(null)
+          touring.current = false
+          show(greeting(), 3000)
+        }, () => { touring.current = false })
+        return
+      }
+      x.set(t.x)
+      if (calm() || first) y.set(t.y)
+      else drop(y, t.y)
+      if (first) show(greeting(), 3000)
     })
     return () => cancelAnimationFrame(id)
   }, [channelOpen]) // eslint-disable-line react-hooks/exhaustive-deps
