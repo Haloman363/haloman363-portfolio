@@ -90,6 +90,7 @@ export default function MenuMii({ channelOpen, channelId, darkMode, sfx, ref }) 
   const lineTimer = useRef()
   const askTimer = useRef()
   const lastReact = useRef(0)
+  const asleepRef = useRef(false) // the stroll timer's closure outlives renders, so it reads this
   const [choices, setChoices] = useState([])
   const asking = useRef(false)
   const certs = useRef(null) // the Certifications tab's handle while it's open
@@ -145,6 +146,15 @@ export default function MenuMii({ channelOpen, channelId, darkMode, sfx, ref }) 
     return () => cancelAnimationFrame(id)
   }, [channelOpen]) // eslint-disable-line react-hooks/exhaustive-deps
 
+  // Falling asleep stops him where he stands.
+  useEffect(() => {
+    asleepRef.current = mii.asleep
+    if (!mii.asleep) return
+    xAnim.current?.stop()
+    walking.current = false
+    setWalkYaw(null)
+  }, [mii.asleep])
+
   // Wander: pick a spot on the floor, turn toward it, walk, rest, repeat.
   useEffect(() => {
     if (calm()) return undefined
@@ -152,7 +162,7 @@ export default function MenuMii({ channelOpen, channelId, darkMode, sfx, ref }) 
     let live = true
     const stroll = async () => {
       if (!live) return
-      if (!dragging.current && !touring.current && !window.__miiHold && !mii.asleep && walker.current) {
+      if (!dragging.current && !touring.current && !window.__miiHold && !asleepRef.current && walker.current) {
         const target = onFloor(SIDE + Math.random() * (window.innerWidth - 2 * SIDE))
         walking.current = true
         setWalkYaw(target.x < x.get() ? -24 : 24)
