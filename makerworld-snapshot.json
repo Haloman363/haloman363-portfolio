@@ -1,18 +1,18 @@
 {
-  "fetchedAt": "2026-10-27T18:28:24.480Z",
-  "followers": 11,
-  "following": 18,
-  "likes": 92,
-  "downloads": 172,
-  "collections": 239,
+  "fetchedAt": "2026-11-02T22:00:34.014Z",
+  "followers": 12,
+  "following": 19,
+  "likes": 94,
+  "downloads": 178,
+  "collections": 247,
   "designCount": 2,
   "models": [
     {
       "title": "Princess Irulan Chainmail Headpieces",
       "url": "https://makerworld.com/en/models/1853216",
       "coverUrl": "https://makerworld.bblmw.com/makerworld/model/USab34a77dd6a493/design/2025-10-03_6614493427a12.webp",
-      "likes": 71,
-      "downloads": 77,
+      "likes": 73,
+      "downloads": 78,
       "prints": 6
     },
     {
@@ -20,8 +20,8 @@
       "url": "https://makerworld.com/en/models/1853138",
       "coverUrl": "https://makerworld.bblmw.com/makerworld/model/US1e264f49b5f78f/design/2025-10-03_7192008b9259c8.webp",
       "likes": 21,
-      "downloads": 29,
-      "prints": 8
+      "downloads": 31,
+      "prints": 9
     }
   ]
 }
