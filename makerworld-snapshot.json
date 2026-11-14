@@ -1,17 +1,17 @@
 {
-  "fetchedAt": "2026-11-10T20:06:22.781Z",
+  "fetchedAt": "2026-11-14T18:35:30.872Z",
   "followers": 12,
   "following": 19,
-  "likes": 98,
+  "likes": 100,
   "downloads": 186,
-  "collections": 253,
+  "collections": 259,
   "designCount": 2,
   "models": [
     {
       "title": "Princess Irulan Chainmail Headpieces",
       "url": "https://makerworld.com/en/models/1853216",
       "coverUrl": "https://makerworld.bblmw.com/makerworld/model/USab34a77dd6a493/design/2025-10-03_6614493427a12.webp",
-      "likes": 77,
+      "likes": 78,
       "downloads": 84,
       "prints": 7
     },
@@ -19,7 +19,7 @@
       "title": "Elden Ring Prophet Bell",
       "url": "https://makerworld.com/en/models/1853138",
       "coverUrl": "https://makerworld.bblmw.com/makerworld/model/US1e264f49b5f78f/design/2025-10-03_7192008b9259c8.webp",
-      "likes": 21,
+      "likes": 22,
       "downloads": 31,
       "prints": 9
     }
