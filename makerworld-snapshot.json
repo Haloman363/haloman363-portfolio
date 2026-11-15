@@ -1,10 +1,10 @@
 {
-  "fetchedAt": "2026-11-14T18:35:30.872Z",
+  "fetchedAt": "2026-11-15T19:11:36.053Z",
   "followers": 12,
   "following": 19,
   "likes": 100,
-  "downloads": 186,
-  "collections": 259,
+  "downloads": 187,
+  "collections": 261,
   "designCount": 2,
   "models": [
     {
@@ -12,7 +12,7 @@
       "url": "https://makerworld.com/en/models/1853216",
       "coverUrl": "https://makerworld.bblmw.com/makerworld/model/USab34a77dd6a493/design/2025-10-03_6614493427a12.webp",
       "likes": 78,
-      "downloads": 84,
+      "downloads": 85,
       "prints": 7
     },
     {
